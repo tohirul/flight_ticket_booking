@@ -1,0 +1,11 @@
+{
+  "name": "ticket-booking",
+  "version": "1.0.0",
+  "description": "This is a basic server for Airport Ticket Booking",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "",
+  "license": "ISC"
+}
