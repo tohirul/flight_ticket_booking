@@ -1,11 +1,12 @@
 
     "./dist",
     "./node_modules",
-    ".eslintrc**",
-    ".prettierrc**",
+    ".eslintrc",
+    ".prettierrc",
     ".gitignore",
     "**/*.json",
     "**/*.md",
     "**/*.txt",
     "**/*.yml",
     "**/*.yaml"
+    "prisma/*"

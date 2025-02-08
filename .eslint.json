@@ -50,5 +50,5 @@
       }
     }
   ],
-  "ignorePatterns": ["node_modules/", "dist/", "coverage/", "jest.config.js", "**demo.**"]
+  "ignorePatterns": ["node_modules/", "dist/", "coverage/", "prisma/", "jest.config.js"]
 }

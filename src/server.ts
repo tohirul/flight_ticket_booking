@@ -1,15 +1,16 @@
 import http from 'http';
 import process from 'process';
+// import { config as configData } from './config/config';
 
 import app from './app';
-import config from './config';
+import configuration from './config';
 import logger from './logs';
 
-const PORT = config.port;
-const URI = config.local_uri;
+const PORT = configuration.port;
+const URI = configuration.local_uri;
 // Start server on port
 let server: http.Server;
-
+// console.log(configData);
 const toggleServer = async (): Promise<void> => {
   try {
     // Start server
