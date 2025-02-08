@@ -2,6 +2,7 @@ import './env';
 import merge from 'lodash.merge';
 import local from './local';
 import production from './prod';
+import development from './dev';
 
 const stage = process.env.STAGE || 'local';
 
@@ -38,11 +39,13 @@ const baseConfig: Config = {
 type EnvConfig = {
   local: typeof local;
   production: typeof production;
+  development: typeof development;
 };
 
 const envConfig: EnvConfig = {
   local: { ...local },
   production: { ...production },
+  development: { ...development },
 };
 
 const config = merge(baseConfig, envConfig[stage as keyof EnvConfig]);

@@ -50,5 +50,5 @@
       }
     }
   ],
-  "ignorePatterns": ["node_modules/", "dist/"]
+  "ignorePatterns": ["node_modules/", "dist/", "coverage/", "jest.config.js", "**demo.**"]
 }

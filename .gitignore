@@ -62,3 +62,4 @@ obj/
 *.out
 
 dist/
+src/config/config.json
