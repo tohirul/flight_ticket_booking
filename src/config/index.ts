@@ -8,6 +8,7 @@ const stage = process.env.STAGE || 'local';
 interface Config {
   port?: number;
   local_uri?: string;
+  version?: string;
   stage: string;
   node_env: string;
   bcrypt_salt_rounds: number;
