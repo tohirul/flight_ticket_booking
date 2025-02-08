@@ -14,19 +14,20 @@
     "prettier:check": "prettier --ignore-path .gitignore --check \"**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write .",
     "lint-prettier:check": "yarn lint:check && yarn prettier:check",
+    "lint-prettier:fix": "yarn lint:fix && yarn prettier:fix",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.(ts|tsx|js|jsx)": [
-      "lint-prettier:check"
+      "yarn lint-prettier:check"
     ],
     "src/**/*.(json|css|scss|md)|.(babelrc|prettierrc|eslint.js|tsconfig.json)": [
-      "prettier --write"
+      "yarn lint-prettier:check"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && yarn lint-prettier:fix"
     }
   },
   "author": "",
