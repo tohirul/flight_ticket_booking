@@ -19,10 +19,12 @@
   },
   "lint-staged": {
     "src/**/*.(ts|tsx|js|jsx)": [
-      "yarn lint-prettier:check"
+      "yarn lint-prettier:check",
+      "yarn lint-prettier:fix"
     ],
     "src/**/*.(json|css|scss|md)|.(babelrc|prettierrc|eslint.js|tsconfig.json)": [
-      "yarn lint-prettier:check"
+      "yarn lint-prettier:check",
+      "yarn lint-prettier:fix"
     ]
   },
   "husky": {

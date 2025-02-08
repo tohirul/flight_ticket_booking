@@ -1,0 +1,11 @@
+
+    "./dist",
+    "./node_modules",
+    ".eslintrc**",
+    ".prettierrc**",
+    ".gitignore",
+    "**/*.json",
+    "**/*.md",
+    "**/*.txt",
+    "**/*.yml",
+    "**/*.yaml"
