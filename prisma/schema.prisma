@@ -1,0 +1,68 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Airline {
+  id        String     @id @default(uuid())
+  name      String
+  country   String
+  logo      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  planes    Airplane[]
+  flights   Flight[]
+}
+
+model Airplane {
+  id           String   @id @default(uuid())
+  model        String
+  year         String
+  seats        Int
+  capacity     Int
+  manufacturer String
+  engines      Int
+  speed        Int
+  fuelType     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  airline      Airline  @relation(fields: [airlineId], references: [id], onDelete: Cascade)
+  airlineId    String
+  flights      Flight[]
+}
+
+model Airport {
+  id        String   @id @default(cuid())
+  name      String
+  code      String
+  city      String
+  country   String
+  lat       Float
+  lng       Float
+  timezone  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Flight {
+  id         String    @id @default(uuid())
+  Airline    Airline?  @relation(fields: [airlineId], references: [id])
+  airlineId  String?
+  Airplane   Airplane? @relation(fields: [airplaneId], references: [id])
+  airplaneId String?
+}
+
+model Passenger {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

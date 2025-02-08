@@ -15,7 +15,7 @@ const toggleServer = async (): Promise<void> => {
   try {
     // Start server
     server = app.listen(PORT, () => {
-      console.info(`Server is running on ${URI}`);
+      console.info(`Server is running on ${URI}:${PORT}`);
     });
   } catch (error) {
     // Log server start failure

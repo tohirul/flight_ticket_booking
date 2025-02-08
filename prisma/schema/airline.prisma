@@ -1,10 +1,10 @@
 model Airline {
-  id String @id @default(uuid())
-  name String
-  country String
-  logo    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  planes  Airplane[]
-  flights Flight[]
+  id        String     @id @default(uuid())
+  name      String
+  country   String
+  logo      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  planes    Airplane[]
+  flights   Flight[]
 }

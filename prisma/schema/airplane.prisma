@@ -1,16 +1,17 @@
+
 model Airplane {
-  id String @id @default(uuid())
-  model String
-  year Int
-  seats Int
-  capacity Int
+  id           String   @id @default(uuid())
+  model        String
+  year         String
+  seats        Int
+  capacity     Int
   manufacturer String
-  engines Int
-  speed Int
-  fuelType String
+  engines      Int
+  speed        Int
+  fuelType     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  airline      Airline  @relation(fields: [airlineId], references: [id])
+  airline      Airline  @relation(fields: [airlineId], references: [id], onDelete: Cascade)
   airlineId    String
   flights      Flight[]
 }

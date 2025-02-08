@@ -24,26 +24,44 @@
     "moduleResolution": "nodenext",
     "baseUrl": "./src",
     "paths": {
-      "@config/*": [
-        "config/*"
+      "@/*": [
+        "src/*"
       ],
-      "@middlewares/*": [
-        "middlewares/*"
+      "@/config/*": [
+        "src/config/*"
       ],
-      "@routes/*": [
-        "routes/*"
+      "@/constans": [
+        "src/constants/*"
       ],
-      "@controllers/*": [
-        "controllers/*"
+      "@/enums": [
+        "src/enums/*"
       ],
-      "@services/*": [
-        "services/*"
+      "@/errors/*": [
+        "src/errors/*"
       ],
-      "@models/*": [
-        "models/*"
+      "@/logs/*": [
+        "src/logs/*"
       ],
-      "@utils/*": [
-        "utils/*"
+      "@/repositories/*": [
+        "src/repositories/*"
+      ],
+      "@/types/*": [
+        "src/types/*"
+      ],
+      "@/utilities/*": [
+        "src/utilities/*"
+      ],
+      "@/app/*": [
+        "src/app/*"
+      ],
+      "@/middlewares/*": [
+        "src/middlewares/*"
+      ],
+      "@/modules/*": [
+        "src/app/modules/*"
+      ],
+      "@/approutes/*": [
+        "src/app/routes"
       ]
     },
     "incremental": true,
@@ -53,7 +71,8 @@
     "experimentalDecorators": true
   },
   "include": [
-    "src"
+    "src",
+    "schema.stitch.mjs"
   ],
   "exclude": [
     "node_modules",
