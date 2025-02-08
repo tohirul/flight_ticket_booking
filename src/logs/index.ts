@@ -1,4 +1,4 @@
-import { createLogger, format, transports } from "winston";
+import { createLogger, format, transports } from 'winston';
 
 const { combine, timestamp, label, printf } = format;
 
@@ -12,11 +12,11 @@ const customLevels = {
     debug: 4,
   },
   colors: {
-    error: "red",
-    warn: "yellow",
-    info: "blue",
-    success: "green",
-    debug: "magenta",
+    error: 'red',
+    warn: 'yellow',
+    info: 'blue',
+    success: 'green',
+    debug: 'magenta',
   },
 };
 
@@ -28,14 +28,14 @@ const customFormat = printf(({ level, message, label, timestamp }) => {
 // Create the logger
 const logger = createLogger({
   levels: customLevels.levels,
-  format: combine(label({ label: "app" }), timestamp(), customFormat),
+  format: combine(label({ label: 'app' }), timestamp(), customFormat),
   transports: [
     new transports.Console(),
 
     // Separate log files
-    new transports.File({ filename: "logs/info.log", level: "info" }),
-    new transports.File({ filename: "logs/success.log", level: "success" }),
-    new transports.File({ filename: "logs/error.log", level: "error" }),
+    new transports.File({ filename: 'logs/info.log', level: 'info' }),
+    new transports.File({ filename: 'logs/success.log', level: 'success' }),
+    new transports.File({ filename: 'logs/error.log', level: 'error' }),
   ],
 });
 
