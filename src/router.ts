@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import apiRoutes from './app/routes';
 import configuration from './config';
+import globalError from 'app/middlewares/global.error';
 
 const Router = express.Router();
 // Health check route
@@ -11,6 +12,8 @@ Router.get('/', (_req: Request, res: Response) => {
     version: configuration.version || '1.0.0',
   });
 });
+
+Router.use(globalError);
 
 Router.use('/api', apiRoutes);
 

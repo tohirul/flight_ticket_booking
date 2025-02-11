@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "NodeNext",
+    "module": "CommonJS",
     "lib": [
       "ES2022",
       "DOM"
@@ -21,7 +21,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
       "@/*": [

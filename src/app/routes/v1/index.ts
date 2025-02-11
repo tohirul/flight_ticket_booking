@@ -9,8 +9,8 @@ interface Route {
 }
 
 const moduleRoutes: Route[] = [
-  { path: '/airplane', route: airplaneRoutes },
-  { path: '/airline', route: airlineRoutes },
+  { path: '/airplanes', route: airplaneRoutes },
+  { path: '/airlines', route: airlineRoutes },
 ];
 
 for (const { path, route } of moduleRoutes) {
