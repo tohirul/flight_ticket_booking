@@ -1,6 +1,6 @@
 import express from 'express';
 import * as airplaneController from './airplane.controller';
-import requestValidator from 'app/middlewares/requestValidator.middleware';
+import requestValidator from 'app/middlewares/requestValidator';
 import { createAirplaneSchema } from './airplane.zod';
 
 const router = express.Router();

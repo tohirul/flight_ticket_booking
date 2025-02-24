@@ -9,28 +9,27 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "jest",
-    "gen:schema": "node schema.stitch.mjs && npx prisma format",
-    "gen:migrate": "yarn gen:schema && npx prisma migrate dev",
+    "db:migrate": "npx prisma format && npx prisma migrate dev",
     "prepare": "husky",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier:check": "prettier --ignore-path .gitignore --check \"**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write .",
-    "lint-prettier:check": "yarn lint:check && yarn prettier:check",
-    "lint-prettier:fix": "yarn lint:fix && yarn prettier:fix",
+    "lint-prettier:check": "npm run lint:check && npm run prettier:check",
+    "lint-prettier:fix": "npm run lint:fix && npm run prettier:fix",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.(ts|tsx|js|jsx)": [
-      "yarn lint-prettier:fix"
+      "npm run lint-prettier:fix"
     ],
     "src/**/*.(json|css|scss|md)|.(babelrc|prettierrc|eslint.js|tsconfig.json)": [
-      "yarn lint-prettier:fix"
+      "npm run lint-prettier:fix"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn lint-prettier:fix"
+      "pre-commit": "lint-staged && npm run lint-prettier:fix"
     }
   },
   "author": "",
@@ -49,13 +48,14 @@
     "lint-staged": "^15.4.3",
     "nodemon": "^3.1.9",
     "prettier": "^3.4.2",
+    "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.23.0",
     "winston-daily-rotate-file": "^5.0.0"
   },
   "dependencies": {
-    "@prisma/client": "^6.3.1",
+    "@prisma/client": "^6.4.1",
     "@types/lodash.merge": "^4.6.9",
     "@types/morgan": "^1.9.9",
     "dotenv-expand": "^12.0.1",
@@ -64,12 +64,10 @@
     "lodash.merge": "^4.6.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.12.0",
-    "prisma": "^6.3.1",
     "reflect-metadata": "^0.2.2",
     "ts-jest": "^29.2.5",
     "tsconfig-paths": "^4.2.0",
     "winston": "^3.17.0",
     "zod": "^3.24.1"
-  },
-  "packageManager": "yarn@4.6.0+sha512.5383cc12567a95f1d668fbe762dfe0075c595b4bfff433be478dbbe24e05251a8e8c3eb992a986667c1d53b6c3a9c85b8398c35a960587fbd9fa3a0915406728"
+  }
 }

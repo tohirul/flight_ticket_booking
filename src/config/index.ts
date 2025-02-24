@@ -14,6 +14,7 @@ interface Config {
   node_env: string;
   bcrypt_salt_rounds: number;
   database_url?: string;
+  show_stack_trace: boolean;
   database?: {
     username: string;
     password: string;
@@ -35,7 +36,7 @@ const baseConfig: Config = {
   stage,
   node_env: process.env.NODE_ENV || 'development',
   bcrypt_salt_rounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 10,
-
+  show_stack_trace: process.env.SHOW_STACK_TRACE === 'true',
   jwt: {
     secret: process.env.JWT_SECRET || 'default_secret',
     access_token: process.env.JWT_ACCESS_TOKEN || '',

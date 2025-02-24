@@ -38,6 +38,18 @@ const globalError: ErrorRequestHandler = (
       ];
       statusCode = 400;
     }
+  } else if (error.code === 'P2025') {
+    message = 'Record not found';
+    errorMessages = [
+      { path: '', message: 'The record you are trying to update/delete does not exist.' },
+    ];
+    statusCode = 404;
+  } else if (error.code === 'P2000') {
+    message = 'Input value too long';
+    errorMessages = [
+      { path: '', message: 'The provided value is too long for the database field.' },
+    ];
+    statusCode = 400;
   } else if (error instanceof ZodError) {
     console.log(error);
     const simplifiedError = serverErrors.zodSchemaError(error);

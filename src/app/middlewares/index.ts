@@ -1,5 +1,5 @@
 import globalError from './global.error';
-import requestValidator from './requestValidator.middleware';
+import requestValidator from './requestValidator';
 
 const middlewares = {
   requestValidator: requestValidator,

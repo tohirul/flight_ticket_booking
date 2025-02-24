@@ -1,26 +1,7 @@
+import { AirplaneEngineType, AirplaneEngineConfiguration, AirplaneFuelType } from 'enums';
 import { z } from 'zod';
 
-enum AirplaneEngineType {
-  JetEngine = 'JetEngine',
-  Turboprop = 'Turboprop',
-  PistonEngine = 'PistonEngine',
-  RocketEngine = 'RocketEngine',
-}
-
-enum AirplaneEngineConfiguration {
-  SingleEngine = 'Single Engine',
-  TwinEngine = 'Twin Engine',
-  TriEngine = 'Tri Engine',
-  QuadEngine = 'Quad Engine',
-}
-
-enum AirplaneFuelType {
-  JetFuel = 'JetFuel',
-  Avgas = 'Avgas',
-  Diesel = 'Diesel',
-}
-
-const createAirplaneSchema = z.object({
+export const createAirplaneSchema = z.object({
   model: z.string().min(1, 'Model is required'),
   year: z.number().int().gte(1900, 'Year must be a valid number greater than or equal to 1900'),
   seats: z.number().int().gte(10, 'Seats must be at least 10'),
@@ -50,7 +31,7 @@ const createAirplaneSchema = z.object({
   airlineId: z.string().uuid('Invalid airline ID'),
 });
 
-const updateAirplaneSchema = z.object({
+export const updateAirplaneSchema = z.object({
   model: z.string().min(1, 'Model is required').optional(),
   year: z
     .number()
@@ -77,11 +58,3 @@ const updateAirplaneSchema = z.object({
   fuelType: z.nativeEnum(AirplaneFuelType),
   airlineId: z.string().uuid('Invalid airline ID').optional(),
 });
-
-export {
-  createAirplaneSchema,
-  updateAirplaneSchema,
-  AirplaneEngineType,
-  AirplaneEngineConfiguration,
-  AirplaneFuelType,
-};
