@@ -92,3 +92,16 @@
 
 ```
 
+## src/ Directory
+
+- The src/ directory is the heart of the application's source code, housing all the core logic, configurations, services, and utilities needed to run the Ticket Booking API. It is organized into several subdirectories that reflect a modular approach to structure, making it easier to maintain and scale the application with clear separation of concerns into modules, configurations, and core utilities, allowing for scalability, easy maintenance, and flexibility in handling various aspects of the application. Each subdirectory follows a well-defined structure that mirrors typical industry best practices for API development.
+
+## src/app Directory   
+- The src/app/ directory contains the central parts of the application, such as the modules, route handlers, middlewares, and application-level tests. It serves as the primary entry point where everything is tied together to create the functional API.
+
+## src/app/config/ Directory
+- The config/ directory is responsible for managing the environment configurations, such as database connection details, port numbers, and other application-specific settings that might change depending on the environment (development, production, etc.).
+
+## src/app/core/ Directory
+- The core/ directory contains the foundational utilities, constants, and reusable components that are used throughout the application. These components help manage common tasks like error handling, data access, logging, and other essential features that are shared across multiple modules and layers of the application.
+
