@@ -28,7 +28,8 @@
           "@controllers": ["src/controllers"],
           "@services": ["src/services"],
           "@models": ["src/models"],
-          "@utils": ["src/utils"]
+          "@utils": ["src/utils"],
+          "@types": ["src/types"]
         }
       },
       "typescript": {
