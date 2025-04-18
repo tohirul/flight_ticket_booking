@@ -1,5 +1,5 @@
-import { IGenericErrorResponse } from '@/types/common.types';
-import { IGenericErrorMessage } from '@/types/error.types';
+import { IGenericErrorResponse } from '@/core/types/common.types';
+import { IGenericErrorMessage } from '@/core/types/error.types';
 
 interface IMySQLError extends Error {
   code?: string;

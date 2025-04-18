@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(morgan('dev'));
 
 app.use(Router);
-app.use(middlewares.globalError);
 
 app.use((req: Request, res: Response) => {
   res.status(status.NOT_FOUND).json({
@@ -25,5 +24,6 @@ app.use((req: Request, res: Response) => {
     ],
   });
 });
+app.use(middlewares.globalError);
 
 export default app;

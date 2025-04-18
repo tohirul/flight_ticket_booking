@@ -1,7 +1,8 @@
 import { Country, PrismaClient } from '@prisma/client';
 import Repository from './repository';
+import PrismaService from '@/database';
 
-const prisma = new PrismaClient();
+const prisma = PrismaService.client;
 
 class CountryRepository extends Repository<Country, PrismaClient['country']> {
   constructor() {

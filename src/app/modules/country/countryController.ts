@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import catchAsync from '@utilities/catchAsync';
-import sendResponse from '@utilities/sendResponse';
+import catchAsync from '@core/utilities/catchAsync';
+import sendResponse from '@core/utilities/sendResponse';
 import { create, destroy, getAll, getSingle, update } from './countryService';
 
 export const getAllCountries = catchAsync(async (_req: Request, res: Response) => {

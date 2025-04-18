@@ -1,4 +1,4 @@
-import { AirplaneEngineType, AirplaneEngineConfiguration, AirplaneFuelType } from '@/enums/';
+import { AirplaneEngineType, AirplaneEngineConfiguration, AirplaneFuelType } from '@/core/enums';
 import { z } from 'zod';
 
 export const createAirplaneSchema = z.object({

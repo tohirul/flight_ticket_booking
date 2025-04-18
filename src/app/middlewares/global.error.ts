@@ -2,9 +2,9 @@ import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { Prisma } from '@prisma/client';
 
 import configuration from '@config/index';
-import serverErrors from '@errors/index';
+import serverErrors from '@/core/errors/index';
 import { ZodError } from 'zod';
-import { IGenericErrorMessage } from '@/types/error.types';
+import { IGenericErrorMessage } from '@/core/types/error.types';
 
 /**
  * Global error handler middleware.

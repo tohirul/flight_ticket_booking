@@ -22,7 +22,7 @@ const customLevels = {
 
 // Custom log format
 const customFormat = printf(({ level, message, label, timestamp }) => {
-  return `${timestamp} [${label}] ${level}: ${message}`;
+  return `${timestamp} [${label}] ${level}: ${message}\n`;
 });
 
 // Create the logger

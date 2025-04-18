@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
-import { IGenericErrorResponse } from '@/types/common.types';
-import { IGenericErrorMessage } from '@/types/error.types';
+import { IGenericErrorResponse } from '@/core/types/common.types';
+import { IGenericErrorMessage } from '@/core/types/error.types';
 
 const PrismaError = (error: Prisma.PrismaClientKnownRequestError): IGenericErrorResponse => {
   let statusCode = 400;

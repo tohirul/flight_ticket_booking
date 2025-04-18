@@ -1,4 +1,4 @@
-import { AirplaneEngineType, AirplaneEngineConfiguration, AirplaneFuelType } from '@enums/index';
+import { AirplaneEngineType, AirplaneEngineConfiguration, AirplaneFuelType } from '@/core/enums/index';
 
 export interface Country {
   name: string;

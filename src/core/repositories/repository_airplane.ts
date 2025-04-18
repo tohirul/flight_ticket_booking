@@ -1,7 +1,9 @@
 import { Airplane, PrismaClient } from '@prisma/client';
 import Repository from './repository';
 
-const prisma = new PrismaClient();
+import PrismaService from '@/database';
+
+const prisma = PrismaService.client;
 
 class AirplaneRepository extends Repository<Airplane, PrismaClient['airplane']> {
   constructor() {
