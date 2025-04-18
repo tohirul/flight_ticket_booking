@@ -1,0 +1,22 @@
+
+    "./dist",
+    "./node_modules",
+    ".eslintrc",
+    ".prettierrc",
+    ".gitignore",
+    "**/*.json",
+    "**/*.md",
+    "**/*.txt",
+    "**/*.yml",
+    "**/*.yaml"
+    "prisma/*"
+    "eslint.config.mjs",
+    "**/*/jest.config.ts",
+    "**/*/tsconfig.json",   
+    "**/*/tsconfig.spec.json",
+    "**/*/tsconfig.build.json",
+    "**/*/tsconfig.eslint.json",
+    "**/*/tsconfig.prettier.json",
+    "**/*/tsconfig.lint.json",
+    "package.json",
+    "package-lock.json",

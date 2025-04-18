@@ -2,6 +2,7 @@ import './env';
 import merge from 'lodash.merge';
 import local from './local';
 import production from './prod';
+import development from './dev';
 
 const stage = process.env.STAGE || 'local';
 
@@ -12,6 +13,16 @@ interface Config {
   stage: string;
   node_env: string;
   bcrypt_salt_rounds: number;
+  database_url?: string;
+  show_stack_trace: boolean;
+  database?: {
+    username: string;
+    password: string;
+    database: string;
+    host: string;
+    dialect: string;
+    port: number;
+  };
   jwt: {
     secret: string;
     access_token: string;
@@ -25,6 +36,7 @@ const baseConfig: Config = {
   stage,
   node_env: process.env.NODE_ENV || 'development',
   bcrypt_salt_rounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 10,
+  show_stack_trace: process.env.SHOW_STACK_TRACE === 'true',
   jwt: {
     secret: process.env.JWT_SECRET || 'default_secret',
     access_token: process.env.JWT_ACCESS_TOKEN || '',
@@ -38,13 +50,15 @@ const baseConfig: Config = {
 type EnvConfig = {
   local: typeof local;
   production: typeof production;
+  development: typeof development;
 };
 
 const envConfig: EnvConfig = {
   local: { ...local },
   production: { ...production },
+  development: { ...development },
 };
 
-const config = merge(baseConfig, envConfig[stage as keyof EnvConfig]);
+const configuration = merge(baseConfig, envConfig[stage as keyof EnvConfig]);
 
-export default config;
+export default configuration;

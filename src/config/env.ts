@@ -1,3 +1,4 @@
+import logger from '@/core/logs';
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
 import path from 'path';
@@ -8,8 +9,8 @@ const envConfig = dotenv.config({ path: envPath });
 dotenvExpand.expand(envConfig);
 
 if (envConfig.error) {
-  console.error('❌ Error loading environment variables:', envConfig.error);
+  logger.error('❌ Error loading environment variables:', envConfig.error,'\n');
   process.exit(1);
 } else {
-  console.log('✅ Environment variables loaded successfully.');
+  logger.info('✅ Environment variables loaded successfully.\n');
 }
