@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import http from 'http';
 import process from 'process';
 // import { config as configData } from './config/config';
@@ -20,7 +21,7 @@ const toggleServer = async (): Promise<void> => {
   } catch (error) {
     // Log server start failure
     console.error('Failed to start the server:', error);
-    process.exit(1); // Exit if server fails to start
+    process.exit(1);
   }
 };
 

@@ -1,13 +1,13 @@
 import ApiError from './api.error';
-import castError from './cast.error';
-import validationError from './validation.error';
-import zodSchemaError from './zodSchema.error';
+import PrismaError from './prisma.error';
+import ZodSchemaError from './zodSchema.error';
+import MySQLError from './mysql.error';
 
 const serverErrors = {
   ApiError,
-  castError,
-  validationError,
-  zodSchemaError,
+  ZodSchemaError,
+  PrismaError,
+  MySQLError,
 };
 
 export default serverErrors;

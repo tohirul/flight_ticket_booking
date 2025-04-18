@@ -4,10 +4,25 @@
   "description": "This is a basic server for Airport Ticket Booking",
   "main": "dist/server.js",
   "type": "commonjs",
+  "_moduleAliases": {
+    "@": "dist",
+    "@config": "dist/config",
+    "@constans": "dist/constants",
+    "@enums": "dist/enums",
+    "@errors": "dist/errors",
+    "@logs": "dist/logs",
+    "@repositories": "dist/repositories",
+    "@types": "dist/types",
+    "@utilities": "dist/utilities",
+    "@app": "dist/app",
+    "@middlewares": "dist/app/middlewares",
+    "@modules": "dist/app/modules",
+    "@approutes": "dist/app/routes"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "node dist/server.js",
     "test": "jest",
     "db:migrate": "npx prisma format && npx prisma migrate dev",
     "prepare": "husky",
@@ -20,10 +35,13 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
-    "src/**/*.(ts|tsx|js|jsx)": [
+    "src/**/*.{ts,tsx,js,jsx}": [
       "npm run lint-prettier:fix"
     ],
-    "src/**/*.(json|css|scss|md)|.(babelrc|prettierrc|eslint.js|tsconfig.json)": [
+    "src/**/*.{json,css,scss,md}": [
+      "npm run lint-prettier:fix"
+    ],
+    ".{babelrc,prettierrc,eslintrc.js,tsconfig.json}": [
       "npm run lint-prettier:fix"
     ]
   },
@@ -50,6 +68,7 @@
     "prettier": "^3.4.2",
     "prisma": "^6.4.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.23.0",
     "winston-daily-rotate-file": "^5.0.0"
@@ -62,6 +81,7 @@
     "express": "^4.21.2",
     "http-status": "^2.1.0",
     "lodash.merge": "^4.6.2",
+    "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
     "mysql2": "^3.12.0",
     "reflect-metadata": "^0.2.2",

@@ -4,13 +4,10 @@ import { AnyZodObject, ZodEffects } from 'zod';
 const requestValidator =
   (schema: AnyZodObject | ZodEffects<AnyZodObject>) =>
   async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+    // console.log('Request Body: ', req.body);
     try {
-      await schema.parseAsync({
-        body: req.body,
-        query: req.query,
-        params: req.params,
-        cookies: req.cookies,
-      });
+      // Directly pass req.body to the schema
+      await schema.parseAsync(req.body);
       return next();
     } catch (error) {
       next(error);

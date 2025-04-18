@@ -1,5 +1,5 @@
 import { Airplane } from '@prisma/client';
-import repo from 'repositories/';
+import repo from '@/repositories';
 
 export const getAll = async () => {
   return await repo.AirplaneRepository.findAll({});

@@ -2,12 +2,9 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "CommonJS",
-    "lib": [
-      "ES2022",
-      "DOM"
-    ],
-    "outDir": "dist",
-    "rootDir": "src",
+    "lib": ["ES2022", "DOM"],
+    "outDir": "./dist",
+    "rootDir": "./src",
     "strict": true,
     "allowJs": false,
     "esModuleInterop": true,
@@ -24,45 +21,19 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@/config/*": [
-        "src/config/*"
-      ],
-      "@/constans": [
-        "src/constants/*"
-      ],
-      "@/enums": [
-        "src/enums/*"
-      ],
-      "@/errors/*": [
-        "src/errors/*"
-      ],
-      "@/logs/*": [
-        "src/logs/*"
-      ],
-      "@/repositories/*": [
-        "src/repositories/*"
-      ],
-      "@/types/*": [
-        "src/types/*"
-      ],
-      "@/utilities/*": [
-        "src/utilities/*"
-      ],
-      "@/app/*": [
-        "src/app/*"
-      ],
-      "@/middlewares/*": [
-        "src/middlewares/*"
-      ],
-      "@/modules/*": [
-        "src/app/modules/*"
-      ],
-      "@/approutes/*": [
-        "src/app/routes"
-      ]
+      "@/*": ["*"],
+      "@config/*": ["config/*"],
+      "@constants/*": ["constants/*"],
+      "@enums/*": ["enums/*"],
+      "@errors/*": ["errors/*"],
+      "@logs/*": ["logs/*"],
+      "@repositories/*": ["repositories/*"],
+      "@types/*": ["types/*"],
+      "@utilities/*": ["utilities/*"],
+      "@app/*": ["app/*"],
+      "@middlewares/*": ["app/middlewares/*"],
+      "@modules/*": ["app/modules/*"],
+      "@approutes/*": ["app/routes/*"]
     },
     "incremental": true,
     "sourceMap": true,
@@ -70,13 +41,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": [
-    "src",
-    "schema.stitch.mjs"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts"
-  ]
+  "include": ["src", "schema.stitch.mjs"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

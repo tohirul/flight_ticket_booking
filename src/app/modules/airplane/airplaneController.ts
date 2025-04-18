@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import catchAsync from 'utilities/catchAsync';
-import sendResponse from 'utilities/sendResponse';
-import { create, destroy, getAll, getSingle, update } from './airplane.service';
+import catchAsync from '@utilities/catchAsync';
+import sendResponse from '@utilities/sendResponse';
+import { create, destroy, getAll, getSingle, update } from './airplaneService';
 
 export const getAllAirplanes = catchAsync(async (_req: Request, res: Response) => {
   const result = await getAll();

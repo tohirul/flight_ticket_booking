@@ -6,10 +6,10 @@ export enum AirplaneEngineType {
 }
 
 export enum AirplaneEngineConfiguration {
-  SingleEngine = 'Single Engine',
-  TwinEngine = 'Twin Engine',
-  TriEngine = 'Tri Engine',
-  QuadEngine = 'Quad Engine',
+  SingleEngine = 'SingleEngine',
+  TwinEngine = 'TwinEngine',
+  TriEngine = 'TriEngine',
+  QuadEngine = 'QuadEngine',
 }
 
 export enum AirplaneFuelType {

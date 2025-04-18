@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import Router from './router';
-import middlewares from 'app/middlewares';
+import middlewares from '@middlewares/index';
 import status from 'http-status';
 const app: Application = express();
 

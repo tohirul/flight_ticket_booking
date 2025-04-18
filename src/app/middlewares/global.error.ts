@@ -1,10 +1,14 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { Prisma } from '@prisma/client';
-import { ZodError } from 'zod';
-import configuration from 'config';
-import { IGenericErrorMessage } from 'types/error.types';
-import serverErrors from 'errors';
 
+import configuration from '@config/index';
+import serverErrors from '@errors/index';
+import { ZodError } from 'zod';
+import { IGenericErrorMessage } from '@/types/error.types';
+
+/**
+ * Global error handler middleware.
+ */
 const globalError: ErrorRequestHandler = (
   error,
   _req: Request,
@@ -12,88 +16,64 @@ const globalError: ErrorRequestHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ) => {
-  // console.log(error);
-
+  const { ZodSchemaError, PrismaError, ApiError, MySQLError } = serverErrors;
   let statusCode = 500;
   let message = 'Something went wrong';
-  let errorMessages: Array<IGenericErrorMessage> = [];
+  let errorMessages: IGenericErrorMessage[] = [];
 
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    if (error.code === 'P2002') {
-      message = `Duplicate value entered for a unique field.`;
-      errorMessages = [
-        {
-          path: error.meta?.target?.toString() || '',
-          message: `Duplicate entry for the field: ${error.meta?.target?.toString()}`,
-        },
-      ];
-      statusCode = 400;
-    } else if (error.code === 'P2003') {
-      message = 'Foreign key constraint failed';
-      errorMessages = [
-        {
-          path: error.meta?.target?.toString() || '',
-          message: `The referenced entity does not exist.`,
-        },
-      ];
-      statusCode = 400;
-    }
-  } else if (error.code === 'P2025') {
-    message = 'Record not found';
-    errorMessages = [
-      { path: '', message: 'The record you are trying to update/delete does not exist.' },
-    ];
-    statusCode = 404;
-  } else if (error.code === 'P2000') {
-    message = 'Input value too long';
-    errorMessages = [
-      { path: '', message: 'The provided value is too long for the database field.' },
-    ];
-    statusCode = 400;
+    // Handle Prisma errors
+    const prismaError = PrismaError(error);
+    statusCode = prismaError.statusCode;
+    message = prismaError.message;
+    errorMessages = prismaError.errorMessages;
   } else if (error instanceof ZodError) {
-    console.log(error);
-    const simplifiedError = serverErrors.zodSchemaError(error);
+    // Handle Zod validation errors
+    const simplifiedError = ZodSchemaError(error);
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorMessages = simplifiedError.errorMessages;
-  } else if (error?.name === 'ValidationError') {
-    const simplifiedError = serverErrors.validationError(error);
-    statusCode = simplifiedError.statusCode;
-    message = simplifiedError.message;
-    errorMessages = simplifiedError.errorMessages;
-  } else if (error?.name === 'CastError') {
-    const simplifiedError = serverErrors.castError(error);
-    statusCode = simplifiedError.statusCode;
-    message = simplifiedError.message;
-    errorMessages = simplifiedError.errorMessages;
-  } else if (error instanceof serverErrors.ApiError) {
-    statusCode = error?.statusCode;
+  } else if (error.name === 'JsonWebTokenError') {
+    // Handle JWT invalid token
+    statusCode = 401;
+    message = 'Invalid token, please log in again';
+    errorMessages = [{ path: 'token', message }];
+  } else if (error.name === 'TokenExpiredError') {
+    // Handle JWT expired token
+    statusCode = 401;
+    message = 'Token has expired, please log in again';
+    errorMessages = [{ path: 'token', message }];
+  } else if (error instanceof ApiError) {
+    // Handle custom API errors
+    statusCode = error.statusCode;
     message = error.message;
-    errorMessages = error?.message
-      ? [
-          {
-            path: '',
-            message: error?.message,
-          },
-        ]
-      : [];
+    errorMessages = [{ path: '', message: error.message }];
+  } else if ('code' in error && 'sqlMessage' in error) {
+    // Handle MySQL errors using MySQLErrorHandler
+    const mysqlError = new MySQLError(error);
+    statusCode = mysqlError.statusCode;
+    message = mysqlError.message;
+    errorMessages = mysqlError.errorMessages;
   } else if (error instanceof Error) {
-    message = error?.message;
-    errorMessages = error?.message
-      ? [
-          {
-            path: '',
-            message: error?.message,
-          },
-        ]
-      : [];
+    // Handle generic errors
+    message = error.message;
+    errorMessages = [{ path: '', message: error.message }];
+  } else {
+    // Handle unknown errors
+    message = 'An unknown error occurred';
+    errorMessages = [{ path: '', message }];
   }
 
+  // Send JSON response
   res.status(statusCode).json({
     success: false,
+    statusCode,
     message,
     errorMessages,
-    stack: configuration.node_env !== 'production' ? error?.stack : undefined,
+    stack:
+      configuration.node_env !== 'production' && configuration.show_stack_trace
+        ? error.stack
+        : undefined,
   });
 };
 
