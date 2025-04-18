@@ -1,18 +1,20 @@
-import express from 'express';
-import * as airplaneController from './airplaneController';
+import {
+  getAllAirplanes,
+  getPlaneDetails,
+  createNewAirplaneInfo,
+  updateAirplaneInfo,
+  deleteAirplaneInfo,
+} from './airplaneController';
 import requestValidator from '@middlewares/requestValidator';
 import { createAirplaneSchema } from './airplaneZod';
+import { Router } from 'express';
 
-const airPlaneRouter = express.Router();
+const airPlaneRouter = Router();
 
-airPlaneRouter.get('/', airplaneController.getAllAirplanes);
-airPlaneRouter.get('/:airplaneId', airplaneController.getPlaneDetails);
-airPlaneRouter.post(
-  '/',
-  requestValidator(createAirplaneSchema),
-  airplaneController.createNewAirplaneInfo
-);
-airPlaneRouter.put('/:airplaneId', airplaneController.updateAirplaneInfo);
-airPlaneRouter.delete('/:airplaneId', airplaneController.deleteAirplaneInfo);
+airPlaneRouter.get('/', getAllAirplanes);
+airPlaneRouter.get('/:airplaneId', getPlaneDetails);
+airPlaneRouter.post('/', requestValidator(createAirplaneSchema), createNewAirplaneInfo);
+airPlaneRouter.put('/:airplaneId', updateAirplaneInfo);
+airPlaneRouter.delete('/:airplaneId', deleteAirplaneInfo);
 
 export default airPlaneRouter;

@@ -44,7 +44,7 @@ export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) 
 });
 
 export const deleteAirlineInfo = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.params.airlineId);
+  // console.log(req.params.airlineId);
   const result = await destroy(req.params.airlineId);
   sendResponse(res, {
     statusCode: 200,

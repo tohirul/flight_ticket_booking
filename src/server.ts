@@ -7,7 +7,7 @@ import app from './app';
 import configuration from './config';
 import logger from './logs';
 
-const PORT = configuration.port;
+const PORT: number = Number(configuration.port) || 5000;
 const URI = configuration.local_uri;
 // Start server on port
 let server: http.Server;
@@ -16,33 +16,34 @@ const toggleServer = async (): Promise<void> => {
   try {
     // Start server
     server = app.listen(PORT, () => {
-      console.info(`Server is running on ${URI}:${PORT}`);
+      logger.info(`Server is running on ${URI}:${PORT}`);
     });
   } catch (error) {
     // Log server start failure
-    console.error('Failed to start the server:', error);
+    logger.error('Failed to start the server:', error);
     process.exit(1);
   }
 };
 
 // Graceful Shutdown Handling
 const handleServerShutdown = async (eventName: string, error?: Error): Promise<void> => {
-  console.warn(`Server received ${eventName} signal. Closing server...`);
+  logger.warn(`Server received ${eventName} signal. Closing server...`);
 
   // Attempt to close the server
   try {
     if (server) {
       server.close(() => {
         logger.info('Server closed gracefully.');
+        logger.info('Exiting process...');
         if (error) {
-          console.error('Error during shutdown:', error);
+          logger.error('Error during shutdown:', error);
         }
-        process.exit(0); // Exit after server shuts down
+        process.exit(0); 
       });
     }
   } catch (shutdownError) {
-    console.error('Error while shutting down server:', shutdownError);
-    process.exit(1); // Exit with error status if server shutdown fails
+    logger.error('Error while shutting down server:', shutdownError);
+    process.exit(1); 
   }
 };
 
@@ -50,11 +51,11 @@ const handleServerShutdown = async (eventName: string, error?: Error): Promise<v
 process.on('SIGINT', async () => handleServerShutdown('SIGINT'));
 process.on('SIGTERM', async () => handleServerShutdown('SIGTERM'));
 process.on('unhandledRejection', async (error: Error) => {
-  console.error('Unhandled Rejection:', error);
+  logger.error('Unhandled Rejection:', error);
   handleServerShutdown('unhandledRejection', error);
 });
 process.on('uncaughtException', (error: Error) => {
-  console.error('Uncaught Exception:', error);
+  logger.error('Uncaught Exception:', error);
   handleServerShutdown('uncaughtException', error);
 });
 
