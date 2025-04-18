@@ -1,10 +1,10 @@
 import { PrismaClient } from '@prisma/client';
-import logger from './core/logs'; 
+import logger from './core/logs';
 
 class PrismaService {
   private static instance: PrismaClient;
 
-  private constructor() {} 
+  private constructor() {}
 
   static get client(): PrismaClient {
     if (!PrismaService.instance) {

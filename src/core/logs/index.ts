@@ -8,7 +8,7 @@ const customLevels = {
     error: 0,
     warn: 1,
     info: 2,
-    success: 3, 
+    success: 3,
     debug: 4,
   },
   colors: {

@@ -9,7 +9,7 @@ const envConfig = dotenv.config({ path: envPath });
 dotenvExpand.expand(envConfig);
 
 if (envConfig.error) {
-  logger.error('❌ Error loading environment variables:', envConfig.error,'\n');
+  logger.error('❌ Error loading environment variables:', envConfig.error, '\n');
   process.exit(1);
 } else {
   logger.info('✅ Environment variables loaded successfully.\n');

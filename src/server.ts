@@ -2,8 +2,6 @@ import 'module-alias/register';
 import http from 'http';
 import process from 'process';
 
-
-
 import app from './app';
 import configuration from './config';
 import logger from './core/logs';
@@ -19,9 +17,8 @@ const toggleServer = async (): Promise<void> => {
     // Start server
     server = app.listen(PORT, () => {
       logger.info(`✅ Server is running on ${URI}:${PORT}`);
-      
     });
-    if(server.listening) {
+    if (server.listening) {
       await PrismaService.connect();
     }
   } catch (error) {
@@ -38,20 +35,19 @@ const handleServerShutdown = async (eventName: string, error?: Error): Promise<v
   // Attempt to close the server
   try {
     if (server) {
-      server.close(async() => {
+      server.close(async () => {
         await PrismaService.disconnect();
         logger.info('🛑 Server closed gracefully.\n');
         logger.info('🛑 Exiting process...\n');
         if (error) {
-
           logger.error('⚠️ Error during shutdown:', error, '\n');
         }
-        process.exit(0); 
+        process.exit(0);
       });
     }
   } catch (shutdownError) {
     logger.error('❌ Error while shutting down server:', shutdownError);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
