@@ -6,8 +6,8 @@ import status from 'http-status';
 const app: Application = express();
 
 // Middleware setup
-app.use(express.json()); // Parse JSON bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.use(Router);
