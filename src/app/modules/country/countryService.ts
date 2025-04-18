@@ -1,5 +1,5 @@
 import { Country } from '@prisma/client';
-import CountryRepository from '@/core/repositories/repository_country';
+import CountryRepository from '@/core/repositories/container/repository_country';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()

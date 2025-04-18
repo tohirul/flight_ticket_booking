@@ -1,5 +1,5 @@
 import { Airline } from '@prisma/client';
-import AirlineRepository from '@core/repositories/repository_airline';
+import AirlineRepository from '@/core/repositories/container/repository_airline';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()

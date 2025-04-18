@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe';
 import { Airplane, PrismaClient } from '@prisma/client';
-import Repository from './repository';
+import Repository from '../repository';
 import PrismaService from '@/database';
 
 const prisma = PrismaService.client;
