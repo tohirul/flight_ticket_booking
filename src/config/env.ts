@@ -1,16 +1,18 @@
-import logger from '@/core/logs';
+import path from 'path';
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
-import path from 'path';
+import logger from '@/core/logs';
 
-const envPath = path.join(process.cwd(), '.env');
+// Define the path to the .env file
+const envFilePath = path.resolve(process.cwd(), '.env');
 
-const envConfig = dotenv.config({ path: envPath });
-dotenvExpand.expand(envConfig);
+// Load and expand environment variables
+const env = dotenv.config({ path: envFilePath });
 
-if (envConfig.error) {
-  logger.error('❌ Error loading environment variables:', envConfig.error, '\n');
+if (env.error) {
+  logger.error('❌ Failed to load environment variables.');
+  logger.error(env.error);
   process.exit(1);
-} else {
-  logger.info('✅ Environment variables loaded successfully.\n');
 }
+
+dotenvExpand.expand(env);
