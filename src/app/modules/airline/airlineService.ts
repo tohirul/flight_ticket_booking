@@ -1,22 +1,27 @@
 import { Airline } from '@prisma/client';
-import repo from '@core/repositories';
+import AirlineRepository from '@core/repositories/repository_airline';
+import { inject, injectable } from 'tsyringe';
 
-export const getAll = async () => {
-  return await repo.AirlineRepository.findAll({});
-};
+@injectable()
+export default class AirlineService {
+  constructor(
+    @inject('AirlineRepository')
+    private airlineRepository: AirlineRepository
+  ) {}
 
-export const getSingle = async (id: string) => {
-  return await repo.AirlineRepository.findOne({ where: { id } });
-};
-
-export const create = async (data: Airline) => {
-  return await repo.AirlineRepository.create({ data });
-};
-
-export const update = async (id: string, data: Partial<Airline>) => {
-  return await repo.AirlineRepository.update({ where: { id }, data });
-};
-
-export const destroy = async (id: string) => {
-  return await repo.AirlineRepository.destroy({ where: { id } });
-};
+  async getAll() {
+    return this.airlineRepository.findAll({});
+  }
+  async getSingle(id: string) {
+    return this.airlineRepository.findOne({ where: { id } });
+  }
+  async create(data: Airline) {
+    return this.airlineRepository.create({ data });
+  }
+  async update(id: string, data: Partial<Airline>) {
+    return this.airlineRepository.update({ where: { id }, data });
+  }
+  async destroy(id: string) {
+    return this.airlineRepository.destroy({ where: { id } });
+  }
+}

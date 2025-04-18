@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
+
 import catchAsync from '@core/utilities/catchAsync';
 import sendResponse from '@core/utilities/sendResponse';
-import { create, destroy, getAll, getSingle, update } from './airlineService';
+import AirlineService from './airlineService';
+import container from '@/core/repositories/repository_container';
+
+const airlineService = container.resolve(AirlineService);
 
 export const getAllAirlines = catchAsync(async (_req: Request, res: Response) => {
-  const result = await getAll();
+  const result = await airlineService.getAll();
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -14,7 +18,7 @@ export const getAllAirlines = catchAsync(async (_req: Request, res: Response) =>
 });
 
 export const getPlaneDetails = catchAsync(async (req: Request, res: Response) => {
-  const result = await getSingle(req.params.airlineId);
+  const result = await airlineService.getSingle(req.params.airlineId);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -24,7 +28,7 @@ export const getPlaneDetails = catchAsync(async (req: Request, res: Response) =>
 });
 
 export const createNewAirlineInfo = catchAsync(async (req: Request, res: Response) => {
-  const result = await create({ ...req.body });
+  const result = await airlineService.create({ ...req.body });
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -34,7 +38,7 @@ export const createNewAirlineInfo = catchAsync(async (req: Request, res: Respons
 });
 
 export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) => {
-  const result = await update(req.params.airlineId, { ...req.body });
+  const result = await airlineService.update(req.params.airlineId, { ...req.body });
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -45,7 +49,7 @@ export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) 
 
 export const deleteAirlineInfo = catchAsync(async (req: Request, res: Response) => {
   // console.log(req.params.airlineId);
-  const result = await destroy(req.params.airlineId);
+  const result = await airlineService.destroy(req.params.airlineId);
   sendResponse(res, {
     statusCode: 200,
     success: true,

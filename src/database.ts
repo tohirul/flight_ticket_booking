@@ -16,7 +16,7 @@ class PrismaService {
   static async connect(): Promise<void> {
     try {
       await PrismaService.client.$connect();
-      logger.info('✅ Prisma connected to the database.');
+      logger.info('✅ Prisma connected to the database.\n');
     } catch (error) {
       logger.error('❌ Prisma failed to connect:', error);
       process.exit(1);

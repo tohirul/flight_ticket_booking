@@ -9,8 +9,8 @@
     "**/*.txt",
     "**/*.yml",
     "**/*.yaml"
-    "prisma/*"
-    "eslint.config.mjs",
+    "./prisma/*"
+    "./eslint.config.mjs",
     "**/*/jest.config.ts",
     "**/*/tsconfig.json",   
     "**/*/tsconfig.spec.json",
@@ -18,5 +18,8 @@
     "**/*/tsconfig.eslint.json",
     "**/*/tsconfig.prettier.json",
     "**/*/tsconfig.lint.json",
-    "package.json",
-    "package-lock.json",
+    "./package.json",
+    "./package-lock.json",
+    "./README.md",
+    "./.prettierignore",
+    "./project-structure.md",

@@ -1,7 +1,7 @@
 import 'module-alias/register';
+import 'reflect-metadata';
 import http from 'http';
 import process from 'process';
-
 import app from './app';
 import configuration from './config';
 import logger from './core/logs';
@@ -30,14 +30,14 @@ const toggleServer = async (): Promise<void> => {
 
 // Graceful Shutdown Handling
 const handleServerShutdown = async (eventName: string, error?: Error): Promise<void> => {
-  logger.warn(`🛑 Server received ${eventName} signal. Closing server...\n`);
+  logger.warn(`🛑 Server received ${eventName} signal. Closing server...`);
 
   // Attempt to close the server
   try {
     if (server) {
       server.close(async () => {
         await PrismaService.disconnect();
-        logger.info('🛑 Server closed gracefully.\n');
+        logger.info('🛑 Server closed gracefully.');
         logger.info('🛑 Exiting process...\n');
         if (error) {
           logger.error('⚠️ Error during shutdown:', error, '\n');

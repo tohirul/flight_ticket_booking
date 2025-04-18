@@ -45,6 +45,7 @@
             └── index.ts
             └── local.ts
             └── prod.ts
+            └── test.ts
         └── 📁core
             └── 📁constants
                 └── enums.ts

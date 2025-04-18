@@ -25,7 +25,7 @@ interface Config {
     port: number;
   };
   jwt: {
-    secret: string;
+    secret?: string;
     access_token: string;
     access_token_expires_in: string;
     refresh_token: string;
@@ -39,7 +39,7 @@ const baseConfig: Config = {
   bcrypt_salt_rounds: Number(process.env.BCRYPT_SALT_ROUNDS) || 10,
   show_stack_trace: process.env.SHOW_STACK_TRACE === 'true',
   jwt: {
-    secret: process.env.JWT_SECRET || 'default_secret',
+    secret: process.env.JWT_SECRET,
     access_token: process.env.JWT_ACCESS_TOKEN || '',
     access_token_expires_in: process.env.JWT_ACCESS_TOKEN_EXPIRY || '1h',
     refresh_token: process.env.JWT_REFRESH_TOKEN || '',
@@ -59,7 +59,7 @@ const envConfig: EnvConfig = {
   local: { ...local },
   production: { ...production },
   development: { ...development },
-  test: {...test}
+  test: { ...test },
 };
 
 const configuration = merge(baseConfig, envConfig[stage as keyof EnvConfig]);
