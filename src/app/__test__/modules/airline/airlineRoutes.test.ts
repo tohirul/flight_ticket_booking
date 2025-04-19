@@ -1,3 +1,4 @@
+import { Airline } from '../../../../core/types/schema.types';
 import {
   mockCreate,
   mockDelete,
@@ -6,11 +7,10 @@ import {
   mockUpdate,
 } from '../../__mocks__/airline/airlineRoutes.mocks';
 import {
-  expectResponseToMatch,
   expectAirlineFields,
   expectFieldsToMatch,
+  expectResponseToMatch,
 } from '../../helpers/assertions/airlineAssertions';
-import { Airline } from '../../../../core/types/schema.types';
 import {
   deleteAirlineById,
   getAirlineById,
