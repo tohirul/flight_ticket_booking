@@ -22,7 +22,7 @@ export interface City {
 }
 
 export interface Airline {
-  id?: string;
+  id: string;
   name: string;
   countryId: string;
   country?: Country;

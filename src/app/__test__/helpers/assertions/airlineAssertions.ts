@@ -22,3 +22,9 @@ export function expectResponseToMatch<T>(
   expect(response.success).toBe(expected.success);
   expect(response.message).toBe(expected.message);
 }
+
+export const expectAirlineResult = (actual: Airline, expected: Airline) => {
+  expect(actual).toEqual(expected);
+  expectAirlineFields(actual);
+  expectFieldsToMatch(actual, expected);
+};

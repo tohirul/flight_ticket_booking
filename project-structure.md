@@ -1,7 +1,6 @@
 ```
 └── 📁Ticket Booking
-     └── 📁.git
-    └── 📁dist
+    └── 📁coverage
     └── 📁logs
         └── error.log
         └── info.log
@@ -13,6 +12,27 @@
         └── 📁app
         └── app.ts
             └── 📁__test__
+                └── 📁__mocks__
+                    └── 📁airline
+                        └── airlineRoutes.mocks.ts
+                    └── 📁airplane
+                    └── 📁country
+                    └── 📁database
+                        └── index.ts
+                └── 📁helpers
+                    └── 📁assertions
+                        └── airlineAssertions.ts
+                    └── 📁factories
+                        └── airlineFactory.ts
+                    └── 📁requests
+                        └── airlineRequests.ts
+                └── 📁modules
+                    └── 📁airline
+                        └── airlineController.test.ts
+                        └── airlineRoutes.test.ts
+                        └── airlineService.test.ts
+                    └── 📁airplane
+                    └── 📁country
             └── 📁middlewares
                 └── global.error.ts
                 └── index.ts
@@ -45,7 +65,7 @@
             └── index.ts
             └── local.ts
             └── prod.ts
-            └── test.ts
+            └── testing.ts
         └── 📁core
             └── 📁constants
                 └── enums.ts
@@ -61,13 +81,12 @@
             └── 📁logs
                 └── index.ts
             └── 📁repositories
-                └── index.ts
-                └── repository_container.ts
-                └── container
+                └── 📁container
                     └── repository_airline.ts
                     └── repository_airplane.ts
                     └── repository_country.ts
-                    └── repository.ts
+                └── repository_container.ts
+                └── repository.ts
             └── 📁types
                 └── common.types.ts
                 └── error.types.ts

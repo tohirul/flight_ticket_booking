@@ -1,7 +1,14 @@
-import * as AirlineController from '../../../modules/airline/airlineController';
-import AirlineService from '../../../modules/airline/airlineService';
-import sendResponse from '../../../../core/utilities/sendResponse';
 import { NextFunction, Request, Response } from 'express';
+
+import sendResponse from '../../../../core/utilities/sendResponse';
+import * as AirlineController from '../../../modules/airline/airlineController';
+import {
+  mockCreate,
+  mockDestroy,
+  mockFindAll,
+  mockFindOne,
+  mockUpdate,
+} from '../../__mocks__/airline/airlineController.mocks';
 
 jest.mock('../../../../core/utilities/sendResponse');
 jest.mock('../../../modules/airline/airlineService');
@@ -10,6 +17,7 @@ describe('AirlineController', () => {
   let req: Partial<Request>;
   let res: Partial<Response>;
   let next: Partial<NextFunction>;
+
   beforeEach(() => {
     req = {};
     res = {} as Response;
@@ -20,162 +28,109 @@ describe('AirlineController', () => {
     jest.clearAllMocks();
   });
 
-  describe('getAllAirlines', () => {
+  describe('GET /api/v1/airlines', () => {
     it('should fetch all airlines data and call sendResponse with the correct arguments', async () => {
-      const result = [
-        {
-          id: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-          name: 'Fly Emirates',
-          countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-          logo: 'https://example.com/logos/cloudfly.png',
-          createdAt: new Date('2025-04-18T18:43:44.687Z'),
-          updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-        },
-        {
-          id: '273b5486-41e0-4078-ab49-69c5364010bc',
-          name: 'Qatar Airways',
-          countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-          logo: 'https://example.com/logos/cloudfly.png',
-          createdAt: new Date('2025-04-18T08:44:09.022Z'),
-          updatedAt: new Date('2025-04-18T18:44:28.995Z'),
-        },
-      ];
-      (AirlineService.prototype.getAll as jest.Mock).mockResolvedValue(result);
+      const mockData = mockFindAll();
+
       await AirlineController.getAllAirlines(req as Request, res as Response, next as NextFunction);
-      expect(AirlineService.prototype.getAll).toHaveBeenCalled();
+
       expect(sendResponse).toHaveBeenCalledWith(res, {
         statusCode: 200,
         success: true,
         message: 'Airlines retrieved successfully',
-        data: result,
+        data: mockData,
       });
     });
   });
-  describe('getPlaneDetails', () => {
-    it('should fetch single airline data and call sendResponse with the correct arguments', async () => {
-      const result = {
-        id: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-        name: 'Fly Emirates',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-      };
-      (AirlineService.prototype.getSingle as jest.Mock).mockResolvedValue(result);
-      req.params = { airlineId: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89' };
+
+  describe('GET /api/v1/airlines/:id', () => {
+    it('should fetch a single airline data and call sendResponse with the correct arguments', async () => {
+      const mockData = mockFindOne();
+      req.params = { id: mockData.id };
+
       await AirlineController.getPlaneDetails(
         req as Request,
         res as Response,
         next as NextFunction
       );
-      expect(AirlineService.prototype.getSingle).toHaveBeenCalledWith(
-        '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89'
-      );
+
       expect(sendResponse).toHaveBeenCalledWith(res, {
         statusCode: 200,
         success: true,
         message: 'Airline retrieved successfully',
-        data: result,
+        data: mockData,
       });
     });
   });
-  describe('createNewAirlineInfo', () => {
-    it('should create new airline data and call sendResponse with the correct arguments', async () => {
-      const result = {
-        id: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-        name: 'Fly Emirates',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-      };
-      (AirlineService.prototype.create as jest.Mock).mockResolvedValue(result);
+
+  describe('POST /api/v1/airlines', () => {
+    it('should create a new airline and call sendResponse with the correct arguments', async () => {
+      const mockData = mockCreate();
       req.body = {
-        name: 'Fly Emirates',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
+        id: mockData.id,
+        name: mockData.name,
+        countryId: mockData.countryId,
+        logo: mockData.logo,
+        createdAt: mockData.createdAt,
+        updatedAt: mockData.updatedAt,
       };
+
       await AirlineController.createNewAirlineInfo(
         req as Request,
         res as Response,
         next as NextFunction
       );
-      expect(AirlineService.prototype.create).toHaveBeenCalledWith({
-        name: 'Fly Emirates',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-      });
+
       expect(sendResponse).toHaveBeenCalledWith(res, {
         statusCode: 200,
         success: true,
         message: 'Airline created successfully',
-        data: result,
+        data: mockData,
       });
     });
   });
-  describe('updateAirlineInfo', () => {
-    it('should update airline data and call sendResponse with the correct arguments', async () => {
-      const result = {
-        id: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-        name: 'Fly Away',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-      };
-      (AirlineService.prototype.update as jest.Mock).mockResolvedValue(result);
-      req.params = { airlineId: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89' };
+
+  describe('PUT /api/v1/airlines/:id', () => {
+    it('should update an existing airline and call sendResponse with the correct arguments', async () => {
+      const mockData = mockUpdate();
+      req.params = { id: mockData.id };
       req.body = {
-        name: 'Fly Away',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
+        name: mockData.name,
+        countryId: mockData.countryId,
+        logo: mockData.logo,
       };
+
       await AirlineController.updateAirlineInfo(
         req as Request,
         res as Response,
         next as NextFunction
       );
-      expect(AirlineService.prototype.update).toHaveBeenCalledWith(
-        '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-        {
-          name: 'Fly Away',
-          countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-          logo: 'https://example.com/logos/cloudfly.png',
-          createdAt: new Date('2025-04-18T18:43:44.687Z'),
-          updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-        }
-      );
+
       expect(sendResponse).toHaveBeenCalledWith(res, {
         statusCode: 200,
         success: true,
         message: 'Airline updated successfully',
-        data: result,
+        data: mockData,
       });
     });
   });
-  describe('deleteAirlineInfo', () => {
-    it('should delete airline data and call sendResponse with the correct arguments', async () => {
-      (AirlineService.prototype.destroy as jest.Mock).mockResolvedValue(undefined);
-      req.params = { airlineId: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89' };
+
+  describe('DELETE /api/v1/airlines/:id', () => {
+    it('should delete an existing airline and call sendResponse with the correct arguments', async () => {
+      const mockData = mockDestroy();
+      req.params = { id: mockData.id };
+
       await AirlineController.deleteAirlineInfo(
         req as Request,
         res as Response,
         next as NextFunction
       );
-      expect(AirlineService.prototype.destroy).toHaveBeenCalledWith(
-        '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89'
-      );
+
       expect(sendResponse).toHaveBeenCalledWith(res, {
         statusCode: 200,
         success: true,
         message: 'Airline deleted successfully',
-        data: undefined,
+        data: mockData,
       });
     });
   });

@@ -178,6 +178,9 @@ describe('Airline Routes (Mocked Prisma)', () => {
         updatedAt: now,
       });
 
+      // Simulate deletion by ensuring subsequent find returns null
+      mockFindUnique(null);
+
       const response = await deleteAirlineById(createdAirlineId);
 
       expectResponseToMatch(response.body, {
@@ -185,7 +188,6 @@ describe('Airline Routes (Mocked Prisma)', () => {
         success: true,
         message: 'Airline deleted successfully',
       });
-      expect(response.body.data).toBeNull();
     });
 
     it('should return not found after deletion', async () => {

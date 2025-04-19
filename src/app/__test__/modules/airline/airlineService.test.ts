@@ -1,5 +1,15 @@
-import AirlineService from '../../../modules/airline/airlineService';
+import { generateAirline, generateAirlines } from './../../helpers/factories/airlineFactory';
 import AirlineRepository from '../../../../core/repositories/container/repository_airline';
+import AirlineService from '../../../modules/airline/airlineService';
+import {
+  mockCreate,
+  mockFindAll,
+  mockFindOne,
+  mockUpdate,
+} from '../../__mocks__/airline/airlineService.mocks';
+import { expectAirlineResult } from '../../helpers/assertions/airlineAssertions';
+import { Airline } from '../../../../core/types/schema.types';
+import ApiError from '../../../../core/errors/api.error';
 
 jest.mock('../../../../core/repositories/container/repository_airline');
 
@@ -15,77 +25,129 @@ describe('AirlineService', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  it('should call findAll on airlineRepository', async () => {
-    const mockData = [
-      {
-        id: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-        name: 'Fly Emirates',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T18:43:44.687Z'),
-        updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-      },
-      {
-        id: '273b5486-41e0-4078-ab49-69c5364010bc',
-        name: 'Qatar Airways',
-        countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-        logo: 'https://example.com/logos/cloudfly.png',
-        createdAt: new Date('2025-04-18T08:44:09.022Z'),
-        updatedAt: new Date('2025-04-18T18:44:28.995Z'),
-      },
-    ];
-    airlineRepositoryMock.findAll.mockResolvedValue(mockData);
 
-    const result = await airlineService.getAll();
-    expect(result).toEqual(mockData);
-    expect(airlineRepositoryMock.findAll).toHaveBeenCalledTimes(1);
-  });
-  it('should call findOne on airlineRepository', async () => {
-    const mockData = {
-      id: '225c4a3d-afd4-43f8-a1c5-9b39ee1edb89',
-      name: 'Fly Emirates',
-      countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-      logo: 'https://example.com/logos/cloudfly.png',
-      createdAt: new Date('2025-04-18T18:43:44.687Z'),
-      updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-    };
-    airlineRepositoryMock.findOne.mockResolvedValue(mockData);
+  describe('GET /api/v1/airlines', () => {
+    it('should call findAll on airlineRepository', async () => {
+      const mockData = generateAirlines(10);
+      mockFindAll(airlineRepositoryMock, mockData);
 
-    const result = await airlineService.getSingle('225c4a3d-afd4-43f8-a1c5-9b39ee1edb89');
-    expect(result).toEqual(mockData);
-    expect(airlineRepositoryMock.findOne).toHaveBeenCalledTimes(1);
+      const result = await airlineService.getAll();
+      expect(result).toBeInstanceOf(Array);
+      expect(result).toHaveLength(mockData?.length);
+      expect(result).toEqual(mockData);
+      for (let i = 0; i < result.length; i++) {
+        expectAirlineResult(result[i], mockData[i] as Airline);
+      }
+      expect(airlineRepositoryMock.findAll).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it('should call create on airlineRepository', async () => {
-    const mockData = {
-      id: '123e4567-e89b-12d3-a456-426614174000',
-      name: 'Fly Emirates',
-      countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-      logo: 'https://example.com/logos/cloudfly.png',
-      createdAt: new Date('2025-04-18T18:43:44.687Z'),
-      updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-    };
-    airlineRepositoryMock.create.mockResolvedValue(mockData);
-    const result = await airlineService.create(mockData);
-    expect(result).toEqual(mockData);
-  });
-  it('should call update on airlineRepository', async () => {
-    const mockData = {
-      id: '123e4567-e89b-12d3-a456-426614174000',
-      name: 'Fly Emirates',
-      countryId: '27bf855f-8236-4d88-b0a9-85299e12085e',
-      logo: 'https://example.com/logos/cloudfly.png',
-      createdAt: new Date('2025-04-18T18:43:44.687Z'),
-      updatedAt: new Date('2025-04-18T18:43:44.687Z'),
-    };
-    airlineRepositoryMock.update.mockResolvedValue(mockData);
-    const result = await airlineService.update('123e4567-e89b-12d3-a456-426614174000', mockData);
-    expect(result).toEqual(mockData);
+  describe('GET /api/v1/airlines/:id', () => {
+    it('should call findOne on airlineRepository', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      mockFindOne(airlineRepositoryMock, mockData);
+      const result: Airline = (await airlineService.getSingle(mockData.id)) as Airline;
+      expectAirlineResult(result, mockData);
+      expect(airlineRepositoryMock.findOne).toHaveBeenCalledTimes(1);
+    });
+    it('should throw an error if airline is not found', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      const message = 'Airline not found';
+      airlineRepositoryMock.findOne.mockImplementation(() => {
+        throw new Error(message);
+      });
+      await expect(airlineService.getSingle(mockData.id)).rejects.toThrow(message);
+      expect(airlineRepositoryMock.findOne).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it('should call destroy on airlineRepository', async () => {
-    airlineRepositoryMock.destroy.mockResolvedValue(undefined);
-    const result = await airlineService.destroy('123e4567-e89b-12d3-a456-426614174000');
-    expect(result).toEqual(undefined);
+  describe('POST /api/v1/airlines', () => {
+    it('should call create on airlineRepository', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      mockCreate(airlineRepositoryMock, mockData);
+      const result: Airline = await airlineService.create(mockData);
+      expectAirlineResult(result, mockData);
+      expect(airlineRepositoryMock.create).toHaveBeenCalledTimes(1);
+    });
+    it('should throw an error if airline is not found', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      const message = 'Airline not found';
+      airlineRepositoryMock.create.mockImplementation(() => {
+        throw new Error(message);
+      });
+      await expect(airlineService.create(mockData)).rejects.toThrow(message);
+      expect(airlineRepositoryMock.create).toHaveBeenCalledTimes(1);
+    });
+    // write test for invalid input;
+    it('should throw an error if repository throws Invalid Input error during creation', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      const message = 'Invalid Input';
+
+      airlineRepositoryMock.create.mockRejectedValueOnce(new Error(message));
+
+      await expect(airlineService.create(mockData)).rejects.toThrow(message);
+      expect(airlineRepositoryMock.create).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('PUT /api/v1/airlines/:id', () => {
+    it('should call update on airlineRepository', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      mockUpdate(airlineRepositoryMock, mockData);
+
+      const result: Airline = await airlineService.update(mockData.id, mockData);
+      expectAirlineResult(result, mockData);
+      expect(airlineRepositoryMock.update).toHaveBeenCalledTimes(1);
+    });
+    it('should throw an error if airline is not found', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      const message = 'Airline not found';
+      airlineRepositoryMock.update.mockImplementation(() => {
+        throw new Error(message);
+      });
+      await expect(airlineService.update(mockData.id, mockData)).rejects.toThrow(message);
+      expect(airlineRepositoryMock.update).toHaveBeenCalledTimes(1);
+    });
+
+    it('should immediately throw "Invalid Input" if id or data is invalid, without calling repository', async () => {
+      const invalidInputs = [
+        { id: '', data: generateAirline() },
+        { id: 'valid-id', data: {} as Airline },
+        { id: '', data: {} as Airline },
+      ];
+
+      for (const { id, data } of invalidInputs) {
+        await expect(airlineService.update(id, data)).rejects.toThrow('Invalid Input for Update');
+      }
+
+      expect(airlineRepositoryMock.update).not.toHaveBeenCalled();
+    });
+  });
+  describe('DELETE /api/v1/airlines/:id', () => {
+    it('should call destroy on airlineRepository', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+
+      airlineRepositoryMock.findOne.mockResolvedValue(mockData);
+      airlineRepositoryMock.destroy.mockResolvedValue(undefined);
+
+      const result = await airlineService.destroy(mockData.id);
+
+      expect(result).toEqual(mockData);
+      expect(airlineRepositoryMock.destroy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should throw an ApiError if airline is not found', async () => {
+      const mockData: Airline = generateAirline() as Airline;
+      const message = 'Airline not found';
+      const statusCode = 404;
+
+      airlineRepositoryMock.findOne.mockResolvedValue(null);
+
+      await expect(airlineService.destroy(mockData.id)).rejects.toThrowError(
+        new ApiError(statusCode, message)
+      );
+
+      expect(airlineRepositoryMock.destroy).toHaveBeenCalledTimes(0);
+    });
   });
 });
