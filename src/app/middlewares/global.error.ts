@@ -9,7 +9,12 @@ import { IGenericErrorMessage } from '@/core/types/error.types';
 /**
  * Global error handler middleware.
  */
-const globalError: ErrorRequestHandler = (error, _req: Request, res: Response, _next: NextFunction) => {
+const globalError: ErrorRequestHandler = (
+  error,
+  _req: Request,
+  res: Response,
+  _next: NextFunction
+) => {
   const { PrismaError, ApiError, MySQLError } = serverErrors;
   let statusCode = 500;
   let message = 'Something went wrong';
@@ -18,7 +23,6 @@ const globalError: ErrorRequestHandler = (error, _req: Request, res: Response, _
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     const prismaError = PrismaError(error);
     ({ statusCode, message, errorMessages } = prismaError);
-
   } else if (error instanceof ZodError) {
     statusCode = 400;
     message = 'Validation Error';
@@ -26,22 +30,18 @@ const globalError: ErrorRequestHandler = (error, _req: Request, res: Response, _
       path: issue.path.at(-1) as string,
       message: issue.message,
     }));
-
   } else if (error.name === 'JsonWebTokenError') {
     statusCode = 401;
     message = 'Invalid token, please log in again';
     errorMessages = [{ path: 'token', message }];
-
   } else if (error.name === 'TokenExpiredError') {
     statusCode = 401;
     message = 'Token has expired, please log in again';
     errorMessages = [{ path: 'token', message }];
-
   } else if (error instanceof ApiError) {
     statusCode = error.statusCode;
     message = error.message;
     errorMessages = [{ path: '', message }];
-
   } else if (isMySQLError(error)) {
     const mysqlError = new MySQLError({
       ...error,
@@ -49,11 +49,9 @@ const globalError: ErrorRequestHandler = (error, _req: Request, res: Response, _
       message: error.sqlMessage || 'An unknown MySQL error occurred',
     });
     ({ statusCode, message, errorMessages } = mysqlError);
-
   } else if (error instanceof Error) {
     message = error.message;
     errorMessages = [{ path: '', message }];
-
   } else {
     message = 'An unknown error occurred';
     errorMessages = [{ path: '', message }];

@@ -63,7 +63,6 @@ export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) 
 });
 
 export const deleteAirlineInfo = catchAsync(async (req: Request, res: Response) => {
-  
   const result = await airlineService.destroy(req.params.airlineId);
   sendResponse(res, {
     statusCode: 200,

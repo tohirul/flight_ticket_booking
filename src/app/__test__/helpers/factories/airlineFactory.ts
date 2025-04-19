@@ -7,6 +7,5 @@ export const generateAirline = (): Partial<Airline> => {
     name: faker.company.name(),
     logo: faker.image.url(),
     countryId: faker.string.uuid(),
-   
   };
 };

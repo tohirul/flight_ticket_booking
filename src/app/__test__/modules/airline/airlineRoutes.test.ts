@@ -76,7 +76,7 @@ describe('Airline Routes (Mocked Prisma)', () => {
   describe('POST /api/airlines', () => {
     it('should return 400 when required fields are missing', async () => {
       const response = await postAirline({ name: 'Missing Logo and CountryId' });
-      
+
       expectResponseToMatch(response.body, {
         statusCode: 400,
         success: false,
