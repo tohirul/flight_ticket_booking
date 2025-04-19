@@ -1,10 +1,10 @@
-import * as AirlineController from '../../modules/airline/airlineController';
-import AirlineService from '../../modules/airline/airlineService';
-import sendResponse from '../../../core/utilities/sendResponse';
+import * as AirlineController from '../../../modules/airline/airlineController';
+import AirlineService from '../../../modules/airline/airlineService';
+import sendResponse from '../../../../core/utilities/sendResponse';
 import { NextFunction, Request, Response } from 'express';
 
-jest.mock('../../../core/utilities/sendResponse');
-jest.mock('../../modules/airline/airlineService');
+jest.mock('../../../../core/utilities/sendResponse');
+jest.mock('../../../modules/airline/airlineService');
 
 describe('AirlineController', () => {
   let req: Partial<Request>;

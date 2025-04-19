@@ -1,7 +1,7 @@
-import AirlineService from '../../modules/airline/airlineService';
-import AirlineRepository from '../../../core/repositories/container/repository_airline';
+import AirlineService from '../../../modules/airline/airlineService';
+import AirlineRepository from '../../../../core/repositories/container/repository_airline';
 
-jest.mock('../../../core/repositories/container/repository_airline');
+jest.mock('../../../../core/repositories/container/repository_airline');
 
 describe('AirlineService', () => {
   let airlineService: AirlineService;
