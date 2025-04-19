@@ -19,22 +19,37 @@ export const getAllAirlines = catchAsync(async (_req: Request, res: Response) =>
 
 export const getPlaneDetails = catchAsync(async (req: Request, res: Response) => {
   const result = await airlineService.getSingle(req.params.airlineId);
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Airline retrieved successfully',
-    data: result,
-  });
+  if (!result)
+    sendResponse(res, {
+      statusCode: 404,
+      success: false,
+      message: 'Airline not found',
+    });
+  else
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Airline retrieved successfully',
+      data: result,
+    });
 });
 
 export const createNewAirlineInfo = catchAsync(async (req: Request, res: Response) => {
   const result = await airlineService.create({ ...req.body });
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Airline created successfully',
-    data: result,
-  });
+
+  if (!result)
+    return sendResponse(res, {
+      statusCode: 400,
+      success: false,
+      message: 'Airline not created',
+    });
+  else
+    return sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Airline created successfully',
+      data: result,
+    });
 });
 
 export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) => {
@@ -48,7 +63,7 @@ export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) 
 });
 
 export const deleteAirlineInfo = catchAsync(async (req: Request, res: Response) => {
-  // console.log(req.params.airlineId);
+  
   const result = await airlineService.destroy(req.params.airlineId);
   sendResponse(res, {
     statusCode: 200,
