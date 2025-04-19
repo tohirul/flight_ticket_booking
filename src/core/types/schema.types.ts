@@ -22,14 +22,15 @@ export interface City {
 }
 
 export interface Airline {
+  id?: string;
   name: string;
   countryId: string;
-  country: Country;
+  country?: Country;
   logo: string;
   createdAt: Date;
   updatedAt: Date;
-  planes: Airplane[];
-  flights: Flight[];
+  planes?: Airplane[];
+  flights?: Flight[];
 }
 
 export interface Airplane {
