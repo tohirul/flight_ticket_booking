@@ -5,11 +5,12 @@ import {
 } from '@/core/enums/index';
 
 export interface Country {
+  id: string;
   name: string;
   countryCode: string;
-  airlines: Airline[];
-  airports: Airport[];
-  cities: City[];
+  airlines?: Airline[];
+  airports?: Airport[];
+  cities?: City[];
 }
 
 export interface City {
