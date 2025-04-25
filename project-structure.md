@@ -1,12 +1,12 @@
 ```
 └── 📁Ticket Booking
-    └── 📁coverage
     └── 📁logs
         └── error.log
         └── info.log
         └── success.log
     └── 📁prisma
         └── 📁migrations
+            └── migration_lock.toml
         └── schema.prisma
     └── 📁src
         └── 📁app
@@ -14,9 +14,9 @@
             └── 📁__test__
                 └── 📁__mocks__
                     └── 📁airline
+                        └── airlineController.mocks.ts
                         └── airlineRoutes.mocks.ts
-                    └── 📁airplane
-                    └── 📁country
+                        └── airlineService.mocks.ts
                     └── 📁database
                         └── index.ts
                 └── 📁helpers
@@ -24,6 +24,7 @@
                         └── airlineAssertions.ts
                     └── 📁factories
                         └── airlineFactory.ts
+                        └── countryFactory.ts
                     └── 📁requests
                         └── airlineRequests.ts
                 └── 📁modules
@@ -31,8 +32,6 @@
                         └── airlineController.test.ts
                         └── airlineRoutes.test.ts
                         └── airlineService.test.ts
-                    └── 📁airplane
-                    └── 📁country
             └── 📁middlewares
                 └── global.error.ts
                 └── index.ts
@@ -93,8 +92,11 @@
                 └── schema.types.ts
             └── 📁utilities
                 └── catchAsync.ts
+                └── createResponse.ts
+                └── httpStatus.ts
                 └── sendResponse.ts
         └── database.ts
+        └── module-alias.ts
         └── router.ts
         └── server.ts
     └── .env
@@ -102,7 +104,6 @@
     └── .prettierignore
     └── .prettierrc
     └── jest.config.ts
-    └── nodemon.json
     └── package-lock.json
     └── package.json
     └── README.md

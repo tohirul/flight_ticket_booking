@@ -1,8 +1,0 @@
-{
-  "verbose": true,
-  "inspect": true,
-  "watch": ["src"],
-  "ext": "ts",
-  "ignore": ["node_modules", "dist", "**/test/**"],
-  "exec": "node -r tsconfig-paths/register -r ts-node/register src/server.ts"
-}

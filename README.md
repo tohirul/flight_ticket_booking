@@ -8,88 +8,115 @@
 
 ```
 └── 📁Ticket Booking
-    └── 📁.git                        # Git version control
-    └── 📁dist                        # Compiled JavaScript files
-    └── 📁logs                        # Logs generated during runtime
-        └── error.log                 # Error logs
-        └── info.log                  # Informational logs
-        └── success.log               # Success logs
-    └── 📁prisma                      # Prisma-related files
-        └── 📁migrations              # Prisma migration files
-        └── schema.prisma             # Prisma schema file
-    └── 📁src                         # Source code
+    └── 📁logs
+        └── error.log
+        └── info.log
+        └── success.log
+    └── 📁prisma
+        └── 📁migrations
+            └── migration_lock.toml
+        └── schema.prisma
+    └── 📁src
         └── 📁app
-            └── app.ts                # Main Express app configuration
-            └── 📁__test__            # Unit tests
-            └── 📁middlewares         # Middlewares used in the app
-                └── global.error.ts  # Global error handler
-                └── index.ts         # Index for all middlewares
-                └── requestValidator.ts # Request body validation middleware
-            └── 📁modules            # Business logic modules
-                └── 📁airline        # Airline-related services
-                    └── airlineController.ts  # Controller for airline-related requests
-                    └── airlineRoutes.ts     # API routes for airline
-                    └── airlineService.ts    # Business logic for airline
-                    └── airlineZod.ts       # Validation for airline
-                └── 📁airplane       # Airplane-related services
-                    └── airplaneController.ts  # Controller for airplane-related requests
-                    └── airplaneRoutes.ts     # API routes for airplane
-                    └── airplaneService.ts    # Business logic for airplane
-                    └── airplaneZod.ts       # Validation for airplane
-                └── 📁country        # Country-related services
-                    └── countryController.ts  # Controller for country-related requests
-                    └── countryRoutes.ts     # API routes for country
-                    └── countryService.ts    # Business logic for country
-                    └── countryZod.ts       # Validation for country
-            └── 📁routes             # API version routes
-                └── index.ts         # Main router
-                └── 📁v1             # Version 1 API
-                    └── index.ts     # Routes for v1
-                └── 📁v2             # Version 2 API
-                    └── index.ts     # Routes for v2
-        └── 📁config                 # Environment and configuration files
-            └── dev.ts               # Development environment configuration
-            └── env.ts               # Environment variable loader
-            └── index.ts             # Main config file
-            └── local.ts             # Local environment configuration
-            └── prod.ts              # Production environment configuration
-        └── 📁core                    # Core utilities and helpers
-            └── 📁constants           # App constants
-                └── enums.ts         # Enums for various values (e.g., status codes)
-            └── 📁errors             # Custom error classes
-                └── api.error.ts     # API-specific error handling
-                └── base.error.ts    # Base error class for inheritance
-                └── mysql.error.ts   # MySQL-specific errors
-                └── prisma.error.ts  # Prisma-specific errors
-                └── zodSchema.error.ts # Zod schema validation errors
-            └── 📁logs               # Log utilities for logging errors
-            └── 📁repositories        # Data access layer for repositories
-                └── repository_airline.ts # Repository for airline data
-                └── repository_airplane.ts # Repository for airplane data
-                └── repository_country.ts  # Repository for country data
-                └── repository.ts     # General repository for common operations
-            └── 📁types               # TypeScript types for the app
-                └── common.types.ts  # Common types for the app
-                └── error.types.ts   # Types for errors
-                └── schema.types.ts  # Types for schema validation
-            └── 📁utilities          # Utility functions
-                └── catchAsync.ts    # Utility to handle async errors
-                └── sendResponse.ts  # Utility to send responses
-        └── database.ts               # Prisma database client setup
-        └── router.ts                 # Main router file for setting up routes
-        └── server.ts                 # Server configuration and startup
-    └── .env                         # Environment variables
-    └── .gitignore                   # Git ignore file
-    └── .prettierignore              # Prettier ignore file
-    └── .prettierrc                  # Prettier configuration file
-    └── jest.config.ts               # Jest configuration for testing
-    └── nodemon.json                 # Nodemon configuration for auto-reloading
-    └── package-lock.json            # Package lock file for dependencies
-    └── package.json                 # NPM dependencies and scripts
-    └── README.md                    # This file
-    └── tsconfig.json                # TypeScript configuration
-    └── tsconfig.tsbuildinfo         # TypeScript build info
-
+        └── app.ts
+            └── 📁__test__
+                └── 📁__mocks__
+                    └── 📁airline
+                        └── airlineController.mocks.ts
+                        └── airlineRoutes.mocks.ts
+                        └── airlineService.mocks.ts
+                    └── 📁database
+                        └── index.ts
+                └── 📁helpers
+                    └── 📁assertions
+                        └── airlineAssertions.ts
+                    └── 📁factories
+                        └── airlineFactory.ts
+                        └── countryFactory.ts
+                    └── 📁requests
+                        └── airlineRequests.ts
+                └── 📁modules
+                    └── 📁airline
+                        └── airlineController.test.ts
+                        └── airlineRoutes.test.ts
+                        └── airlineService.test.ts
+            └── 📁middlewares
+                └── global.error.ts
+                └── index.ts
+                └── requestValidator.ts
+            └── 📁modules
+                └── 📁airline
+                    └── airlineController.ts
+                    └── airlineRoutes.ts
+                    └── airlineService.ts
+                    └── airlineZod.ts
+                └── 📁airplane
+                    └── airplaneController.ts
+                    └── airplaneRoutes.ts
+                    └── airplaneService.ts
+                    └── airplaneZod.ts
+                └── 📁country
+                    └── countryController.ts
+                    └── countryRoutes.ts
+                    └── countryService.ts
+                    └── countryZod.ts
+            └── 📁routes
+                └── index.ts
+                └── 📁v1
+                    └── index.ts
+                └── 📁v2
+                    └── index.ts
+        └── 📁config
+            └── dev.ts
+            └── env.ts
+            └── index.ts
+            └── local.ts
+            └── prod.ts
+            └── testing.ts
+        └── 📁core
+            └── 📁constants
+                └── enums.ts
+            └── 📁enums
+                └── index.ts
+            └── 📁errors
+                └── api.error.ts
+                └── base.error.ts
+                └── index.ts
+                └── mysql.error.ts
+                └── prisma.error.ts
+                └── zodSchema.error.ts
+            └── 📁logs
+                └── index.ts
+            └── 📁repositories
+                └── 📁container
+                    └── repository_airline.ts
+                    └── repository_airplane.ts
+                    └── repository_country.ts
+                └── repository_container.ts
+                └── repository.ts
+            └── 📁types
+                └── common.types.ts
+                └── error.types.ts
+                └── schema.types.ts
+            └── 📁utilities
+                └── catchAsync.ts
+                └── createResponse.ts
+                └── httpStatus.ts
+                └── sendResponse.ts
+        └── database.ts
+        └── module-alias.ts
+        └── router.ts
+        └── server.ts
+    └── .env
+    └── .gitignore
+    └── .prettierignore
+    └── .prettierrc
+    └── jest.config.ts
+    └── package-lock.json
+    └── package.json
+    └── README.md
+    └── tsconfig.json
+    └── tsconfig.tsbuildinfo
 ```
 
 ## src/ Directory
