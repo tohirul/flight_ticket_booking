@@ -1,24 +1,17 @@
 import { Response } from 'express';
+import { IAPIResponse } from '@core/types/common.types';
 
-type IAPIResponse<T> = {
-  statusCode: number;
-  success: boolean;
-  message: string | null;
-  meta?: {
-    page: number;
-    limit: number;
-    total: number;
-  };
-  data?: T | null;
-};
 const sendResponse = <T>(res: Response, data: IAPIResponse<T>): void => {
-  const responseData: IAPIResponse<T> = {
-    statusCode: data.statusCode,
+  console.log(data.response);
+  const responseData: Partial<IAPIResponse<T>> = {
     success: data.success,
-    message: data.message || null,
-    meta: data.meta || null || undefined,
-    data: data.data || null,
+    ...(data.message != null && { message: data.message }),
+    ...(data.response != null && { response: data.response }),
+    ...(data.meta != null && { meta: data.meta }),
+    ...(data.data != null && { data: data.data }),
+    ...(data.errors != null && { error: data.errors }),
   };
+
   res.status(data.statusCode).json(responseData);
 };
 

@@ -1,0 +1,35 @@
+import { IAPIResponse } from '../types/common.types';
+import { IGenericErrorMessage } from '../types/error.types';
+
+type CreateResponseParams<T> = {
+  success: boolean;
+  data?: T | null;
+  statusCode?: number;
+  response?: string;
+  message?: string | null;
+  errors?: IGenericErrorMessage[];
+};
+
+function createResponse<T>({
+  success,
+  data = null,
+  statusCode = success ? 200 : 500,
+  response,
+  message = null,
+  errors = [],
+}: CreateResponseParams<T>): IAPIResponse<T> {
+  const validStatusCode = statusCode >= 100 && statusCode <= 599 ? statusCode : success ? 200 : 500;
+
+  const defaultResponse =
+    response ?? (success ? 'Request completed successfully.' : 'Something went wrong.');
+  return {
+    statusCode: validStatusCode,
+    success,
+    response: response ?? defaultResponse,
+    message: message,
+    ...(data !== null && { data: data }),
+    ...(errors !== null && { error: errors }),
+  };
+}
+
+export { createResponse };
