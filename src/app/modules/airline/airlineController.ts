@@ -4,70 +4,96 @@ import catchAsync from '@core/utilities/catchAsync';
 import sendResponse from '@core/utilities/sendResponse';
 import AirlineService from './airlineService';
 import container from '@/core/repositories/repository_container';
+import HttpStatus from '@/core/utilities/httpStatus';
+import { Airline } from '@/core/types/schema.types';
+import { createResponse } from '@/core/utilities/createResponse';
 
 const airlineService = container.resolve(AirlineService);
 
 export const getAllAirlines = catchAsync(async (_req: Request, res: Response) => {
   const result = await airlineService.getAll();
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Airlines retrieved successfully',
-    data: result,
-  });
+  sendResponse<Airline[]>(
+    res,
+    createResponse({
+      success: true,
+      statusCode: HttpStatus.OK,
+      message: HttpStatus.getMessage(HttpStatus.OK),
+      data: result,
+    })
+  );
 });
 
 export const getPlaneDetails = catchAsync(async (req: Request, res: Response) => {
   const result = await airlineService.getSingle(req.params.airlineId);
   if (!result)
-    sendResponse(res, {
-      statusCode: 404,
-      success: false,
-      message: 'Airline not found',
-    });
+    sendResponse<Airline>(
+      res,
+      createResponse({
+        success: false,
+        statusCode: HttpStatus.NOT_FOUND,
+        message: HttpStatus.getMessage(HttpStatus.NOT_FOUND),
+        response: 'Airline not found',
+      })
+    );
   else
-    sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: 'Airline retrieved successfully',
-      data: result,
-    });
+    sendResponse(
+      res,
+      createResponse({
+        success: true,
+        data: result,
+        statusCode: HttpStatus.OK,
+        message: HttpStatus.getMessage(HttpStatus.OK),
+      })
+    );
 });
 
 export const createNewAirlineInfo = catchAsync(async (req: Request, res: Response) => {
   const result = await airlineService.create({ ...req.body });
 
   if (!result)
-    return sendResponse(res, {
-      statusCode: 400,
-      success: false,
-      message: 'Airline not created',
-    });
+    return sendResponse(
+      res,
+      createResponse({
+        success: false,
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: HttpStatus.getMessage(HttpStatus.BAD_REQUEST),
+        response: 'Something went wrong while creating the airline',
+      })
+    );
   else
-    return sendResponse(res, {
-      statusCode: 200,
-      success: true,
-      message: 'Airline created successfully',
-      data: result,
-    });
+    return sendResponse<Airline>(
+      res,
+      createResponse({
+        success: true,
+        data: result,
+        statusCode: HttpStatus.CREATED,
+        message: HttpStatus.getMessage(HttpStatus.CREATED),
+      })
+    );
 });
 
 export const updateAirlineInfo = catchAsync(async (req: Request, res: Response) => {
   const result = await airlineService.update(req.params.airlineId, { ...req.body });
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Airline updated successfully',
-    data: result,
-  });
+  sendResponse<Airline>(
+    res,
+    createResponse({
+      success: true,
+      data: result,
+      statusCode: HttpStatus.OK,
+      message: HttpStatus.getMessage(HttpStatus.OK),
+    })
+  );
 });
 
 export const deleteAirlineInfo = catchAsync(async (req: Request, res: Response) => {
   const result = await airlineService.destroy(req.params.airlineId);
-  sendResponse(res, {
-    statusCode: 200,
-    success: true,
-    message: 'Airline deleted successfully',
-    data: result,
-  });
+  sendResponse<Airline>(
+    res,
+    createResponse({
+      success: true,
+      data: result,
+      statusCode: HttpStatus.OK,
+      message: HttpStatus.getMessage(HttpStatus.OK),
+    })
+  );
 });
