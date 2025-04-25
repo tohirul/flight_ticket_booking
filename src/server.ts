@@ -1,67 +1,58 @@
-import 'module-alias/register';
+import './module-alias';
 import 'reflect-metadata';
 import http from 'http';
 import process from 'process';
-import app from './app';
-import configuration from './config';
-import logger from './core/logs';
-import PrismaService from './database';
+import app from '@/app';
+import configuration from '@/config';
+import logger from '@/core/logs';
+import PrismaService from '@/database';
 
 const PORT: number = Number(configuration.port) || 5000;
 const URI = configuration.local_uri;
-// Start server on port
+
 let server: http.Server;
-// console.log(configData);
+
 const toggleServer = async (): Promise<void> => {
   try {
-    // Start server
-    server = app.listen(PORT, () => {
-      logger.info(`✅ Server is running on ${URI}:${PORT}`);
-    });
-    if (server.listening) {
+    server = app.listen(PORT, async () => {
+      logger.info(`✅ Server running on ${URI}:${PORT}`);
       await PrismaService.connect();
-    }
+    });
   } catch (error) {
-    // Log server start failure
-    logger.error('❌ Failed to start the server:', error);
+    logger.error('❌ Server failed to start:', error);
     process.exit(1);
   }
 };
 
-// Graceful Shutdown Handling
 const handleServerShutdown = async (eventName: string, error?: Error): Promise<void> => {
-  logger.warn(`🛑 Server received ${eventName} signal. Closing server...`);
+  logger.warn(`🛑 Shutdown signal received: ${eventName}`);
 
-  // Attempt to close the server
   try {
     if (server) {
       server.close(async () => {
         await PrismaService.disconnect();
-        logger.info('🛑 Server closed gracefully.');
-        logger.info('🛑 Exiting process...\n');
+        logger.info('🛑 Server closed.');
         if (error) {
-          logger.error('⚠️ Error during shutdown:', error, '\n');
+          logger.error('⚠️ Shutdown error:', error);
         }
         process.exit(0);
       });
     }
   } catch (shutdownError) {
-    logger.error('❌ Error while shutting down server:', shutdownError);
+    logger.error('❌ Error during shutdown:', shutdownError);
     process.exit(1);
   }
 };
 
-// Handle various process signals and errors
-process.once('SIGINT', async () => handleServerShutdown('SIGINT'));
-process.once('SIGTERM', async () => handleServerShutdown('SIGTERM'));
-process.once('unhandledRejection', async (error: Error) => {
+process.once('SIGINT', () => handleServerShutdown('SIGINT'));
+process.once('SIGTERM', () => handleServerShutdown('SIGTERM'));
+process.once('unhandledRejection', (error: unknown) => {
   logger.error('Unhandled Rejection:', error);
-  handleServerShutdown('unhandledRejection', error);
+  handleServerShutdown('unhandledRejection', error instanceof Error ? error : undefined);
 });
 process.once('uncaughtException', (error: Error) => {
   logger.error('Uncaught Exception:', error);
   handleServerShutdown('uncaughtException', error);
 });
 
-// Start the server
 toggleServer();
