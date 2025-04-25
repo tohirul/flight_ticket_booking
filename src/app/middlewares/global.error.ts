@@ -5,6 +5,8 @@ import { ZodError } from 'zod';
 import configuration from '@config/index';
 import serverErrors from '@/core/errors/index';
 import { IGenericErrorMessage } from '@/core/types/error.types';
+import sendResponse from '@/core/utilities/sendResponse';
+import { createResponse } from '@/core/utilities/createResponse';
 
 /**
  * Global error handler middleware.
@@ -57,13 +59,16 @@ const globalError: ErrorRequestHandler = (
     errorMessages = [{ path: '', message }];
   }
 
-  res.status(statusCode).json({
-    success: false,
-    statusCode,
-    message,
-    errorMessages,
-    stack: shouldShowStack() ? error.stack : undefined,
-  });
+  sendResponse(
+    res,
+    createResponse({
+      statusCode: statusCode,
+      success: false,
+      message: message,
+      errors: errorMessages,
+      ...(shouldShowStack() && { stack: error?.stack }),
+    })
+  );
 };
 
 /**

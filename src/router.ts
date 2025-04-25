@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
-import apiRoutes from '@app/routes';
 import configuration from '@config/index';
 import globalError from '@middlewares/global.error';
+import apiRoutes from '@app/routes';
 
 const Router = express.Router();
 // Health check route
