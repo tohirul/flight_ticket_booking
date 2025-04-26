@@ -1,6 +1,7 @@
-import CityRepository from "@/core/repositories/container/repository_city";
-import { inject, injectable } from "tsyringe";
+import { inject, injectable } from 'tsyringe';
 
+import CityRepository from '@/core/repositories/container/repository_city';
+import { City } from '@generated/@prisma/client';
 
 @injectable()
 export default class CityService {
@@ -10,5 +11,10 @@ export default class CityService {
     ){}
     async getAll() {
         return this.cityRepository.findAll({});
+    }
+    async create(data: City) {
+        return this.cityRepository.create({
+            data,
+        });
     }
 }

@@ -1,11 +1,16 @@
 import express from 'express';
 
-import * as cityController from './cityController';
+import requestValidator from '@middlewares/requestValidator';
 
-// import requestValidator from '@middlewares/requestValidator';
-// import { createCitySchema, updateCitySchema } from './cityZod';
+import * as cityController from './cityController';
+import { createCitySchema } from './cityZod';
 
 const cityRouter = express.Router();
 cityRouter.get('/', cityController.getAllCities);
+cityRouter.post(
+  '/',
+  requestValidator(createCitySchema),
+  cityController.createCity
+);
 
 export default cityRouter;
