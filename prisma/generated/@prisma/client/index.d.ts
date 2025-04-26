@@ -6847,8 +6847,20 @@ export namespace Prisma {
 
   export type AggregateFlight = {
     _count: FlightCountAggregateOutputType | null
+    _avg: FlightAvgAggregateOutputType | null
+    _sum: FlightSumAggregateOutputType | null
     _min: FlightMinAggregateOutputType | null
     _max: FlightMaxAggregateOutputType | null
+  }
+
+  export type FlightAvgAggregateOutputType = {
+    flightDuration: number | null
+    flightDistance: number | null
+  }
+
+  export type FlightSumAggregateOutputType = {
+    flightDuration: number | null
+    flightDistance: number | null
   }
 
   export type FlightMinAggregateOutputType = {
@@ -6857,6 +6869,10 @@ export namespace Prisma {
     airplaneId: string | null
     departureTime: Date | null
     arrivalTime: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    flightDuration: number | null
+    flightDistance: number | null
     fromAirportId: string | null
     toAirportId: string | null
     flightNumber: string | null
@@ -6869,6 +6885,10 @@ export namespace Prisma {
     airplaneId: string | null
     departureTime: Date | null
     arrivalTime: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    flightDuration: number | null
+    flightDistance: number | null
     fromAirportId: string | null
     toAirportId: string | null
     flightNumber: string | null
@@ -6881,6 +6901,10 @@ export namespace Prisma {
     airplaneId: number
     departureTime: number
     arrivalTime: number
+    createdAt: number
+    updatedAt: number
+    flightDuration: number
+    flightDistance: number
     fromAirportId: number
     toAirportId: number
     flightNumber: number
@@ -6889,12 +6913,26 @@ export namespace Prisma {
   }
 
 
+  export type FlightAvgAggregateInputType = {
+    flightDuration?: true
+    flightDistance?: true
+  }
+
+  export type FlightSumAggregateInputType = {
+    flightDuration?: true
+    flightDistance?: true
+  }
+
   export type FlightMinAggregateInputType = {
     id?: true
     airlineId?: true
     airplaneId?: true
     departureTime?: true
     arrivalTime?: true
+    createdAt?: true
+    updatedAt?: true
+    flightDuration?: true
+    flightDistance?: true
     fromAirportId?: true
     toAirportId?: true
     flightNumber?: true
@@ -6907,6 +6945,10 @@ export namespace Prisma {
     airplaneId?: true
     departureTime?: true
     arrivalTime?: true
+    createdAt?: true
+    updatedAt?: true
+    flightDuration?: true
+    flightDistance?: true
     fromAirportId?: true
     toAirportId?: true
     flightNumber?: true
@@ -6919,6 +6961,10 @@ export namespace Prisma {
     airplaneId?: true
     departureTime?: true
     arrivalTime?: true
+    createdAt?: true
+    updatedAt?: true
+    flightDuration?: true
+    flightDistance?: true
     fromAirportId?: true
     toAirportId?: true
     flightNumber?: true
@@ -6964,6 +7010,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: FlightAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FlightSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: FlightMinAggregateInputType
@@ -6994,6 +7052,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: FlightCountAggregateInputType | true
+    _avg?: FlightAvgAggregateInputType
+    _sum?: FlightSumAggregateInputType
     _min?: FlightMinAggregateInputType
     _max?: FlightMaxAggregateInputType
   }
@@ -7004,11 +7064,17 @@ export namespace Prisma {
     airplaneId: string | null
     departureTime: Date
     arrivalTime: Date
+    createdAt: Date
+    updatedAt: Date
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     _count: FlightCountAggregateOutputType | null
+    _avg: FlightAvgAggregateOutputType | null
+    _sum: FlightSumAggregateOutputType | null
     _min: FlightMinAggregateOutputType | null
     _max: FlightMaxAggregateOutputType | null
   }
@@ -7033,6 +7099,10 @@ export namespace Prisma {
     airplaneId?: boolean
     departureTime?: boolean
     arrivalTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    flightDuration?: boolean
+    flightDistance?: boolean
     fromAirportId?: boolean
     toAirportId?: boolean
     flightNumber?: boolean
@@ -7053,13 +7123,17 @@ export namespace Prisma {
     airplaneId?: boolean
     departureTime?: boolean
     arrivalTime?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    flightDuration?: boolean
+    flightDistance?: boolean
     fromAirportId?: boolean
     toAirportId?: boolean
     flightNumber?: boolean
     flightStatus?: boolean
   }
 
-  export type FlightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "airlineId" | "airplaneId" | "departureTime" | "arrivalTime" | "fromAirportId" | "toAirportId" | "flightNumber" | "flightStatus", ExtArgs["result"]["flight"]>
+  export type FlightOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "airlineId" | "airplaneId" | "departureTime" | "arrivalTime" | "createdAt" | "updatedAt" | "flightDuration" | "flightDistance" | "fromAirportId" | "toAirportId" | "flightNumber" | "flightStatus", ExtArgs["result"]["flight"]>
   export type FlightInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     airline?: boolean | Flight$airlineArgs<ExtArgs>
     airplane?: boolean | Flight$airplaneArgs<ExtArgs>
@@ -7084,6 +7158,10 @@ export namespace Prisma {
       airplaneId: string | null
       departureTime: Date
       arrivalTime: Date
+      createdAt: Date
+      updatedAt: Date
+      flightDuration: number
+      flightDistance: number
       fromAirportId: string
       toAirportId: string
       flightNumber: string
@@ -7467,6 +7545,10 @@ export namespace Prisma {
     readonly airplaneId: FieldRef<"Flight", 'String'>
     readonly departureTime: FieldRef<"Flight", 'DateTime'>
     readonly arrivalTime: FieldRef<"Flight", 'DateTime'>
+    readonly createdAt: FieldRef<"Flight", 'DateTime'>
+    readonly updatedAt: FieldRef<"Flight", 'DateTime'>
+    readonly flightDuration: FieldRef<"Flight", 'Int'>
+    readonly flightDistance: FieldRef<"Flight", 'Int'>
     readonly fromAirportId: FieldRef<"Flight", 'String'>
     readonly toAirportId: FieldRef<"Flight", 'String'>
     readonly flightNumber: FieldRef<"Flight", 'String'>
@@ -10030,6 +10112,10 @@ export namespace Prisma {
     airplaneId: 'airplaneId',
     departureTime: 'departureTime',
     arrivalTime: 'arrivalTime',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    flightDuration: 'flightDuration',
+    flightDistance: 'flightDistance',
     fromAirportId: 'fromAirportId',
     toAirportId: 'toAirportId',
     flightNumber: 'flightNumber',
@@ -10609,6 +10695,10 @@ export namespace Prisma {
     airplaneId?: StringNullableFilter<"Flight"> | string | null
     departureTime?: DateTimeFilter<"Flight"> | Date | string
     arrivalTime?: DateTimeFilter<"Flight"> | Date | string
+    createdAt?: DateTimeFilter<"Flight"> | Date | string
+    updatedAt?: DateTimeFilter<"Flight"> | Date | string
+    flightDuration?: IntFilter<"Flight"> | number
+    flightDistance?: IntFilter<"Flight"> | number
     fromAirportId?: StringFilter<"Flight"> | string
     toAirportId?: StringFilter<"Flight"> | string
     flightNumber?: StringFilter<"Flight"> | string
@@ -10626,6 +10716,10 @@ export namespace Prisma {
     airplaneId?: SortOrderInput | SortOrder
     departureTime?: SortOrder
     arrivalTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
     fromAirportId?: SortOrder
     toAirportId?: SortOrder
     flightNumber?: SortOrder
@@ -10648,6 +10742,10 @@ export namespace Prisma {
     airplaneId?: StringNullableFilter<"Flight"> | string | null
     departureTime?: DateTimeFilter<"Flight"> | Date | string
     arrivalTime?: DateTimeFilter<"Flight"> | Date | string
+    createdAt?: DateTimeFilter<"Flight"> | Date | string
+    updatedAt?: DateTimeFilter<"Flight"> | Date | string
+    flightDuration?: IntFilter<"Flight"> | number
+    flightDistance?: IntFilter<"Flight"> | number
     fromAirportId?: StringFilter<"Flight"> | string
     toAirportId?: StringFilter<"Flight"> | string
     flightStatus?: EnumFlightStatusFilter<"Flight"> | $Enums.FlightStatus
@@ -10664,13 +10762,19 @@ export namespace Prisma {
     airplaneId?: SortOrderInput | SortOrder
     departureTime?: SortOrder
     arrivalTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
     fromAirportId?: SortOrder
     toAirportId?: SortOrder
     flightNumber?: SortOrder
     flightStatus?: SortOrder
     _count?: FlightCountOrderByAggregateInput
+    _avg?: FlightAvgOrderByAggregateInput
     _max?: FlightMaxOrderByAggregateInput
     _min?: FlightMinOrderByAggregateInput
+    _sum?: FlightSumOrderByAggregateInput
   }
 
   export type FlightScalarWhereWithAggregatesInput = {
@@ -10682,6 +10786,10 @@ export namespace Prisma {
     airplaneId?: StringNullableWithAggregatesFilter<"Flight"> | string | null
     departureTime?: DateTimeWithAggregatesFilter<"Flight"> | Date | string
     arrivalTime?: DateTimeWithAggregatesFilter<"Flight"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"Flight"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Flight"> | Date | string
+    flightDuration?: IntWithAggregatesFilter<"Flight"> | number
+    flightDistance?: IntWithAggregatesFilter<"Flight"> | number
     fromAirportId?: StringWithAggregatesFilter<"Flight"> | string
     toAirportId?: StringWithAggregatesFilter<"Flight"> | string
     flightNumber?: StringWithAggregatesFilter<"Flight"> | string
@@ -11249,6 +11357,10 @@ export namespace Prisma {
     id?: string
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     airline?: AirlineCreateNestedOneWithoutFlightsInput
@@ -11264,6 +11376,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -11275,6 +11391,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
     airline?: AirlineUpdateOneWithoutFlightsNestedInput
@@ -11290,6 +11410,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -11303,6 +11427,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -11313,6 +11441,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
   }
@@ -11323,6 +11455,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -12008,10 +12144,19 @@ export namespace Prisma {
     airplaneId?: SortOrder
     departureTime?: SortOrder
     arrivalTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
     fromAirportId?: SortOrder
     toAirportId?: SortOrder
     flightNumber?: SortOrder
     flightStatus?: SortOrder
+  }
+
+  export type FlightAvgOrderByAggregateInput = {
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
   }
 
   export type FlightMaxOrderByAggregateInput = {
@@ -12020,6 +12165,10 @@ export namespace Prisma {
     airplaneId?: SortOrder
     departureTime?: SortOrder
     arrivalTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
     fromAirportId?: SortOrder
     toAirportId?: SortOrder
     flightNumber?: SortOrder
@@ -12032,10 +12181,19 @@ export namespace Prisma {
     airplaneId?: SortOrder
     departureTime?: SortOrder
     arrivalTime?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
     fromAirportId?: SortOrder
     toAirportId?: SortOrder
     flightNumber?: SortOrder
     flightStatus?: SortOrder
+  }
+
+  export type FlightSumOrderByAggregateInput = {
+    flightDuration?: SortOrder
+    flightDistance?: SortOrder
   }
 
   export type EnumFlightStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -13438,6 +13596,10 @@ export namespace Prisma {
     id?: string
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     airplane?: AirplaneCreateNestedOneWithoutFlightsInput
@@ -13451,6 +13613,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -13551,6 +13717,10 @@ export namespace Prisma {
     airplaneId?: StringNullableFilter<"Flight"> | string | null
     departureTime?: DateTimeFilter<"Flight"> | Date | string
     arrivalTime?: DateTimeFilter<"Flight"> | Date | string
+    createdAt?: DateTimeFilter<"Flight"> | Date | string
+    updatedAt?: DateTimeFilter<"Flight"> | Date | string
+    flightDuration?: IntFilter<"Flight"> | number
+    flightDistance?: IntFilter<"Flight"> | number
     fromAirportId?: StringFilter<"Flight"> | string
     toAirportId?: StringFilter<"Flight"> | string
     flightNumber?: StringFilter<"Flight"> | string
@@ -13586,6 +13756,10 @@ export namespace Prisma {
     id?: string
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     airline?: AirlineCreateNestedOneWithoutFlightsInput
@@ -13599,6 +13773,10 @@ export namespace Prisma {
     airlineId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -13709,6 +13887,10 @@ export namespace Prisma {
     id?: string
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     airline?: AirlineCreateNestedOneWithoutFlightsInput
@@ -13723,6 +13905,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     toAirportId: string
     flightNumber: string
     flightStatus: $Enums.FlightStatus
@@ -13743,6 +13929,10 @@ export namespace Prisma {
     id?: string
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     airline?: AirlineCreateNestedOneWithoutFlightsInput
@@ -13757,6 +13947,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     flightNumber: string
     flightStatus: $Enums.FlightStatus
@@ -14275,6 +14469,10 @@ export namespace Prisma {
     id?: string
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     flightNumber: string
     flightStatus: $Enums.FlightStatus
     airline?: AirlineCreateNestedOneWithoutFlightsInput
@@ -14289,6 +14487,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -14368,6 +14570,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
     airline?: AirlineUpdateOneWithoutFlightsNestedInput
@@ -14382,6 +14588,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -14574,6 +14784,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -14619,6 +14833,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
     airplane?: AirplaneUpdateOneWithoutFlightsNestedInput
@@ -14632,6 +14850,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -14644,6 +14866,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -14655,6 +14881,10 @@ export namespace Prisma {
     airlineId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     toAirportId: string
     flightNumber: string
@@ -14665,6 +14895,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
     airline?: AirlineUpdateOneWithoutFlightsNestedInput
@@ -14678,6 +14912,10 @@ export namespace Prisma {
     airlineId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -14690,6 +14928,10 @@ export namespace Prisma {
     airlineId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
@@ -14702,6 +14944,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     toAirportId: string
     flightNumber: string
     flightStatus: $Enums.FlightStatus
@@ -14713,6 +14959,10 @@ export namespace Prisma {
     airplaneId?: string | null
     departureTime: Date | string
     arrivalTime: Date | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    flightDuration: number
+    flightDistance: number
     fromAirportId: string
     flightNumber: string
     flightStatus: $Enums.FlightStatus
@@ -14722,6 +14972,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
     airline?: AirlineUpdateOneWithoutFlightsNestedInput
@@ -14736,6 +14990,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
@@ -14748,6 +15006,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     toAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
@@ -14757,6 +15019,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
     airline?: AirlineUpdateOneWithoutFlightsNestedInput
@@ -14771,6 +15037,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
@@ -14783,6 +15053,10 @@ export namespace Prisma {
     airplaneId?: NullableStringFieldUpdateOperationsInput | string | null
     departureTime?: DateTimeFieldUpdateOperationsInput | Date | string
     arrivalTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    flightDuration?: IntFieldUpdateOperationsInput | number
+    flightDistance?: IntFieldUpdateOperationsInput | number
     fromAirportId?: StringFieldUpdateOperationsInput | string
     flightNumber?: StringFieldUpdateOperationsInput | string
     flightStatus?: EnumFlightStatusFieldUpdateOperationsInput | $Enums.FlightStatus
