@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import catchAsync from '@core/utilities/catchAsync';
 import sendResponse from '@core/utilities/sendResponse';
 import CountryService from './countryService';
-import container from '@/core/repositories/repository_container';
+import container from '@/core/repositories/container';
 import { createResponse } from '@/core/utilities/createResponse';
 import HttpStatus from '@/core/utilities/httpStatus';
 

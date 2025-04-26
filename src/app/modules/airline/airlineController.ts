@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import catchAsync from '@core/utilities/catchAsync';
 import sendResponse from '@core/utilities/sendResponse';
 import AirlineService from './airlineService';
-import container from '@/core/repositories/repository_container';
+import container from '@/core/repositories/container';
 import HttpStatus from '@/core/utilities/httpStatus';
 import { Airline } from '@/core/types/schema.types';
 import { createResponse } from '@/core/utilities/createResponse';
