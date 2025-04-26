@@ -123,12 +123,21 @@ exports.Prisma.CountryScalarFieldEnum = {
   countryCode: 'countryCode'
 };
 
+exports.Prisma.StateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  stateCode: 'stateCode',
+  countryId: 'countryId'
+};
+
 exports.Prisma.CityScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  state: 'state',
-  province: 'province',
-  countryId: 'countryId'
+  cityIATACode: 'cityIATACode',
+  stateId: 'stateId',
+  countryId: 'countryId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.AirlineScalarFieldEnum = {
@@ -228,11 +237,18 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.StateOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  stateCode: 'stateCode',
+  countryId: 'countryId'
+};
+
 exports.Prisma.CityOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  state: 'state',
-  province: 'province',
+  cityIATACode: 'cityIATACode',
+  stateId: 'stateId',
   countryId: 'countryId'
 };
 
@@ -319,6 +335,7 @@ exports.BookingStatus = exports.$Enums.BookingStatus = {
 
 exports.Prisma.ModelName = {
   Country: 'Country',
+  State: 'State',
   City: 'City',
   Airline: 'Airline',
   Airplane: 'Airplane',
