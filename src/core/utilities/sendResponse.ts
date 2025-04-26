@@ -1,8 +1,8 @@
 import { Response } from 'express';
+
 import { IAPIResponse } from '@core/types/common.types';
 
 const sendResponse = <T>(res: Response, data: IAPIResponse<T>): void => {
-  console.log(data.response);
   const responseData: Partial<IAPIResponse<T>> = {
     success: data.success,
     ...(data.message != null && { message: data.message }),
