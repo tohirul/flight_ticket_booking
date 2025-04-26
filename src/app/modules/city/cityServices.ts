@@ -12,6 +12,9 @@ export default class CityService {
     async getAll() {
         return this.cityRepository.findAll({});
     }
+    async getSingle(id: string) {
+        return this.cityRepository.findOne({where: { id }});
+    }
     async create(data: City) {
         return this.cityRepository.create({
             data,

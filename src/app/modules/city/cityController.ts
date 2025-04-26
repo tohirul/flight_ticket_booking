@@ -23,6 +23,20 @@ export const getAllCities = catchAsync(async (_req: Request, res: Response) => {
   );
 });
 
+export const getCityDetails = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await cityService.getSingle(id);
+  sendResponse(
+    res,
+    createResponse({
+      statusCode: HttpStatus.OK,
+      success: true,
+      message: HttpStatus.getMessage(HttpStatus.OK),
+      data: result,
+    })
+  );
+});
+
 export const createCity = catchAsync(async (req: Request, res: Response) => {
   const result = await cityService.create(req.body);
   sendResponse(

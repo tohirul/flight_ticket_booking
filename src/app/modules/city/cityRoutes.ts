@@ -7,6 +7,7 @@ import { createCitySchema, updateCitySchema } from './cityZod';
 
 const cityRouter = express.Router();
 cityRouter.get('/', cityController.getAllCities);
+cityRouter.get('/:id', cityController.getCityDetails);
 cityRouter.post(
   '/',
   requestValidator(createCitySchema),
