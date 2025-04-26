@@ -1,8 +1,11 @@
 import express from 'express';
-import airPlaneRouter from '@modules/airplane/airplaneRoutes';
+
 import airlineRouter from '@modules/airline/airlineRoutes';
-import countryRouter from '@modules/country/countryRoutes';
+import airPlaneRouter from '@modules/airplane/airplaneRoutes';
 import cityRouter from '@modules/city/cityRoutes';
+import countryRouter from '@modules/country/countryRoutes';
+import stateRouter from '@modules/state/stateRoutes';
+
 const router = express.Router();
 
 interface Route {
@@ -15,6 +18,7 @@ const moduleRoutes: Route[] = [
   { path: '/airlines', route: airlineRouter },
   { path: '/countries', route: countryRouter },
   { path: '/cities', route: cityRouter },
+  { path: '/states', route: stateRouter },
 ];
 
 for (const { path, route } of moduleRoutes) {
