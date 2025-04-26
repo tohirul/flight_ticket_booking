@@ -9,5 +9,5 @@ addAliases({
   '@middlewares': path.join(__dirname, 'app', 'middlewares'),
   '@modules': path.join(__dirname, 'app', 'modules'),
   '@approutes': path.join(__dirname, 'app', 'routes'),
-  "@generated": path.join(__dirname, '../prisma', 'generated'),
+  '@generated': path.join(__dirname, '../prisma', 'generated'),
 });

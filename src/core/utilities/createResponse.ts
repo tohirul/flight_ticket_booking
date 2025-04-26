@@ -18,7 +18,7 @@ function createResponse<T>({
   response,
   message = null,
   errors = [],
-  stack = "",
+  stack = '',
 }: CreateResponseParams<T>): IAPIResponse<T> {
   const validStatusCode = statusCode >= 100 && statusCode <= 599 ? statusCode : success ? 200 : 500;
 
@@ -31,7 +31,7 @@ function createResponse<T>({
     message: message,
     ...(data !== null && { data: data }),
     ...(errors !== null && { error: errors }),
-    ...(stack && { stack }),                                    
+    ...(stack && { stack }),
   };
 }
 

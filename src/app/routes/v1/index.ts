@@ -15,7 +15,6 @@ const moduleRoutes: Route[] = [
   { path: '/airlines', route: airlineRouter },
   { path: '/countries', route: countryRouter },
   { path: '/cities', route: cityRouter },
-
 ];
 
 for (const { path, route } of moduleRoutes) {

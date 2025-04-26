@@ -10,7 +10,7 @@ const sendResponse = <T>(res: Response, data: IAPIResponse<T>): void => {
     ...(data.meta != null && { meta: data.meta }),
     ...(data.data != null && { data: data.data }),
     ...(data.errors != null && { error: data.errors }),
-    ...(data.stack != null && { stack: data.stack }), 
+    ...(data.stack != null && { stack: data.stack }),
   };
 
   res.status(data.statusCode).json(responseData);

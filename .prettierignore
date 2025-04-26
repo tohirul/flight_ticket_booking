@@ -1,25 +1,37 @@
+# Build and Node modules
+/dist
+/node_modules
 
-    "./dist",
-    "./node_modules",
-    ".eslintrc",
-    ".prettierrc",
-    ".gitignore",
-    "**/*.json",
-    "**/*.md",
-    "**/*.txt",
-    "**/*.yml",
-    "**/*.yaml"
-    "./prisma/*"
-    "./eslint.config.mjs",
-    "**/*/jest.config.ts",
-    "**/*/tsconfig.json",   
-    "**/*/tsconfig.spec.json",
-    "**/*/tsconfig.build.json",
-    "**/*/tsconfig.eslint.json",
-    "**/*/tsconfig.prettier.json",
-    "**/*/tsconfig.lint.json",
-    "./package.json",
-    "./package-lock.json",
-    "./README.md",
-    "./.prettierignore",
-    "./project-structure.md",
+# Config files
+.eslintrc
+.prettierrc
+.prettierignore
+.gitignore
+eslint.config.mjs
+
+# Prisma generated files
+/prisma/*
+
+# Project structure files
+project-structure.md
+README.md
+
+# Package manager files
+package.json
+package-lock.json
+
+# JSON, YAML, Markdown, and text files
+**/*.json
+**/*.md
+**/*.txt
+**/*.yml
+**/*.yaml
+
+# TypeScript configuration files
+**/jest.config.ts
+**/tsconfig.json
+**/tsconfig.spec.json
+**/tsconfig.build.json
+**/tsconfig.eslint.json
+**/tsconfig.prettier.json
+**/tsconfig.lint.json

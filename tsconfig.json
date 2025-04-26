@@ -28,7 +28,7 @@
       "@middlewares/*": ["src/app/middlewares/*"],
       "@modules/*": ["src/app/modules/*"],
       "@approutes/*": ["src/app/routes/*"],
-      "@generated/*": ["prisma/generated/*"],
+      "@generated/*": ["prisma/generated/*"]
     },
     "incremental": true,
     "sourceMap": true,
@@ -36,6 +36,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["src","prisma"],
+  "include": ["src", "prisma"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }
