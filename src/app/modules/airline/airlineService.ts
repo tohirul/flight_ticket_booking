@@ -1,4 +1,4 @@
-import { Airline } from '@prisma/client';
+import { Airline } from '@generated/@prisma/client';
 import AirlineRepository from '@/core/repositories/container/repository_airline';
 import { inject, injectable } from 'tsyringe';
 import ApiError from '@/core/errors/api.error';
