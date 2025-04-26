@@ -14,5 +14,6 @@ cityRouter.post(
   cityController.createCity
 );
 cityRouter.put('/:id', requestValidator(updateCitySchema), cityController.updateCity);
+cityRouter.delete('/:id', cityController.deleteCity);
 
 export default cityRouter;

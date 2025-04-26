@@ -63,3 +63,17 @@ export const updateCity = catchAsync(async (req: Request, res: Response) => {
     })
   );
 });
+
+export const deleteCity = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await cityService.destroy(id);
+  sendResponse(
+    res,
+    createResponse({
+      statusCode: HttpStatus.OK,
+      success: true,
+      message: HttpStatus.getMessage(HttpStatus.OK),
+      data: result,
+    })
+  );
+});

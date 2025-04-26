@@ -26,4 +26,7 @@ export default class CityService {
             data,
         });
     }
+    async destroy(id: string) {
+        return this.cityRepository.destroy({ where: { id } });
+    }
 }
