@@ -136,6 +136,7 @@ exports.Prisma.CityScalarFieldEnum = {
   cityIATACode: 'cityIATACode',
   stateId: 'stateId',
   countryId: 'countryId',
+  stateCountryKey: 'stateCountryKey',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -249,7 +250,8 @@ exports.Prisma.CityOrderByRelevanceFieldEnum = {
   name: 'name',
   cityIATACode: 'cityIATACode',
   stateId: 'stateId',
-  countryId: 'countryId'
+  countryId: 'countryId',
+  stateCountryKey: 'stateCountryKey'
 };
 
 exports.Prisma.AirlineOrderByRelevanceFieldEnum = {

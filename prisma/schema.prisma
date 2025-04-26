@@ -54,7 +54,6 @@ model State {
   countryId String
   cities    City[]
 }
-
 model City {
   id           String    @id @default(uuid())
   name         String
@@ -63,12 +62,13 @@ model City {
   stateId      String?
   country      Country   @relation(fields: [countryId], references: [id])
   countryId    String
+  stateCountryKey String @default("") 
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   airports     Airport[]
 
-  @@unique([name, countryId, stateId])
-  @@unique([cityIATACode, countryId, stateId])
+  @@unique([name, stateCountryKey])
+  @@unique([cityIATACode, stateCountryKey])
   @@index([countryId])
   @@index([stateId])
 }
