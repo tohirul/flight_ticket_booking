@@ -67,6 +67,8 @@ model City {
   updatedAt    DateTime  @updatedAt
   airports     Airport[]
 
+  @@unique([name, countryId, stateId])
+  @@unique([cityIATACode, countryId, stateId])
   @@index([countryId])
   @@index([stateId])
 }
@@ -105,7 +107,7 @@ model Airport {
   id         String   @id @default(uuid())
   name       String
   code       String   @unique
-  city       City     @relation(fields: [cityId], references: [id])
+  city       City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId     String
   lat        Float
   lng        Float

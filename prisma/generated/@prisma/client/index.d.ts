@@ -11642,6 +11642,8 @@ export namespace Prisma {
 
   export type CityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name_countryId_stateId?: CityNameCountryIdStateIdCompoundUniqueInput
+    cityIATACode_countryId_stateId?: CityCityIATACodeCountryIdStateIdCompoundUniqueInput
     AND?: CityWhereInput | CityWhereInput[]
     OR?: CityWhereInput[]
     NOT?: CityWhereInput | CityWhereInput[]
@@ -11654,7 +11656,7 @@ export namespace Prisma {
     state?: XOR<StateNullableScalarRelationFilter, StateWhereInput> | null
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     airports?: AirportListRelationFilter
-  }, "id">
+  }, "id" | "name_countryId_stateId" | "cityIATACode_countryId_stateId">
 
   export type CityOrderByWithAggregationInput = {
     id?: SortOrder
@@ -13176,6 +13178,18 @@ export namespace Prisma {
     fields: CityOrderByRelevanceFieldEnum | CityOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
+  }
+
+  export type CityNameCountryIdStateIdCompoundUniqueInput = {
+    name: string
+    countryId: string
+    stateId: string
+  }
+
+  export type CityCityIATACodeCountryIdStateIdCompoundUniqueInput = {
+    cityIATACode: string
+    countryId: string
+    stateId: string
   }
 
   export type CityCountOrderByAggregateInput = {
