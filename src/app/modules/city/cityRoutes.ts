@@ -3,7 +3,7 @@ import express from 'express';
 import requestValidator from '@middlewares/requestValidator';
 
 import * as cityController from './cityController';
-import { createCitySchema } from './cityZod';
+import { createCitySchema, updateCitySchema } from './cityZod';
 
 const cityRouter = express.Router();
 cityRouter.get('/', cityController.getAllCities);
@@ -12,5 +12,6 @@ cityRouter.post(
   requestValidator(createCitySchema),
   cityController.createCity
 );
+cityRouter.put('/:id', requestValidator(updateCitySchema), cityController.updateCity);
 
 export default cityRouter;

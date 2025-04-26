@@ -17,4 +17,10 @@ export default class CityService {
             data,
         });
     }
+    async update(id: string, data: City) {
+        return this.cityRepository.update({
+            where: { id },
+            data,
+        });
+    }
 }

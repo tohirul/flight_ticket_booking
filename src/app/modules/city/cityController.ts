@@ -35,3 +35,17 @@ export const createCity = catchAsync(async (req: Request, res: Response) => {
     })
   );
 });
+
+export const updateCity = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await cityService.update(id, req.body);
+  sendResponse(
+    res,
+    createResponse({
+      statusCode: HttpStatus.OK,
+      success: true,
+      message: HttpStatus.getMessage(HttpStatus.OK),
+      data: result,
+    })
+  );
+});
