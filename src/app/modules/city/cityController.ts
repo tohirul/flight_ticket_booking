@@ -38,7 +38,9 @@ export const getCityDetails = catchAsync(async (req: Request, res: Response) => 
 });
 
 export const createCity = catchAsync(async (req: Request, res: Response) => {
-  const result = await cityService.create(req.body);
+  const data = req.body;
+  const stateCountryKey = data.stateId ?? data.countryId
+  const result = await cityService.create({...data, stateCountryKey});
   sendResponse(
     res,
     createResponse({
