@@ -21,7 +21,6 @@ const globalError: ErrorRequestHandler = (
   let statusCode = 500;
   let message = 'Something went wrong';
   let errorMessages: IGenericErrorMessage[] = [];
-
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     const prismaError = PrismaError(error);
     ({ statusCode, message, errorMessages } = prismaError);

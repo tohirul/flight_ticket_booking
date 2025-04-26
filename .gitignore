@@ -3,7 +3,7 @@
 .vscode/
 .next/
 .vercel/
-
+tsconfig.tsbuildinfo
 # Node.js
 node_modules/
 npm-debug.log

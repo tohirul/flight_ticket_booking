@@ -43,18 +43,34 @@ model Country {
   airlines    Airline[]
   airports    Airport[]
   cities      City[]
+  State       State[]
 }
 
-model City {
-  id        String    @id @default(cuid())
+model State {
+  id        String  @id @default(uuid())
   name      String
-  state     String?
-  province  String?
-  country   Country   @relation(fields: [countryId], references: [id])
+  stateCode String?
+  country   Country @relation(fields: [countryId], references: [id])
   countryId String
-  airports  Airport[]
+  cities    City[]
+}
+model City {
+  id           String    @id @default(uuid())
+  name         String
+  cityIATACode String
+  state        State?    @relation(fields: [stateId], references: [id])
+  stateId      String?
+  country      Country   @relation(fields: [countryId], references: [id])
+  countryId    String
+  stateCountryKey String @default("") 
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  airports     Airport[]
 
-  @@index([name, countryId])
+  @@unique([name, stateCountryKey])
+  @@unique([cityIATACode, stateCountryKey])
+  @@index([countryId])
+  @@index([stateId])
 }
 
 model Airline {
@@ -88,10 +104,10 @@ model Airplane {
 }
 
 model Airport {
-  id         String   @id @default(cuid())
+  id         String   @id @default(uuid())
   name       String
   code       String   @unique
-  city       City     @relation(fields: [cityId], references: [id])
+  city       City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId     String
   lat        Float
   lng        Float
