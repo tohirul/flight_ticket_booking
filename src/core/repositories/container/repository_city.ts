@@ -1,7 +1,7 @@
 import PrismaService from "@/database";
 import { injectable } from "tsyringe";
 import Repository from "@core/repositories/repository";
-import { City, PrismaClient } from "@prisma/client";
+import { City, PrismaClient } from "@generated/@prisma/client";
 
 const Prisma = PrismaService.client;
 

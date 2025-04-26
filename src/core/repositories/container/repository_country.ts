@@ -1,5 +1,5 @@
 import { injectable } from 'tsyringe';
-import { Country, PrismaClient } from '@prisma/client';
+import { Country, PrismaClient } from '@generated/@prisma/client';
 import Repository from '@core/repositories/repository';
 import PrismaService from '@/database';
 
