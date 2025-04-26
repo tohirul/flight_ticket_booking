@@ -26,4 +26,5 @@ export type IAPIResponse<T> = {
   };
   data?: T | null;
   errors?: IGenericErrorMessage[];
+  stack?: string;
 };
