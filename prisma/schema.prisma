@@ -1,11 +1,39 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["prismaSchemaFolder"]
+  output          = "./generated/@prisma/client"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+enum FlightStatus {
+  Cancelled
+  Confirmed
+  Pending
+  CheckedIn
+  Boarded
+  Delayed
+  InFlight
+  Arrived
+  Departed
+  Scheduled
+}
+
+enum BookingStatus {
+  Confirmed
+  Cancelled
+  Pending
+  CheckedIn
+  NoShow
+}
+
+enum PassengerClass {
+  Economy
+  Business
+  First
 }
 
 model Country {
@@ -43,79 +71,65 @@ model Airline {
   @@index([countryId])
 }
 
-enum AirplaneFuelType {
-  JetFuel
-  Avgas
-  Diesel
-}
-
-enum AirplaneEngineType {
-  JetEngine
-  Turboprop
-  PistonEngine
-  RocketEngine
-}
-
-enum AirplaneEngineConfiguration {
-  SingleEngine
-  TwinEngine
-  TriEngine
-  QuadEngine
-}
-
 model Airplane {
-  id                  String                      @id @default(uuid())
-  model               String
-  year                Int
-  seats               Int
-  capacity            Int
-  manufacturer        String
-  engines             Int
-  engineType          AirplaneEngineType
-  engineConfiguration AirplaneEngineConfiguration
-  speed               Int
-  fuelType            AirplaneFuelType
-  createdAt           DateTime                    @default(now())
-  updatedAt           DateTime                    @updatedAt
-  airline             Airline                     @relation(fields: [airlineId], references: [id], onDelete: Cascade)
-  airlineId           String
-  flights             Flight[]
+  id           String   @id @default(uuid())
+  model        String
+  year         Int
+  seats        Int
+  capacity     Int
+  manufacturer String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  airline      Airline  @relation(fields: [airlineId], references: [id], onDelete: Cascade)
+  airlineId    String
+  flights      Flight[]
 
   @@index([airlineId])
 }
 
 model Airport {
-  id        String   @id @default(cuid())
-  name      String
-  code      String   @unique
-  city      City     @relation(fields: [cityId], references: [id])
-  cityId    String
-  lat       Float
-  lng       Float
-  timezone  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Country   Country? @relation(fields: [countryId], references: [id])
-  countryId String?
+  id         String   @id @default(cuid())
+  name       String
+  code       String   @unique
+  city       City     @relation(fields: [cityId], references: [id])
+  cityId     String
+  lat        Float
+  lng        Float
+  timezone   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  country    Country? @relation(fields: [countryId], references: [id])
+  countryId  String
+  departures Flight[] @relation("Departure")
+  arrivals   Flight[] @relation("Arrival")
 }
 
 model Flight {
-  id         String    @id @default(uuid())
-  airline    Airline?  @relation(fields: [airlineId], references: [id])
-  airlineId  String?
-  airplane   Airplane? @relation(fields: [airplaneId], references: [id])
-  airplaneId String?
+  id            String       @id @default(uuid())
+  airline       Airline?     @relation(fields: [airlineId], references: [id])
+  airlineId     String?
+  airplane      Airplane?    @relation(fields: [airplaneId], references: [id])
+  airplaneId    String?
+  departureTime DateTime
+  arrivalTime   DateTime
+  fromAirport   Airport      @relation("Departure", fields: [fromAirportId], references: [id])
+  fromAirportId String
+  toAirport     Airport      @relation("Arrival", fields: [toAirportId], references: [id])
+  toAirportId   String
+  flightNumber  String       @unique
+  flightStatus  FlightStatus
+  bookings      Booking[]
 
   @@index([airlineId])
   @@index([airplaneId])
 }
 
 model Passenger {
-  id                  String   @id @default(uuid())
+  id                  String    @id @default(uuid())
   firstName           String
   lastName            String
-  email               String   @unique
-  phone               String   @unique
+  email               String    @unique
+  phone               String    @unique
   dateOfBirth         DateTime
   gender              String?
   nationality         String?
@@ -123,10 +137,26 @@ model Passenger {
   address             String?
   emergencyContact    String?
   emergencyPhone      String?
-  frequentFlyer       Boolean  @default(false)
+  frequentFlyer       Boolean   @default(false)
   mealPreference      String?
   specialRequirements String?
-  bookingDate         DateTime @default(now())
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  bookingDate         DateTime  @default(now())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  bookings            Booking[]
+}
+
+model Booking {
+  id             String         @id @default(uuid())
+  passenger      Passenger      @relation(fields: [passengerId], references: [id])
+  passengerId    String
+  flight         Flight         @relation(fields: [flightId], references: [id])
+  flightId       String
+  seatNumber     String
+  bookingDate    DateTime       @default(now())
+  passengerClass PassengerClass
+  bookingStatus  BookingStatus
+
+  @@index([passengerId])
+  @@index([flightId])
 }

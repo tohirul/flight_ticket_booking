@@ -1,0 +1,162 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+  output          = "./generated/@prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum FlightStatus {
+  Cancelled
+  Confirmed
+  Pending
+  CheckedIn
+  Boarded
+  Delayed
+  InFlight
+  Arrived
+  Departed
+  Scheduled
+}
+
+enum BookingStatus {
+  Confirmed
+  Cancelled
+  Pending
+  CheckedIn
+  NoShow
+}
+
+enum PassengerClass {
+  Economy
+  Business
+  First
+}
+
+model Country {
+  id          String    @id @default(uuid())
+  name        String
+  countryCode String    @unique
+  airlines    Airline[]
+  airports    Airport[]
+  cities      City[]
+}
+
+model City {
+  id        String    @id @default(cuid())
+  name      String
+  state     String?
+  province  String?
+  country   Country   @relation(fields: [countryId], references: [id])
+  countryId String
+  airports  Airport[]
+
+  @@index([name, countryId])
+}
+
+model Airline {
+  id        String     @id @default(uuid())
+  name      String
+  country   Country    @relation(fields: [countryId], references: [id])
+  countryId String
+  logo      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  planes    Airplane[]
+  flights   Flight[]
+
+  @@index([countryId])
+}
+
+model Airplane {
+  id           String   @id @default(uuid())
+  model        String
+  year         Int
+  seats        Int
+  capacity     Int
+  manufacturer String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  airline      Airline  @relation(fields: [airlineId], references: [id], onDelete: Cascade)
+  airlineId    String
+  flights      Flight[]
+
+  @@index([airlineId])
+}
+
+model Airport {
+  id         String   @id @default(cuid())
+  name       String
+  code       String   @unique
+  city       City     @relation(fields: [cityId], references: [id])
+  cityId     String
+  lat        Float
+  lng        Float
+  timezone   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  country    Country? @relation(fields: [countryId], references: [id])
+  countryId  String
+  departures Flight[] @relation("Departure")
+  arrivals   Flight[] @relation("Arrival")
+}
+
+model Flight {
+  id            String       @id @default(uuid())
+  airline       Airline?     @relation(fields: [airlineId], references: [id])
+  airlineId     String?
+  airplane      Airplane?    @relation(fields: [airplaneId], references: [id])
+  airplaneId    String?
+  departureTime DateTime
+  arrivalTime   DateTime
+  fromAirport   Airport      @relation("Departure", fields: [fromAirportId], references: [id])
+  fromAirportId String
+  toAirport     Airport      @relation("Arrival", fields: [toAirportId], references: [id])
+  toAirportId   String
+  flightNumber  String       @unique
+  flightStatus  FlightStatus
+  bookings      Booking[]
+
+  @@index([airlineId])
+  @@index([airplaneId])
+}
+
+model Passenger {
+  id                  String    @id @default(uuid())
+  firstName           String
+  lastName            String
+  email               String    @unique
+  phone               String    @unique
+  dateOfBirth         DateTime
+  gender              String?
+  nationality         String?
+  passportNumber      String?
+  address             String?
+  emergencyContact    String?
+  emergencyPhone      String?
+  frequentFlyer       Boolean   @default(false)
+  mealPreference      String?
+  specialRequirements String?
+  bookingDate         DateTime  @default(now())
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  bookings            Booking[]
+}
+
+model Booking {
+  id             String         @id @default(uuid())
+  passenger      Passenger      @relation(fields: [passengerId], references: [id])
+  passengerId    String
+  flight         Flight         @relation(fields: [flightId], references: [id])
+  flightId       String
+  seatNumber     String
+  bookingDate    DateTime       @default(now())
+  passengerClass PassengerClass
+  bookingStatus  BookingStatus
+
+  @@index([passengerId])
+  @@index([flightId])
+}
