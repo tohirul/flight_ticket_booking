@@ -144,10 +144,10 @@ model Airport {
 
 model Flight {
   id             String       @id @default(uuid())
-  airline        Airline?     @relation(fields: [airlineId], references: [id], onDelete: SetNull)
-  airlineId      String?
-  airplane       Airplane?    @relation(fields: [airplaneId], references: [id], onDelete: SetNull)
-  airplaneId     String?
+  airline        Airline      @relation(fields: [airlineId], references: [id], onDelete: Cascade)
+  airlineId      String
+  airplane       Airplane     @relation(fields: [airplaneId], references: [id], onDelete: Cascade)
+  airplaneId     String
   departureTime  DateTime
   arrivalTime    DateTime
   createdAt      DateTime     @default(now())
@@ -202,5 +202,5 @@ model Booking {
   bookingStatus  BookingStatus
 
   @@index([passengerId])
-  @@index([flightId])
+  @@index([flightId, seatNumber])
 }
