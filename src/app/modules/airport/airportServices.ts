@@ -14,11 +14,9 @@ export default class AirportService {
     return this.airportRepository.findAll({});
   }
   async getSingle(id: string): Promise<any> {
-    const airport = await this.airportRepository.findOne({ where: { id } });
-    if (!airport) {
-      throw new Error('Airport not found');
-    }
-    return airport;
+    return await this.airportRepository.findOne({ where: { id } });
+    
+    
   }
   async create(data: Airport): Promise<Airport> {
     return this.airportRepository.create({ data });
@@ -29,7 +27,7 @@ export default class AirportService {
     }
     const updatedAirport = await this.airportRepository.update({ where: { id }, data });
     if (!updatedAirport) {
-      throw new Error('Airport not found');
+      throw new Error('Airport not updated');
     }
     return updatedAirport;
   }

@@ -2,6 +2,7 @@ import express from 'express';
 
 import airlineRouter from '@modules/airline/airlineRoutes';
 import airPlaneRouter from '@modules/airplane/airplaneRoutes';
+import airportRouter from '@modules/airport/airportRoutes';
 import cityRouter from '@modules/city/cityRoutes';
 import countryRouter from '@modules/country/countryRoutes';
 import stateRouter from '@modules/state/stateRoutes';
@@ -19,6 +20,7 @@ const moduleRoutes: Route[] = [
   { path: '/countries', route: countryRouter },
   { path: '/cities', route: cityRouter },
   { path: '/states', route: stateRouter },
+  { path: '/airports', route: airportRouter },
 ];
 
 for (const { path, route } of moduleRoutes) {
