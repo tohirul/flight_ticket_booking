@@ -5,14 +5,7 @@ export const createCitySchema = z.object({
     .string({ required_error: 'City name is required.' })
     .min(3, 'City name must be at least 3 characters long.')
     .max(50, 'City name cannot exceed 50 characters.'),
-  cityIATACode: z
-    .string({ required_error: 'City code is required.' })
-    .min(2, 'City code must be a valid ISO 3166-1 alpha-2 or IATA code (e.g., "FR" or "FRA").')
-    .max(3, 'City code must be a maximum of 3 characters (e.g., "FRA" for France).')
-    .regex(
-      /^[A-Z]{2,3}$/,
-      'City code must consist of 2 or 3 uppercase letters (e.g., "US", "FRA").'
-    ),
+  
   stateId: z.string().uuid('Invalid state ID format. Please provide a valid UUID.').optional(),
   countryId: z
     .string({ required_error: 'Country ID is required.' })
@@ -25,14 +18,7 @@ export const updateCitySchema = z
       .string({ required_error: 'City name is required.' })
       .min(3, 'City name must be at least 3 characters long.')
       .max(50, 'City name cannot exceed 50 characters.'),
-    cityIATACode: z
-      .string()
-      .min(2, 'City code must be a valid ISO 3166-1 alpha-2 or IATA code (e.g., "FR" or "FRA").')
-      .max(3, 'City code must be a maximum of 3 characters (e.g., "FRA" for France).')
-      .regex(
-        /^[A-Z]{2,3}$/,
-        'City code must consist of 2 or 3 uppercase letters (e.g., "US", "FRA").'
-      ),
+    
     stateId: z.string().uuid('Invalid state ID format. Please provide a valid UUID.').optional(),
     countryId: z
       .string({ required_error: 'Country ID is required.' })
