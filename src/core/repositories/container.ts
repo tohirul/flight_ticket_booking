@@ -24,7 +24,7 @@ const repositories = [
   {
     name: 'AirportRepository',
     repository: () => import('./container/repository_airport'),
-  }
+  },
 ];
 
 export async function registerRepositories() {
