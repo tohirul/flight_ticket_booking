@@ -4,8 +4,7 @@ import PrismaService from '@/database';
 
 import Repository from '../repository';
 
-import type { Airport, PrismaClient } from "@generated/@prisma/client";
-
+import type { Airport, PrismaClient } from '@generated/@prisma/client';
 
 const Prisma = PrismaService.client;
 

@@ -16,10 +16,10 @@ let server: http.Server;
 
 const toggleServer = async (): Promise<void> => {
   try {
-    await registerRepositories(); 
+    await registerRepositories();
 
-    const { default: app } = await import('@/app'); 
-    
+    const { default: app } = await import('@/app');
+
     server = app.listen(PORT, async () => {
       logger.info(`✅ Server running on ${URI}:${PORT}`);
       await PrismaService.connect();
