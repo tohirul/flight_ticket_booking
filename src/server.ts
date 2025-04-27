@@ -1,11 +1,13 @@
 import './module-alias';
 import 'reflect-metadata';
+
 import http from 'http';
 import process from 'process';
-import app from '@/app';
+
 import configuration from '@/config';
 import logger from '@/core/logs';
 import PrismaService from '@/database';
+import { registerRepositories } from '@core/repositories/container';
 
 const PORT: number = Number(configuration.port) || 5000;
 const URI = configuration.local_uri;
@@ -14,6 +16,10 @@ let server: http.Server;
 
 const toggleServer = async (): Promise<void> => {
   try {
+    await registerRepositories(); 
+
+    const { default: app } = await import('@/app'); 
+    
     server = app.listen(PORT, async () => {
       logger.info(`✅ Server running on ${URI}:${PORT}`);
       await PrismaService.connect();
