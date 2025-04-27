@@ -6924,6 +6924,8 @@ export namespace Prisma {
     lng: number | null
     address: string | null
     timezone: string | null
+    website: string | null
+    phoneNumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
     countryId: string | null
@@ -6938,6 +6940,8 @@ export namespace Prisma {
     lng: number | null
     address: string | null
     timezone: string | null
+    website: string | null
+    phoneNumber: string | null
     createdAt: Date | null
     updatedAt: Date | null
     countryId: string | null
@@ -6952,6 +6956,8 @@ export namespace Prisma {
     lng: number
     address: number
     timezone: number
+    website: number
+    phoneNumber: number
     createdAt: number
     updatedAt: number
     countryId: number
@@ -6978,6 +6984,8 @@ export namespace Prisma {
     lng?: true
     address?: true
     timezone?: true
+    website?: true
+    phoneNumber?: true
     createdAt?: true
     updatedAt?: true
     countryId?: true
@@ -6992,6 +7000,8 @@ export namespace Prisma {
     lng?: true
     address?: true
     timezone?: true
+    website?: true
+    phoneNumber?: true
     createdAt?: true
     updatedAt?: true
     countryId?: true
@@ -7006,6 +7016,8 @@ export namespace Prisma {
     lng?: true
     address?: true
     timezone?: true
+    website?: true
+    phoneNumber?: true
     createdAt?: true
     updatedAt?: true
     countryId?: true
@@ -7107,6 +7119,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website: string | null
+    phoneNumber: string | null
     createdAt: Date
     updatedAt: Date
     countryId: string
@@ -7140,11 +7154,13 @@ export namespace Prisma {
     lng?: boolean
     address?: boolean
     timezone?: boolean
+    website?: boolean
+    phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     countryId?: boolean
     city?: boolean | CityDefaultArgs<ExtArgs>
-    country?: boolean | Airport$countryArgs<ExtArgs>
+    country?: boolean | CountryDefaultArgs<ExtArgs>
     departures?: boolean | Airport$departuresArgs<ExtArgs>
     arrivals?: boolean | Airport$arrivalsArgs<ExtArgs>
     _count?: boolean | AirportCountOutputTypeDefaultArgs<ExtArgs>
@@ -7161,15 +7177,17 @@ export namespace Prisma {
     lng?: boolean
     address?: boolean
     timezone?: boolean
+    website?: boolean
+    phoneNumber?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     countryId?: boolean
   }
 
-  export type AirportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "cityId" | "lat" | "lng" | "address" | "timezone" | "createdAt" | "updatedAt" | "countryId", ExtArgs["result"]["airport"]>
+  export type AirportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "cityId" | "lat" | "lng" | "address" | "timezone" | "website" | "phoneNumber" | "createdAt" | "updatedAt" | "countryId", ExtArgs["result"]["airport"]>
   export type AirportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     city?: boolean | CityDefaultArgs<ExtArgs>
-    country?: boolean | Airport$countryArgs<ExtArgs>
+    country?: boolean | CountryDefaultArgs<ExtArgs>
     departures?: boolean | Airport$departuresArgs<ExtArgs>
     arrivals?: boolean | Airport$arrivalsArgs<ExtArgs>
     _count?: boolean | AirportCountOutputTypeDefaultArgs<ExtArgs>
@@ -7179,7 +7197,7 @@ export namespace Prisma {
     name: "Airport"
     objects: {
       city: Prisma.$CityPayload<ExtArgs>
-      country: Prisma.$CountryPayload<ExtArgs> | null
+      country: Prisma.$CountryPayload<ExtArgs>
       departures: Prisma.$FlightPayload<ExtArgs>[]
       arrivals: Prisma.$FlightPayload<ExtArgs>[]
     }
@@ -7192,6 +7210,8 @@ export namespace Prisma {
       lng: number
       address: string
       timezone: string
+      website: string | null
+      phoneNumber: string | null
       createdAt: Date
       updatedAt: Date
       countryId: string
@@ -7536,7 +7556,7 @@ export namespace Prisma {
   export interface Prisma__AirportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    country<T extends Airport$countryArgs<ExtArgs> = {}>(args?: Subset<T, Airport$countryArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     departures<T extends Airport$departuresArgs<ExtArgs> = {}>(args?: Subset<T, Airport$departuresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     arrivals<T extends Airport$arrivalsArgs<ExtArgs> = {}>(args?: Subset<T, Airport$arrivalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7576,6 +7596,8 @@ export namespace Prisma {
     readonly lng: FieldRef<"Airport", 'Float'>
     readonly address: FieldRef<"Airport", 'String'>
     readonly timezone: FieldRef<"Airport", 'String'>
+    readonly website: FieldRef<"Airport", 'String'>
+    readonly phoneNumber: FieldRef<"Airport", 'String'>
     readonly createdAt: FieldRef<"Airport", 'DateTime'>
     readonly updatedAt: FieldRef<"Airport", 'DateTime'>
     readonly countryId: FieldRef<"Airport", 'String'>
@@ -7919,25 +7941,6 @@ export namespace Prisma {
      * Limit how many Airports to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Airport.country
-   */
-  export type Airport$countryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Country
-     */
-    select?: CountrySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Country
-     */
-    omit?: CountryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CountryInclude<ExtArgs> | null
-    where?: CountryWhereInput
   }
 
   /**
@@ -11278,6 +11281,8 @@ export namespace Prisma {
     lng: 'lng',
     address: 'address',
     timezone: 'timezone',
+    website: 'website',
+    phoneNumber: 'phoneNumber',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     countryId: 'countryId'
@@ -11416,6 +11421,8 @@ export namespace Prisma {
     cityId: 'cityId',
     address: 'address',
     timezone: 'timezone',
+    website: 'website',
+    phoneNumber: 'phoneNumber',
     countryId: 'countryId'
   };
 
@@ -11877,11 +11884,13 @@ export namespace Prisma {
     lng?: FloatFilter<"Airport"> | number
     address?: StringFilter<"Airport"> | string
     timezone?: StringFilter<"Airport"> | string
+    website?: StringNullableFilter<"Airport"> | string | null
+    phoneNumber?: StringNullableFilter<"Airport"> | string | null
     createdAt?: DateTimeFilter<"Airport"> | Date | string
     updatedAt?: DateTimeFilter<"Airport"> | Date | string
     countryId?: StringFilter<"Airport"> | string
     city?: XOR<CityScalarRelationFilter, CityWhereInput>
-    country?: XOR<CountryNullableScalarRelationFilter, CountryWhereInput> | null
+    country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     departures?: FlightListRelationFilter
     arrivals?: FlightListRelationFilter
   }
@@ -11895,6 +11904,8 @@ export namespace Prisma {
     lng?: SortOrder
     address?: SortOrder
     timezone?: SortOrder
+    website?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
@@ -11917,11 +11928,13 @@ export namespace Prisma {
     lat?: FloatFilter<"Airport"> | number
     lng?: FloatFilter<"Airport"> | number
     timezone?: StringFilter<"Airport"> | string
+    website?: StringNullableFilter<"Airport"> | string | null
+    phoneNumber?: StringNullableFilter<"Airport"> | string | null
     createdAt?: DateTimeFilter<"Airport"> | Date | string
     updatedAt?: DateTimeFilter<"Airport"> | Date | string
     countryId?: StringFilter<"Airport"> | string
     city?: XOR<CityScalarRelationFilter, CityWhereInput>
-    country?: XOR<CountryNullableScalarRelationFilter, CountryWhereInput> | null
+    country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     departures?: FlightListRelationFilter
     arrivals?: FlightListRelationFilter
   }, "id" | "code" | "address">
@@ -11935,6 +11948,8 @@ export namespace Prisma {
     lng?: SortOrder
     address?: SortOrder
     timezone?: SortOrder
+    website?: SortOrderInput | SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
@@ -11957,6 +11972,8 @@ export namespace Prisma {
     lng?: FloatWithAggregatesFilter<"Airport"> | number
     address?: StringWithAggregatesFilter<"Airport"> | string
     timezone?: StringWithAggregatesFilter<"Airport"> | string
+    website?: StringNullableWithAggregatesFilter<"Airport"> | string | null
+    phoneNumber?: StringNullableWithAggregatesFilter<"Airport"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Airport"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Airport"> | Date | string
     countryId?: StringWithAggregatesFilter<"Airport"> | string
@@ -12616,10 +12633,12 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
-    country?: CountryCreateNestedOneWithoutAirportsInput
+    country: CountryCreateNestedOneWithoutAirportsInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
@@ -12633,6 +12652,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
@@ -12648,10 +12669,12 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
-    country?: CountryUpdateOneWithoutAirportsNestedInput
+    country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
@@ -12665,6 +12688,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
@@ -12681,6 +12706,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
@@ -12694,6 +12721,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12707,6 +12736,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
@@ -13454,11 +13485,6 @@ export namespace Prisma {
     isNot?: CityWhereInput
   }
 
-  export type CountryNullableScalarRelationFilter = {
-    is?: CountryWhereInput | null
-    isNot?: CountryWhereInput | null
-  }
-
   export type AirportOrderByRelevanceInput = {
     fields: AirportOrderByRelevanceFieldEnum | AirportOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -13474,6 +13500,8 @@ export namespace Prisma {
     lng?: SortOrder
     address?: SortOrder
     timezone?: SortOrder
+    website?: SortOrder
+    phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
@@ -13493,6 +13521,8 @@ export namespace Prisma {
     lng?: SortOrder
     address?: SortOrder
     timezone?: SortOrder
+    website?: SortOrder
+    phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
@@ -13507,6 +13537,8 @@ export namespace Prisma {
     lng?: SortOrder
     address?: SortOrder
     timezone?: SortOrder
+    website?: SortOrder
+    phoneNumber?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
@@ -14327,12 +14359,10 @@ export namespace Prisma {
     update?: XOR<XOR<CityUpdateToOneWithWhereWithoutAirportsInput, CityUpdateWithoutAirportsInput>, CityUncheckedUpdateWithoutAirportsInput>
   }
 
-  export type CountryUpdateOneWithoutAirportsNestedInput = {
+  export type CountryUpdateOneRequiredWithoutAirportsNestedInput = {
     create?: XOR<CountryCreateWithoutAirportsInput, CountryUncheckedCreateWithoutAirportsInput>
     connectOrCreate?: CountryCreateOrConnectWithoutAirportsInput
     upsert?: CountryUpsertWithoutAirportsInput
-    disconnect?: CountryWhereInput | boolean
-    delete?: CountryWhereInput | boolean
     connect?: CountryWhereUniqueInput
     update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutAirportsInput, CountryUpdateWithoutAirportsInput>, CountryUncheckedUpdateWithoutAirportsInput>
   }
@@ -14839,6 +14869,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
@@ -14855,6 +14887,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     departures?: FlightUncheckedCreateNestedManyWithoutFromAirportInput
@@ -14983,6 +15017,8 @@ export namespace Prisma {
     lng?: FloatFilter<"Airport"> | number
     address?: StringFilter<"Airport"> | string
     timezone?: StringFilter<"Airport"> | string
+    website?: StringNullableFilter<"Airport"> | string | null
+    phoneNumber?: StringNullableFilter<"Airport"> | string | null
     createdAt?: DateTimeFilter<"Airport"> | Date | string
     updatedAt?: DateTimeFilter<"Airport"> | Date | string
     countryId?: StringFilter<"Airport"> | string
@@ -15194,9 +15230,11 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    country?: CountryCreateNestedOneWithoutAirportsInput
+    country: CountryCreateNestedOneWithoutAirportsInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
@@ -15209,6 +15247,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
@@ -15894,10 +15934,12 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
-    country?: CountryCreateNestedOneWithoutAirportsInput
+    country: CountryCreateNestedOneWithoutAirportsInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
 
@@ -15910,6 +15952,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
@@ -15929,10 +15973,12 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
-    country?: CountryCreateNestedOneWithoutAirportsInput
+    country: CountryCreateNestedOneWithoutAirportsInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
   }
 
@@ -15945,6 +15991,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
@@ -16069,10 +16117,12 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
-    country?: CountryUpdateOneWithoutAirportsNestedInput
+    country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
 
@@ -16085,6 +16135,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
@@ -16110,10 +16162,12 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
-    country?: CountryUpdateOneWithoutAirportsNestedInput
+    country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
   }
 
@@ -16126,6 +16180,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
@@ -16402,6 +16458,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16458,6 +16516,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
@@ -16474,6 +16534,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     departures?: FlightUncheckedUpdateManyWithoutFromAirportNestedInput
@@ -16489,6 +16551,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16595,6 +16659,8 @@ export namespace Prisma {
     lng: number
     address: string
     timezone: string
+    website?: string | null
+    phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
@@ -16608,9 +16674,11 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    country?: CountryUpdateOneWithoutAirportsNestedInput
+    country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
@@ -16623,6 +16691,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
@@ -16638,6 +16708,8 @@ export namespace Prisma {
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
