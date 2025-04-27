@@ -298,7 +298,6 @@ exports.Prisma.PassengerOrderByRelevanceFieldEnum = {
   lastName: 'lastName',
   email: 'email',
   phone: 'phone',
-  gender: 'gender',
   nationality: 'nationality',
   passportNumber: 'passportNumber',
   address: 'address',
@@ -325,6 +324,13 @@ exports.FlightStatus = exports.$Enums.FlightStatus = {
   Arrived: 'Arrived',
   Departed: 'Departed',
   Scheduled: 'Scheduled'
+};
+
+exports.Gender = exports.$Enums.Gender = {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other',
+  PreferNotToSay: 'PreferNotToSay'
 };
 
 exports.PassengerClass = exports.$Enums.PassengerClass = {

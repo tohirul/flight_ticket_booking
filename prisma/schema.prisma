@@ -36,21 +36,31 @@ enum PassengerClass {
   First
 }
 
+enum Gender {
+  Male
+  Female
+  Other
+  PreferNotToSay
+}
+
 model Country {
   id          String    @id @default(uuid())
-  name        String
+  name        String    @unique
   countryCode String    @unique
   airlines    Airline[]
   airports    Airport[]
   cities      City[]
   State       State[]
+
+  @@unique([name, countryCode])
+  @@map("Country")
 }
 
 model State {
   id        String  @id @default(uuid())
   name      String
   stateCode String?
-  country   Country @relation(fields: [countryId], references: [id])
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId String
   cities    City[]
 
@@ -81,7 +91,7 @@ model City {
 model Airline {
   id        String     @id @default(uuid())
   name      String
-  country   Country    @relation(fields: [countryId], references: [id])
+  country   Country    @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId String
   logo      String
   createdAt DateTime   @default(now())
@@ -134,9 +144,9 @@ model Airport {
 
 model Flight {
   id             String       @id @default(uuid())
-  airline        Airline?     @relation(fields: [airlineId], references: [id])
+  airline        Airline?     @relation(fields: [airlineId], references: [id], onDelete: SetNull)
   airlineId      String?
-  airplane       Airplane?    @relation(fields: [airplaneId], references: [id])
+  airplane       Airplane?    @relation(fields: [airplaneId], references: [id], onDelete: SetNull)
   airplaneId     String?
   departureTime  DateTime
   arrivalTime    DateTime
@@ -144,9 +154,9 @@ model Flight {
   updatedAt      DateTime     @updatedAt
   flightDuration Int
   flightDistance Int
-  fromAirport    Airport      @relation("Departure", fields: [fromAirportId], references: [id])
+  fromAirport    Airport      @relation("Departure", fields: [fromAirportId], references: [id], onDelete: Cascade)
   fromAirportId  String
-  toAirport      Airport      @relation("Arrival", fields: [toAirportId], references: [id])
+  toAirport      Airport      @relation("Arrival", fields: [toAirportId], references: [id], onDelete: Cascade)
   toAirportId    String
   flightNumber   String       @unique
   flightStatus   FlightStatus
@@ -163,12 +173,12 @@ model Passenger {
   email               String    @unique
   phone               String    @unique
   dateOfBirth         DateTime
-  gender              String?
-  nationality         String?
-  passportNumber      String?
-  address             String?
-  emergencyContact    String?
-  emergencyPhone      String?
+  gender              Gender
+  nationality         String
+  passportNumber      String
+  address             String
+  emergencyContact    String
+  emergencyPhone      String
   frequentFlyer       Boolean   @default(false)
   mealPreference      String?
   specialRequirements String?
@@ -176,13 +186,15 @@ model Passenger {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
   bookings            Booking[]
+
+  @@map("Passenger")
 }
 
 model Booking {
   id             String         @id @default(uuid())
-  passenger      Passenger      @relation(fields: [passengerId], references: [id])
+  passenger      Passenger      @relation(fields: [passengerId], references: [id], onDelete: Cascade)
   passengerId    String
-  flight         Flight         @relation(fields: [flightId], references: [id])
+  flight         Flight         @relation(fields: [flightId], references: [id], onDelete: Cascade)
   flightId       String
   seatNumber     String
   bookingDate    DateTime       @default(now())
