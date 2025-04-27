@@ -98,6 +98,16 @@ export const PassengerClass: {
 
 export type PassengerClass = (typeof PassengerClass)[keyof typeof PassengerClass]
 
+
+export const Gender: {
+  Male: 'Male',
+  Female: 'Female',
+  Other: 'Other',
+  PreferNotToSay: 'PreferNotToSay'
+};
+
+export type Gender = (typeof Gender)[keyof typeof Gender]
+
 }
 
 export type FlightStatus = $Enums.FlightStatus
@@ -111,6 +121,10 @@ export const BookingStatus: typeof $Enums.BookingStatus
 export type PassengerClass = $Enums.PassengerClass
 
 export const PassengerClass: typeof $Enums.PassengerClass
+
+export type Gender = $Enums.Gender
+
+export const Gender: typeof $Enums.Gender
 
 /**
  * ##  Prisma Client ʲˢ
@@ -9162,7 +9176,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     dateOfBirth: Date | null
-    gender: string | null
+    gender: $Enums.Gender | null
     nationality: string | null
     passportNumber: string | null
     address: string | null
@@ -9183,7 +9197,7 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     dateOfBirth: Date | null
-    gender: string | null
+    gender: $Enums.Gender | null
     nationality: string | null
     passportNumber: string | null
     address: string | null
@@ -9363,12 +9377,12 @@ export namespace Prisma {
     email: string
     phone: string
     dateOfBirth: Date
-    gender: string | null
-    nationality: string | null
-    passportNumber: string | null
-    address: string | null
-    emergencyContact: string | null
-    emergencyPhone: string | null
+    gender: $Enums.Gender
+    nationality: string
+    passportNumber: string
+    address: string
+    emergencyContact: string
+    emergencyPhone: string
     frequentFlyer: boolean
     mealPreference: string | null
     specialRequirements: string | null
@@ -9458,12 +9472,12 @@ export namespace Prisma {
       email: string
       phone: string
       dateOfBirth: Date
-      gender: string | null
-      nationality: string | null
-      passportNumber: string | null
-      address: string | null
-      emergencyContact: string | null
-      emergencyPhone: string | null
+      gender: $Enums.Gender
+      nationality: string
+      passportNumber: string
+      address: string
+      emergencyContact: string
+      emergencyPhone: string
       frequentFlyer: boolean
       mealPreference: string | null
       specialRequirements: string | null
@@ -9846,7 +9860,7 @@ export namespace Prisma {
     readonly email: FieldRef<"Passenger", 'String'>
     readonly phone: FieldRef<"Passenger", 'String'>
     readonly dateOfBirth: FieldRef<"Passenger", 'DateTime'>
-    readonly gender: FieldRef<"Passenger", 'String'>
+    readonly gender: FieldRef<"Passenger", 'Gender'>
     readonly nationality: FieldRef<"Passenger", 'String'>
     readonly passportNumber: FieldRef<"Passenger", 'String'>
     readonly address: FieldRef<"Passenger", 'String'>
@@ -11447,7 +11461,6 @@ export namespace Prisma {
     lastName: 'lastName',
     email: 'email',
     phone: 'phone',
-    gender: 'gender',
     nationality: 'nationality',
     passportNumber: 'passportNumber',
     address: 'address',
@@ -11511,6 +11524,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Gender'
+   */
+  export type EnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -11560,16 +11580,17 @@ export namespace Prisma {
 
   export type CountryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     countryCode?: string
+    name_countryCode?: CountryNameCountryCodeCompoundUniqueInput
     AND?: CountryWhereInput | CountryWhereInput[]
     OR?: CountryWhereInput[]
     NOT?: CountryWhereInput | CountryWhereInput[]
-    name?: StringFilter<"Country"> | string
     airlines?: AirlineListRelationFilter
     airports?: AirportListRelationFilter
     cities?: CityListRelationFilter
     State?: StateListRelationFilter
-  }, "id" | "countryCode">
+  }, "id" | "name" | "countryCode" | "name_countryCode">
 
   export type CountryOrderByWithAggregationInput = {
     id?: SortOrder
@@ -12099,12 +12120,12 @@ export namespace Prisma {
     email?: StringFilter<"Passenger"> | string
     phone?: StringFilter<"Passenger"> | string
     dateOfBirth?: DateTimeFilter<"Passenger"> | Date | string
-    gender?: StringNullableFilter<"Passenger"> | string | null
-    nationality?: StringNullableFilter<"Passenger"> | string | null
-    passportNumber?: StringNullableFilter<"Passenger"> | string | null
-    address?: StringNullableFilter<"Passenger"> | string | null
-    emergencyContact?: StringNullableFilter<"Passenger"> | string | null
-    emergencyPhone?: StringNullableFilter<"Passenger"> | string | null
+    gender?: EnumGenderFilter<"Passenger"> | $Enums.Gender
+    nationality?: StringFilter<"Passenger"> | string
+    passportNumber?: StringFilter<"Passenger"> | string
+    address?: StringFilter<"Passenger"> | string
+    emergencyContact?: StringFilter<"Passenger"> | string
+    emergencyPhone?: StringFilter<"Passenger"> | string
     frequentFlyer?: BoolFilter<"Passenger"> | boolean
     mealPreference?: StringNullableFilter<"Passenger"> | string | null
     specialRequirements?: StringNullableFilter<"Passenger"> | string | null
@@ -12121,12 +12142,12 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     dateOfBirth?: SortOrder
-    gender?: SortOrderInput | SortOrder
-    nationality?: SortOrderInput | SortOrder
-    passportNumber?: SortOrderInput | SortOrder
-    address?: SortOrderInput | SortOrder
-    emergencyContact?: SortOrderInput | SortOrder
-    emergencyPhone?: SortOrderInput | SortOrder
+    gender?: SortOrder
+    nationality?: SortOrder
+    passportNumber?: SortOrder
+    address?: SortOrder
+    emergencyContact?: SortOrder
+    emergencyPhone?: SortOrder
     frequentFlyer?: SortOrder
     mealPreference?: SortOrderInput | SortOrder
     specialRequirements?: SortOrderInput | SortOrder
@@ -12147,12 +12168,12 @@ export namespace Prisma {
     firstName?: StringFilter<"Passenger"> | string
     lastName?: StringFilter<"Passenger"> | string
     dateOfBirth?: DateTimeFilter<"Passenger"> | Date | string
-    gender?: StringNullableFilter<"Passenger"> | string | null
-    nationality?: StringNullableFilter<"Passenger"> | string | null
-    passportNumber?: StringNullableFilter<"Passenger"> | string | null
-    address?: StringNullableFilter<"Passenger"> | string | null
-    emergencyContact?: StringNullableFilter<"Passenger"> | string | null
-    emergencyPhone?: StringNullableFilter<"Passenger"> | string | null
+    gender?: EnumGenderFilter<"Passenger"> | $Enums.Gender
+    nationality?: StringFilter<"Passenger"> | string
+    passportNumber?: StringFilter<"Passenger"> | string
+    address?: StringFilter<"Passenger"> | string
+    emergencyContact?: StringFilter<"Passenger"> | string
+    emergencyPhone?: StringFilter<"Passenger"> | string
     frequentFlyer?: BoolFilter<"Passenger"> | boolean
     mealPreference?: StringNullableFilter<"Passenger"> | string | null
     specialRequirements?: StringNullableFilter<"Passenger"> | string | null
@@ -12169,12 +12190,12 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     dateOfBirth?: SortOrder
-    gender?: SortOrderInput | SortOrder
-    nationality?: SortOrderInput | SortOrder
-    passportNumber?: SortOrderInput | SortOrder
-    address?: SortOrderInput | SortOrder
-    emergencyContact?: SortOrderInput | SortOrder
-    emergencyPhone?: SortOrderInput | SortOrder
+    gender?: SortOrder
+    nationality?: SortOrder
+    passportNumber?: SortOrder
+    address?: SortOrder
+    emergencyContact?: SortOrder
+    emergencyPhone?: SortOrder
     frequentFlyer?: SortOrder
     mealPreference?: SortOrderInput | SortOrder
     specialRequirements?: SortOrderInput | SortOrder
@@ -12196,12 +12217,12 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Passenger"> | string
     phone?: StringWithAggregatesFilter<"Passenger"> | string
     dateOfBirth?: DateTimeWithAggregatesFilter<"Passenger"> | Date | string
-    gender?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
-    nationality?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
-    passportNumber?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
-    address?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
-    emergencyContact?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
-    emergencyPhone?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
+    gender?: EnumGenderWithAggregatesFilter<"Passenger"> | $Enums.Gender
+    nationality?: StringWithAggregatesFilter<"Passenger"> | string
+    passportNumber?: StringWithAggregatesFilter<"Passenger"> | string
+    address?: StringWithAggregatesFilter<"Passenger"> | string
+    emergencyContact?: StringWithAggregatesFilter<"Passenger"> | string
+    emergencyPhone?: StringWithAggregatesFilter<"Passenger"> | string
     frequentFlyer?: BoolWithAggregatesFilter<"Passenger"> | boolean
     mealPreference?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
     specialRequirements?: StringNullableWithAggregatesFilter<"Passenger"> | string | null
@@ -12862,12 +12883,12 @@ export namespace Prisma {
     email: string
     phone: string
     dateOfBirth: Date | string
-    gender?: string | null
-    nationality?: string | null
-    passportNumber?: string | null
-    address?: string | null
-    emergencyContact?: string | null
-    emergencyPhone?: string | null
+    gender: $Enums.Gender
+    nationality: string
+    passportNumber: string
+    address: string
+    emergencyContact: string
+    emergencyPhone: string
     frequentFlyer?: boolean
     mealPreference?: string | null
     specialRequirements?: string | null
@@ -12884,12 +12905,12 @@ export namespace Prisma {
     email: string
     phone: string
     dateOfBirth: Date | string
-    gender?: string | null
-    nationality?: string | null
-    passportNumber?: string | null
-    address?: string | null
-    emergencyContact?: string | null
-    emergencyPhone?: string | null
+    gender: $Enums.Gender
+    nationality: string
+    passportNumber: string
+    address: string
+    emergencyContact: string
+    emergencyPhone: string
     frequentFlyer?: boolean
     mealPreference?: string | null
     specialRequirements?: string | null
@@ -12906,12 +12927,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    passportNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContact?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    nationality?: StringFieldUpdateOperationsInput | string
+    passportNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    emergencyPhone?: StringFieldUpdateOperationsInput | string
     frequentFlyer?: BoolFieldUpdateOperationsInput | boolean
     mealPreference?: NullableStringFieldUpdateOperationsInput | string | null
     specialRequirements?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12928,12 +12949,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    passportNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContact?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    nationality?: StringFieldUpdateOperationsInput | string
+    passportNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    emergencyPhone?: StringFieldUpdateOperationsInput | string
     frequentFlyer?: BoolFieldUpdateOperationsInput | boolean
     mealPreference?: NullableStringFieldUpdateOperationsInput | string | null
     specialRequirements?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12950,12 +12971,12 @@ export namespace Prisma {
     email: string
     phone: string
     dateOfBirth: Date | string
-    gender?: string | null
-    nationality?: string | null
-    passportNumber?: string | null
-    address?: string | null
-    emergencyContact?: string | null
-    emergencyPhone?: string | null
+    gender: $Enums.Gender
+    nationality: string
+    passportNumber: string
+    address: string
+    emergencyContact: string
+    emergencyPhone: string
     frequentFlyer?: boolean
     mealPreference?: string | null
     specialRequirements?: string | null
@@ -12971,12 +12992,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    passportNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContact?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    nationality?: StringFieldUpdateOperationsInput | string
+    passportNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    emergencyPhone?: StringFieldUpdateOperationsInput | string
     frequentFlyer?: BoolFieldUpdateOperationsInput | boolean
     mealPreference?: NullableStringFieldUpdateOperationsInput | string | null
     specialRequirements?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12992,12 +13013,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    passportNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContact?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    nationality?: StringFieldUpdateOperationsInput | string
+    passportNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    emergencyPhone?: StringFieldUpdateOperationsInput | string
     frequentFlyer?: BoolFieldUpdateOperationsInput | boolean
     mealPreference?: NullableStringFieldUpdateOperationsInput | string | null
     specialRequirements?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13133,6 +13154,11 @@ export namespace Prisma {
     fields: CountryOrderByRelevanceFieldEnum | CountryOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
+  }
+
+  export type CountryNameCountryCodeCompoundUniqueInput = {
+    name: string
+    countryCode: string
   }
 
   export type CountryCountOrderByAggregateInput = {
@@ -13671,6 +13697,13 @@ export namespace Prisma {
     _max?: NestedEnumFlightStatusFilter<$PrismaModel>
   }
 
+  export type EnumGenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[]
+    notIn?: $Enums.Gender[]
+    not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -13743,6 +13776,16 @@ export namespace Prisma {
     bookingDate?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[]
+    notIn?: $Enums.Gender[]
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -14543,6 +14586,10 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
+  export type EnumGenderFieldUpdateOperationsInput = {
+    set?: $Enums.Gender
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -14784,9 +14831,26 @@ export namespace Prisma {
     _max?: NestedEnumFlightStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumGenderFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[]
+    notIn?: $Enums.Gender[]
+    not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
+    in?: $Enums.Gender[]
+    notIn?: $Enums.Gender[]
+    not?: NestedEnumGenderWithAggregatesFilter<$PrismaModel> | $Enums.Gender
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGenderFilter<$PrismaModel>
+    _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -16268,12 +16332,12 @@ export namespace Prisma {
     email: string
     phone: string
     dateOfBirth: Date | string
-    gender?: string | null
-    nationality?: string | null
-    passportNumber?: string | null
-    address?: string | null
-    emergencyContact?: string | null
-    emergencyPhone?: string | null
+    gender: $Enums.Gender
+    nationality: string
+    passportNumber: string
+    address: string
+    emergencyContact: string
+    emergencyPhone: string
     frequentFlyer?: boolean
     mealPreference?: string | null
     specialRequirements?: string | null
@@ -16289,12 +16353,12 @@ export namespace Prisma {
     email: string
     phone: string
     dateOfBirth: Date | string
-    gender?: string | null
-    nationality?: string | null
-    passportNumber?: string | null
-    address?: string | null
-    emergencyContact?: string | null
-    emergencyPhone?: string | null
+    gender: $Enums.Gender
+    nationality: string
+    passportNumber: string
+    address: string
+    emergencyContact: string
+    emergencyPhone: string
     frequentFlyer?: boolean
     mealPreference?: string | null
     specialRequirements?: string | null
@@ -16363,12 +16427,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    passportNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContact?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    nationality?: StringFieldUpdateOperationsInput | string
+    passportNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    emergencyPhone?: StringFieldUpdateOperationsInput | string
     frequentFlyer?: BoolFieldUpdateOperationsInput | boolean
     mealPreference?: NullableStringFieldUpdateOperationsInput | string | null
     specialRequirements?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16384,12 +16448,12 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    nationality?: NullableStringFieldUpdateOperationsInput | string | null
-    passportNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    address?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyContact?: NullableStringFieldUpdateOperationsInput | string | null
-    emergencyPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    nationality?: StringFieldUpdateOperationsInput | string
+    passportNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    emergencyPhone?: StringFieldUpdateOperationsInput | string
     frequentFlyer?: BoolFieldUpdateOperationsInput | boolean
     mealPreference?: NullableStringFieldUpdateOperationsInput | string | null
     specialRequirements?: NullableStringFieldUpdateOperationsInput | string | null
