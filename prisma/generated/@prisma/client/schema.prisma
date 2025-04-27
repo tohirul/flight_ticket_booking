@@ -109,21 +109,27 @@ model Airplane {
 }
 
 model Airport {
-  id         String   @id @default(uuid())
-  name       String
-  code       String   @unique
-  city       City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
-  cityId     String
-  lat        Float
-  lng        Float
-  address    String   @unique
-  timezone   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  country    Country? @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  countryId  String
-  departures Flight[] @relation("Departure")
-  arrivals   Flight[] @relation("Arrival")
+  id          String   @id @default(uuid())
+  name        String
+  code        String   @unique // IATA code (e.g., JFK, LAX)
+  city        City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
+  cityId      String
+  lat         Float
+  lng         Float
+  address     String   @unique
+  timezone    String
+  website     String?
+  phoneNumber String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  country     Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId   String
+  departures  Flight[] @relation("Departure")
+  arrivals    Flight[] @relation("Arrival")
+
+  @@index([cityId])
+  @@index([countryId])
+  @@index([timezone])
 }
 
 model Flight {

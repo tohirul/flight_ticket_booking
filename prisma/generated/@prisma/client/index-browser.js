@@ -171,6 +171,8 @@ exports.Prisma.AirportScalarFieldEnum = {
   lng: 'lng',
   address: 'address',
   timezone: 'timezone',
+  website: 'website',
+  phoneNumber: 'phoneNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   countryId: 'countryId'
@@ -276,6 +278,8 @@ exports.Prisma.AirportOrderByRelevanceFieldEnum = {
   cityId: 'cityId',
   address: 'address',
   timezone: 'timezone',
+  website: 'website',
+  phoneNumber: 'phoneNumber',
   countryId: 'countryId'
 };
 
