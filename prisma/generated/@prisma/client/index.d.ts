@@ -1651,10 +1651,12 @@ export namespace Prisma {
 
   export type StateCountOutputType = {
     cities: number
+    Airport: number
   }
 
   export type StateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cities?: boolean | StateCountOutputTypeCountCitiesArgs
+    Airport?: boolean | StateCountOutputTypeCountAirportArgs
   }
 
   // Custom InputTypes
@@ -1673,6 +1675,13 @@ export namespace Prisma {
    */
   export type StateCountOutputTypeCountCitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CityWhereInput
+  }
+
+  /**
+   * StateCountOutputType without action
+   */
+  export type StateCountOutputTypeCountAirportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AirportWhereInput
   }
 
 
@@ -3031,7 +3040,7 @@ export namespace Prisma {
   export type StateGroupByOutputType = {
     id: string
     name: string
-    stateCode: string | null
+    stateCode: string
     countryId: string
     _count: StateCountAggregateOutputType | null
     _min: StateMinAggregateOutputType | null
@@ -3059,6 +3068,7 @@ export namespace Prisma {
     countryId?: boolean
     country?: boolean | CountryDefaultArgs<ExtArgs>
     cities?: boolean | State$citiesArgs<ExtArgs>
+    Airport?: boolean | State$AirportArgs<ExtArgs>
     _count?: boolean | StateCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["state"]>
 
@@ -3075,6 +3085,7 @@ export namespace Prisma {
   export type StateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     country?: boolean | CountryDefaultArgs<ExtArgs>
     cities?: boolean | State$citiesArgs<ExtArgs>
+    Airport?: boolean | State$AirportArgs<ExtArgs>
     _count?: boolean | StateCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -3083,11 +3094,12 @@ export namespace Prisma {
     objects: {
       country: Prisma.$CountryPayload<ExtArgs>
       cities: Prisma.$CityPayload<ExtArgs>[]
+      Airport: Prisma.$AirportPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      stateCode: string | null
+      stateCode: string
       countryId: string
     }, ExtArgs["result"]["state"]>
     composites: {}
@@ -3431,6 +3443,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     cities<T extends State$citiesArgs<ExtArgs> = {}>(args?: Subset<T, State$citiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Airport<T extends State$AirportArgs<ExtArgs> = {}>(args?: Subset<T, State$AirportArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AirportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3831,6 +3844,30 @@ export namespace Prisma {
   }
 
   /**
+   * State.Airport
+   */
+  export type State$AirportArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Airport
+     */
+    select?: AirportSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Airport
+     */
+    omit?: AirportOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AirportInclude<ExtArgs> | null
+    where?: AirportWhereInput
+    orderBy?: AirportOrderByWithRelationInput | AirportOrderByWithRelationInput[]
+    cursor?: AirportWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AirportScalarFieldEnum | AirportScalarFieldEnum[]
+  }
+
+  /**
    * State without action
    */
   export type StateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3862,7 +3899,6 @@ export namespace Prisma {
   export type CityMinAggregateOutputType = {
     id: string | null
     name: string | null
-    cityIATACode: string | null
     stateId: string | null
     countryId: string | null
     stateCountryKey: string | null
@@ -3873,7 +3909,6 @@ export namespace Prisma {
   export type CityMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    cityIATACode: string | null
     stateId: string | null
     countryId: string | null
     stateCountryKey: string | null
@@ -3884,7 +3919,6 @@ export namespace Prisma {
   export type CityCountAggregateOutputType = {
     id: number
     name: number
-    cityIATACode: number
     stateId: number
     countryId: number
     stateCountryKey: number
@@ -3897,7 +3931,6 @@ export namespace Prisma {
   export type CityMinAggregateInputType = {
     id?: true
     name?: true
-    cityIATACode?: true
     stateId?: true
     countryId?: true
     stateCountryKey?: true
@@ -3908,7 +3941,6 @@ export namespace Prisma {
   export type CityMaxAggregateInputType = {
     id?: true
     name?: true
-    cityIATACode?: true
     stateId?: true
     countryId?: true
     stateCountryKey?: true
@@ -3919,7 +3951,6 @@ export namespace Prisma {
   export type CityCountAggregateInputType = {
     id?: true
     name?: true
-    cityIATACode?: true
     stateId?: true
     countryId?: true
     stateCountryKey?: true
@@ -4003,7 +4034,6 @@ export namespace Prisma {
   export type CityGroupByOutputType = {
     id: string
     name: string
-    cityIATACode: string
     stateId: string | null
     countryId: string
     stateCountryKey: string
@@ -4031,7 +4061,6 @@ export namespace Prisma {
   export type CitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    cityIATACode?: boolean
     stateId?: boolean
     countryId?: boolean
     stateCountryKey?: boolean
@@ -4048,7 +4077,6 @@ export namespace Prisma {
   export type CitySelectScalar = {
     id?: boolean
     name?: boolean
-    cityIATACode?: boolean
     stateId?: boolean
     countryId?: boolean
     stateCountryKey?: boolean
@@ -4056,7 +4084,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "cityIATACode" | "stateId" | "countryId" | "stateCountryKey" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
+  export type CityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "stateId" | "countryId" | "stateCountryKey" | "createdAt" | "updatedAt", ExtArgs["result"]["city"]>
   export type CityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     state?: boolean | City$stateArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
@@ -4074,7 +4102,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      cityIATACode: string
       stateId: string | null
       countryId: string
       stateCountryKey: string
@@ -4454,7 +4481,6 @@ export namespace Prisma {
   interface CityFieldRefs {
     readonly id: FieldRef<"City", 'String'>
     readonly name: FieldRef<"City", 'String'>
-    readonly cityIATACode: FieldRef<"City", 'String'>
     readonly stateId: FieldRef<"City", 'String'>
     readonly countryId: FieldRef<"City", 'String'>
     readonly stateCountryKey: FieldRef<"City", 'String'>
@@ -6932,7 +6958,7 @@ export namespace Prisma {
   export type AirportMinAggregateOutputType = {
     id: string | null
     name: string | null
-    code: string | null
+    IATAcode: string | null
     cityId: string | null
     lat: number | null
     lng: number | null
@@ -6943,12 +6969,13 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     countryId: string | null
+    stateId: string | null
   }
 
   export type AirportMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    code: string | null
+    IATAcode: string | null
     cityId: string | null
     lat: number | null
     lng: number | null
@@ -6959,12 +6986,13 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     countryId: string | null
+    stateId: string | null
   }
 
   export type AirportCountAggregateOutputType = {
     id: number
     name: number
-    code: number
+    IATAcode: number
     cityId: number
     lat: number
     lng: number
@@ -6975,6 +7003,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     countryId: number
+    stateId: number
     _all: number
   }
 
@@ -6992,7 +7021,7 @@ export namespace Prisma {
   export type AirportMinAggregateInputType = {
     id?: true
     name?: true
-    code?: true
+    IATAcode?: true
     cityId?: true
     lat?: true
     lng?: true
@@ -7003,12 +7032,13 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     countryId?: true
+    stateId?: true
   }
 
   export type AirportMaxAggregateInputType = {
     id?: true
     name?: true
-    code?: true
+    IATAcode?: true
     cityId?: true
     lat?: true
     lng?: true
@@ -7019,12 +7049,13 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     countryId?: true
+    stateId?: true
   }
 
   export type AirportCountAggregateInputType = {
     id?: true
     name?: true
-    code?: true
+    IATAcode?: true
     cityId?: true
     lat?: true
     lng?: true
@@ -7035,6 +7066,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     countryId?: true
+    stateId?: true
     _all?: true
   }
 
@@ -7127,7 +7159,7 @@ export namespace Prisma {
   export type AirportGroupByOutputType = {
     id: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -7138,6 +7170,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     countryId: string
+    stateId: string
     _count: AirportCountAggregateOutputType | null
     _avg: AirportAvgAggregateOutputType | null
     _sum: AirportSumAggregateOutputType | null
@@ -7162,7 +7195,7 @@ export namespace Prisma {
   export type AirportSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    code?: boolean
+    IATAcode?: boolean
     cityId?: boolean
     lat?: boolean
     lng?: boolean
@@ -7173,8 +7206,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     countryId?: boolean
+    stateId?: boolean
     city?: boolean | CityDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
     departures?: boolean | Airport$departuresArgs<ExtArgs>
     arrivals?: boolean | Airport$arrivalsArgs<ExtArgs>
     _count?: boolean | AirportCountOutputTypeDefaultArgs<ExtArgs>
@@ -7185,7 +7220,7 @@ export namespace Prisma {
   export type AirportSelectScalar = {
     id?: boolean
     name?: boolean
-    code?: boolean
+    IATAcode?: boolean
     cityId?: boolean
     lat?: boolean
     lng?: boolean
@@ -7196,12 +7231,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     countryId?: boolean
+    stateId?: boolean
   }
 
-  export type AirportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "cityId" | "lat" | "lng" | "address" | "timezone" | "website" | "phoneNumber" | "createdAt" | "updatedAt" | "countryId", ExtArgs["result"]["airport"]>
+  export type AirportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "IATAcode" | "cityId" | "lat" | "lng" | "address" | "timezone" | "website" | "phoneNumber" | "createdAt" | "updatedAt" | "countryId" | "stateId", ExtArgs["result"]["airport"]>
   export type AirportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     city?: boolean | CityDefaultArgs<ExtArgs>
     country?: boolean | CountryDefaultArgs<ExtArgs>
+    state?: boolean | StateDefaultArgs<ExtArgs>
     departures?: boolean | Airport$departuresArgs<ExtArgs>
     arrivals?: boolean | Airport$arrivalsArgs<ExtArgs>
     _count?: boolean | AirportCountOutputTypeDefaultArgs<ExtArgs>
@@ -7212,13 +7249,14 @@ export namespace Prisma {
     objects: {
       city: Prisma.$CityPayload<ExtArgs>
       country: Prisma.$CountryPayload<ExtArgs>
+      state: Prisma.$StatePayload<ExtArgs>
       departures: Prisma.$FlightPayload<ExtArgs>[]
       arrivals: Prisma.$FlightPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      code: string
+      IATAcode: string
       cityId: string
       lat: number
       lng: number
@@ -7229,6 +7267,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       countryId: string
+      stateId: string
     }, ExtArgs["result"]["airport"]>
     composites: {}
   }
@@ -7571,6 +7610,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     city<T extends CityDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CityDefaultArgs<ExtArgs>>): Prisma__CityClient<$Result.GetResult<Prisma.$CityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     country<T extends CountryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CountryDefaultArgs<ExtArgs>>): Prisma__CountryClient<$Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    state<T extends StateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StateDefaultArgs<ExtArgs>>): Prisma__StateClient<$Result.GetResult<Prisma.$StatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     departures<T extends Airport$departuresArgs<ExtArgs> = {}>(args?: Subset<T, Airport$departuresArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     arrivals<T extends Airport$arrivalsArgs<ExtArgs> = {}>(args?: Subset<T, Airport$arrivalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FlightPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7604,7 +7644,7 @@ export namespace Prisma {
   interface AirportFieldRefs {
     readonly id: FieldRef<"Airport", 'String'>
     readonly name: FieldRef<"Airport", 'String'>
-    readonly code: FieldRef<"Airport", 'String'>
+    readonly IATAcode: FieldRef<"Airport", 'String'>
     readonly cityId: FieldRef<"Airport", 'String'>
     readonly lat: FieldRef<"Airport", 'Float'>
     readonly lng: FieldRef<"Airport", 'Float'>
@@ -7615,6 +7655,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Airport", 'DateTime'>
     readonly updatedAt: FieldRef<"Airport", 'DateTime'>
     readonly countryId: FieldRef<"Airport", 'String'>
+    readonly stateId: FieldRef<"Airport", 'String'>
   }
     
 
@@ -11210,7 +11251,6 @@ export namespace Prisma {
   export const CityScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    cityIATACode: 'cityIATACode',
     stateId: 'stateId',
     countryId: 'countryId',
     stateCountryKey: 'stateCountryKey',
@@ -11251,7 +11291,7 @@ export namespace Prisma {
   export const AirportScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    code: 'code',
+    IATAcode: 'IATAcode',
     cityId: 'cityId',
     lat: 'lat',
     lng: 'lng',
@@ -11261,7 +11301,8 @@ export namespace Prisma {
     phoneNumber: 'phoneNumber',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    countryId: 'countryId'
+    countryId: 'countryId',
+    stateId: 'stateId'
   };
 
   export type AirportScalarFieldEnum = (typeof AirportScalarFieldEnum)[keyof typeof AirportScalarFieldEnum]
@@ -11340,14 +11381,6 @@ export namespace Prisma {
   export type CountryOrderByRelevanceFieldEnum = (typeof CountryOrderByRelevanceFieldEnum)[keyof typeof CountryOrderByRelevanceFieldEnum]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
   export const StateOrderByRelevanceFieldEnum: {
     id: 'id',
     name: 'name',
@@ -11358,10 +11391,17 @@ export namespace Prisma {
   export type StateOrderByRelevanceFieldEnum = (typeof StateOrderByRelevanceFieldEnum)[keyof typeof StateOrderByRelevanceFieldEnum]
 
 
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   export const CityOrderByRelevanceFieldEnum: {
     id: 'id',
     name: 'name',
-    cityIATACode: 'cityIATACode',
     stateId: 'stateId',
     countryId: 'countryId',
     stateCountryKey: 'stateCountryKey'
@@ -11393,13 +11433,14 @@ export namespace Prisma {
   export const AirportOrderByRelevanceFieldEnum: {
     id: 'id',
     name: 'name',
-    code: 'code',
+    IATAcode: 'IATAcode',
     cityId: 'cityId',
     address: 'address',
     timezone: 'timezone',
     website: 'website',
     phoneNumber: 'phoneNumber',
-    countryId: 'countryId'
+    countryId: 'countryId',
+    stateId: 'stateId'
   };
 
   export type AirportOrderByRelevanceFieldEnum = (typeof AirportOrderByRelevanceFieldEnum)[keyof typeof AirportOrderByRelevanceFieldEnum]
@@ -11578,19 +11619,21 @@ export namespace Prisma {
     NOT?: StateWhereInput | StateWhereInput[]
     id?: StringFilter<"State"> | string
     name?: StringFilter<"State"> | string
-    stateCode?: StringNullableFilter<"State"> | string | null
+    stateCode?: StringFilter<"State"> | string
     countryId?: StringFilter<"State"> | string
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     cities?: CityListRelationFilter
+    Airport?: AirportListRelationFilter
   }
 
   export type StateOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    stateCode?: SortOrderInput | SortOrder
+    stateCode?: SortOrder
     countryId?: SortOrder
     country?: CountryOrderByWithRelationInput
     cities?: CityOrderByRelationAggregateInput
+    Airport?: AirportOrderByRelationAggregateInput
     _relevance?: StateOrderByRelevanceInput
   }
 
@@ -11602,16 +11645,17 @@ export namespace Prisma {
     OR?: StateWhereInput[]
     NOT?: StateWhereInput | StateWhereInput[]
     name?: StringFilter<"State"> | string
-    stateCode?: StringNullableFilter<"State"> | string | null
+    stateCode?: StringFilter<"State"> | string
     countryId?: StringFilter<"State"> | string
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     cities?: CityListRelationFilter
+    Airport?: AirportListRelationFilter
   }, "id" | "name_countryId" | "stateCode_countryId">
 
   export type StateOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    stateCode?: SortOrderInput | SortOrder
+    stateCode?: SortOrder
     countryId?: SortOrder
     _count?: StateCountOrderByAggregateInput
     _max?: StateMaxOrderByAggregateInput
@@ -11624,7 +11668,7 @@ export namespace Prisma {
     NOT?: StateScalarWhereWithAggregatesInput | StateScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"State"> | string
     name?: StringWithAggregatesFilter<"State"> | string
-    stateCode?: StringNullableWithAggregatesFilter<"State"> | string | null
+    stateCode?: StringWithAggregatesFilter<"State"> | string
     countryId?: StringWithAggregatesFilter<"State"> | string
   }
 
@@ -11634,7 +11678,6 @@ export namespace Prisma {
     NOT?: CityWhereInput | CityWhereInput[]
     id?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
-    cityIATACode?: StringFilter<"City"> | string
     stateId?: StringNullableFilter<"City"> | string | null
     countryId?: StringFilter<"City"> | string
     stateCountryKey?: StringFilter<"City"> | string
@@ -11648,7 +11691,6 @@ export namespace Prisma {
   export type CityOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    cityIATACode?: SortOrder
     stateId?: SortOrderInput | SortOrder
     countryId?: SortOrder
     stateCountryKey?: SortOrder
@@ -11663,12 +11705,10 @@ export namespace Prisma {
   export type CityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     name_stateCountryKey?: CityNameStateCountryKeyCompoundUniqueInput
-    cityIATACode_stateCountryKey?: CityCityIATACodeStateCountryKeyCompoundUniqueInput
     AND?: CityWhereInput | CityWhereInput[]
     OR?: CityWhereInput[]
     NOT?: CityWhereInput | CityWhereInput[]
     name?: StringFilter<"City"> | string
-    cityIATACode?: StringFilter<"City"> | string
     stateId?: StringNullableFilter<"City"> | string | null
     countryId?: StringFilter<"City"> | string
     stateCountryKey?: StringFilter<"City"> | string
@@ -11677,12 +11717,11 @@ export namespace Prisma {
     state?: XOR<StateNullableScalarRelationFilter, StateWhereInput> | null
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
     airports?: AirportListRelationFilter
-  }, "id" | "name_stateCountryKey" | "cityIATACode_stateCountryKey">
+  }, "id" | "name_stateCountryKey">
 
   export type CityOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    cityIATACode?: SortOrder
     stateId?: SortOrderInput | SortOrder
     countryId?: SortOrder
     stateCountryKey?: SortOrder
@@ -11699,7 +11738,6 @@ export namespace Prisma {
     NOT?: CityScalarWhereWithAggregatesInput | CityScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"City"> | string
     name?: StringWithAggregatesFilter<"City"> | string
-    cityIATACode?: StringWithAggregatesFilter<"City"> | string
     stateId?: StringNullableWithAggregatesFilter<"City"> | string | null
     countryId?: StringWithAggregatesFilter<"City"> | string
     stateCountryKey?: StringWithAggregatesFilter<"City"> | string
@@ -11861,7 +11899,7 @@ export namespace Prisma {
     NOT?: AirportWhereInput | AirportWhereInput[]
     id?: StringFilter<"Airport"> | string
     name?: StringFilter<"Airport"> | string
-    code?: StringFilter<"Airport"> | string
+    IATAcode?: StringFilter<"Airport"> | string
     cityId?: StringFilter<"Airport"> | string
     lat?: FloatFilter<"Airport"> | number
     lng?: FloatFilter<"Airport"> | number
@@ -11872,8 +11910,10 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Airport"> | Date | string
     updatedAt?: DateTimeFilter<"Airport"> | Date | string
     countryId?: StringFilter<"Airport"> | string
+    stateId?: StringFilter<"Airport"> | string
     city?: XOR<CityScalarRelationFilter, CityWhereInput>
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
     departures?: FlightListRelationFilter
     arrivals?: FlightListRelationFilter
   }
@@ -11881,7 +11921,7 @@ export namespace Prisma {
   export type AirportOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    code?: SortOrder
+    IATAcode?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
@@ -11892,8 +11932,10 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
+    stateId?: SortOrder
     city?: CityOrderByWithRelationInput
     country?: CountryOrderByWithRelationInput
+    state?: StateOrderByWithRelationInput
     departures?: FlightOrderByRelationAggregateInput
     arrivals?: FlightOrderByRelationAggregateInput
     _relevance?: AirportOrderByRelevanceInput
@@ -11901,8 +11943,9 @@ export namespace Prisma {
 
   export type AirportWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    code?: string
+    IATAcode?: string
     address?: string
+    IATAcode_cityId_stateId_countryId?: AirportIATAcodeCityIdStateIdCountryIdCompoundUniqueInput
     AND?: AirportWhereInput | AirportWhereInput[]
     OR?: AirportWhereInput[]
     NOT?: AirportWhereInput | AirportWhereInput[]
@@ -11916,16 +11959,18 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Airport"> | Date | string
     updatedAt?: DateTimeFilter<"Airport"> | Date | string
     countryId?: StringFilter<"Airport"> | string
+    stateId?: StringFilter<"Airport"> | string
     city?: XOR<CityScalarRelationFilter, CityWhereInput>
     country?: XOR<CountryScalarRelationFilter, CountryWhereInput>
+    state?: XOR<StateScalarRelationFilter, StateWhereInput>
     departures?: FlightListRelationFilter
     arrivals?: FlightListRelationFilter
-  }, "id" | "code" | "address">
+  }, "id" | "IATAcode" | "address" | "IATAcode_cityId_stateId_countryId">
 
   export type AirportOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    code?: SortOrder
+    IATAcode?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
@@ -11936,6 +11981,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
+    stateId?: SortOrder
     _count?: AirportCountOrderByAggregateInput
     _avg?: AirportAvgOrderByAggregateInput
     _max?: AirportMaxOrderByAggregateInput
@@ -11949,7 +11995,7 @@ export namespace Prisma {
     NOT?: AirportScalarWhereWithAggregatesInput | AirportScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Airport"> | string
     name?: StringWithAggregatesFilter<"Airport"> | string
-    code?: StringWithAggregatesFilter<"Airport"> | string
+    IATAcode?: StringWithAggregatesFilter<"Airport"> | string
     cityId?: StringWithAggregatesFilter<"Airport"> | string
     lat?: FloatWithAggregatesFilter<"Airport"> | number
     lng?: FloatWithAggregatesFilter<"Airport"> | number
@@ -11960,6 +12006,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Airport"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Airport"> | Date | string
     countryId?: StringWithAggregatesFilter<"Airport"> | string
+    stateId?: StringWithAggregatesFilter<"Airport"> | string
   }
 
   export type FlightWhereInput = {
@@ -12323,59 +12370,62 @@ export namespace Prisma {
   export type StateCreateInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     country: CountryCreateNestedOneWithoutStateInput
     cities?: CityCreateNestedManyWithoutStateInput
+    Airport?: AirportCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     countryId: string
     cities?: CityUncheckedCreateNestedManyWithoutStateInput
+    Airport?: AirportUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     country?: CountryUpdateOneRequiredWithoutStateNestedInput
     cities?: CityUpdateManyWithoutStateNestedInput
+    Airport?: AirportUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     countryId?: StringFieldUpdateOperationsInput | string
     cities?: CityUncheckedUpdateManyWithoutStateNestedInput
+    Airport?: AirportUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type StateCreateManyInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     countryId: string
   }
 
   export type StateUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type StateUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     countryId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CityCreateInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateCountryKey?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -12387,7 +12437,6 @@ export namespace Prisma {
   export type CityUncheckedCreateInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateId?: string | null
     countryId: string
     stateCountryKey?: string
@@ -12399,7 +12448,6 @@ export namespace Prisma {
   export type CityUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12411,7 +12459,6 @@ export namespace Prisma {
   export type CityUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateId?: NullableStringFieldUpdateOperationsInput | string | null
     countryId?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
@@ -12423,7 +12470,6 @@ export namespace Prisma {
   export type CityCreateManyInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateId?: string | null
     countryId: string
     stateCountryKey?: string
@@ -12434,7 +12480,6 @@ export namespace Prisma {
   export type CityUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12443,7 +12488,6 @@ export namespace Prisma {
   export type CityUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateId?: NullableStringFieldUpdateOperationsInput | string | null
     countryId?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
@@ -12611,7 +12655,7 @@ export namespace Prisma {
   export type AirportCreateInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     lat: number
     lng: number
     address: string
@@ -12622,6 +12666,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
     country: CountryCreateNestedOneWithoutAirportsInput
+    state: StateCreateNestedOneWithoutAirportInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
@@ -12629,7 +12674,7 @@ export namespace Prisma {
   export type AirportUncheckedCreateInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -12640,6 +12685,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
+    stateId: string
     departures?: FlightUncheckedCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightUncheckedCreateNestedManyWithoutToAirportInput
   }
@@ -12647,7 +12693,7 @@ export namespace Prisma {
   export type AirportUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -12658,6 +12704,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
     country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
+    state?: StateUpdateOneRequiredWithoutAirportNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
@@ -12665,7 +12712,7 @@ export namespace Prisma {
   export type AirportUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
@@ -12676,6 +12723,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
+    stateId?: StringFieldUpdateOperationsInput | string
     departures?: FlightUncheckedUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUncheckedUpdateManyWithoutToAirportNestedInput
   }
@@ -12683,7 +12731,7 @@ export namespace Prisma {
   export type AirportCreateManyInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -12694,12 +12742,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
+    stateId: string
   }
 
   export type AirportUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -12713,7 +12762,7 @@ export namespace Prisma {
   export type AirportUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
@@ -12724,6 +12773,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
+    stateId?: StringFieldUpdateOperationsInput | string
   }
 
   export type FlightCreateInput = {
@@ -13159,29 +13209,9 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type CountryScalarRelationFilter = {
     is?: CountryWhereInput
     isNot?: CountryWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type StateOrderByRelevanceInput = {
@@ -13221,7 +13251,7 @@ export namespace Prisma {
     countryId?: SortOrder
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
     notIn?: string[] | null
@@ -13233,10 +13263,7 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -13255,6 +13282,11 @@ export namespace Prisma {
     isNot?: StateWhereInput | null
   }
 
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type CityOrderByRelevanceInput = {
     fields: CityOrderByRelevanceFieldEnum | CityOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -13266,15 +13298,9 @@ export namespace Prisma {
     stateCountryKey: string
   }
 
-  export type CityCityIATACodeStateCountryKeyCompoundUniqueInput = {
-    cityIATACode: string
-    stateCountryKey: string
-  }
-
   export type CityCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    cityIATACode?: SortOrder
     stateId?: SortOrder
     countryId?: SortOrder
     stateCountryKey?: SortOrder
@@ -13285,7 +13311,6 @@ export namespace Prisma {
   export type CityMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    cityIATACode?: SortOrder
     stateId?: SortOrder
     countryId?: SortOrder
     stateCountryKey?: SortOrder
@@ -13296,12 +13321,29 @@ export namespace Prisma {
   export type CityMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    cityIATACode?: SortOrder
     stateId?: SortOrder
     countryId?: SortOrder
     stateCountryKey?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -13473,16 +13515,28 @@ export namespace Prisma {
     isNot?: CityWhereInput
   }
 
+  export type StateScalarRelationFilter = {
+    is?: StateWhereInput
+    isNot?: StateWhereInput
+  }
+
   export type AirportOrderByRelevanceInput = {
     fields: AirportOrderByRelevanceFieldEnum | AirportOrderByRelevanceFieldEnum[]
     sort: SortOrder
     search: string
   }
 
+  export type AirportIATAcodeCityIdStateIdCountryIdCompoundUniqueInput = {
+    IATAcode: string
+    cityId: string
+    stateId: string
+    countryId: string
+  }
+
   export type AirportCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    code?: SortOrder
+    IATAcode?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
@@ -13493,6 +13547,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
+    stateId?: SortOrder
   }
 
   export type AirportAvgOrderByAggregateInput = {
@@ -13503,7 +13558,7 @@ export namespace Prisma {
   export type AirportMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    code?: SortOrder
+    IATAcode?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
@@ -13514,12 +13569,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
+    stateId?: SortOrder
   }
 
   export type AirportMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    code?: SortOrder
+    IATAcode?: SortOrder
     cityId?: SortOrder
     lat?: SortOrder
     lng?: SortOrder
@@ -13530,6 +13586,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     countryId?: SortOrder
+    stateId?: SortOrder
   }
 
   export type AirportSumOrderByAggregateInput = {
@@ -14018,6 +14075,13 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
   }
 
+  export type AirportCreateNestedManyWithoutStateInput = {
+    create?: XOR<AirportCreateWithoutStateInput, AirportUncheckedCreateWithoutStateInput> | AirportCreateWithoutStateInput[] | AirportUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AirportCreateOrConnectWithoutStateInput | AirportCreateOrConnectWithoutStateInput[]
+    createMany?: AirportCreateManyStateInputEnvelope
+    connect?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+  }
+
   export type CityUncheckedCreateNestedManyWithoutStateInput = {
     create?: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput> | CityCreateWithoutStateInput[] | CityUncheckedCreateWithoutStateInput[]
     connectOrCreate?: CityCreateOrConnectWithoutStateInput | CityCreateOrConnectWithoutStateInput[]
@@ -14025,8 +14089,11 @@ export namespace Prisma {
     connect?: CityWhereUniqueInput | CityWhereUniqueInput[]
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type AirportUncheckedCreateNestedManyWithoutStateInput = {
+    create?: XOR<AirportCreateWithoutStateInput, AirportUncheckedCreateWithoutStateInput> | AirportCreateWithoutStateInput[] | AirportUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AirportCreateOrConnectWithoutStateInput | AirportCreateOrConnectWithoutStateInput[]
+    createMany?: AirportCreateManyStateInputEnvelope
+    connect?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
   }
 
   export type CountryUpdateOneRequiredWithoutStateNestedInput = {
@@ -14051,6 +14118,20 @@ export namespace Prisma {
     deleteMany?: CityScalarWhereInput | CityScalarWhereInput[]
   }
 
+  export type AirportUpdateManyWithoutStateNestedInput = {
+    create?: XOR<AirportCreateWithoutStateInput, AirportUncheckedCreateWithoutStateInput> | AirportCreateWithoutStateInput[] | AirportUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AirportCreateOrConnectWithoutStateInput | AirportCreateOrConnectWithoutStateInput[]
+    upsert?: AirportUpsertWithWhereUniqueWithoutStateInput | AirportUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: AirportCreateManyStateInputEnvelope
+    set?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    disconnect?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    delete?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    connect?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    update?: AirportUpdateWithWhereUniqueWithoutStateInput | AirportUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: AirportUpdateManyWithWhereWithoutStateInput | AirportUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: AirportScalarWhereInput | AirportScalarWhereInput[]
+  }
+
   export type CityUncheckedUpdateManyWithoutStateNestedInput = {
     create?: XOR<CityCreateWithoutStateInput, CityUncheckedCreateWithoutStateInput> | CityCreateWithoutStateInput[] | CityUncheckedCreateWithoutStateInput[]
     connectOrCreate?: CityCreateOrConnectWithoutStateInput | CityCreateOrConnectWithoutStateInput[]
@@ -14063,6 +14144,20 @@ export namespace Prisma {
     update?: CityUpdateWithWhereUniqueWithoutStateInput | CityUpdateWithWhereUniqueWithoutStateInput[]
     updateMany?: CityUpdateManyWithWhereWithoutStateInput | CityUpdateManyWithWhereWithoutStateInput[]
     deleteMany?: CityScalarWhereInput | CityScalarWhereInput[]
+  }
+
+  export type AirportUncheckedUpdateManyWithoutStateNestedInput = {
+    create?: XOR<AirportCreateWithoutStateInput, AirportUncheckedCreateWithoutStateInput> | AirportCreateWithoutStateInput[] | AirportUncheckedCreateWithoutStateInput[]
+    connectOrCreate?: AirportCreateOrConnectWithoutStateInput | AirportCreateOrConnectWithoutStateInput[]
+    upsert?: AirportUpsertWithWhereUniqueWithoutStateInput | AirportUpsertWithWhereUniqueWithoutStateInput[]
+    createMany?: AirportCreateManyStateInputEnvelope
+    set?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    disconnect?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    delete?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    connect?: AirportWhereUniqueInput | AirportWhereUniqueInput[]
+    update?: AirportUpdateWithWhereUniqueWithoutStateInput | AirportUpdateWithWhereUniqueWithoutStateInput[]
+    updateMany?: AirportUpdateManyWithWhereWithoutStateInput | AirportUpdateManyWithWhereWithoutStateInput[]
+    deleteMany?: AirportScalarWhereInput | AirportScalarWhereInput[]
   }
 
   export type StateCreateNestedOneWithoutCitiesInput = {
@@ -14125,6 +14220,10 @@ export namespace Prisma {
     update?: AirportUpdateWithWhereUniqueWithoutCityInput | AirportUpdateWithWhereUniqueWithoutCityInput[]
     updateMany?: AirportUpdateManyWithWhereWithoutCityInput | AirportUpdateManyWithWhereWithoutCityInput[]
     deleteMany?: AirportScalarWhereInput | AirportScalarWhereInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type AirportUncheckedUpdateManyWithoutCityNestedInput = {
@@ -14315,6 +14414,12 @@ export namespace Prisma {
     connect?: CountryWhereUniqueInput
   }
 
+  export type StateCreateNestedOneWithoutAirportInput = {
+    create?: XOR<StateCreateWithoutAirportInput, StateUncheckedCreateWithoutAirportInput>
+    connectOrCreate?: StateCreateOrConnectWithoutAirportInput
+    connect?: StateWhereUniqueInput
+  }
+
   export type FlightCreateNestedManyWithoutFromAirportInput = {
     create?: XOR<FlightCreateWithoutFromAirportInput, FlightUncheckedCreateWithoutFromAirportInput> | FlightCreateWithoutFromAirportInput[] | FlightUncheckedCreateWithoutFromAirportInput[]
     connectOrCreate?: FlightCreateOrConnectWithoutFromAirportInput | FlightCreateOrConnectWithoutFromAirportInput[]
@@ -14365,6 +14470,14 @@ export namespace Prisma {
     upsert?: CountryUpsertWithoutAirportsInput
     connect?: CountryWhereUniqueInput
     update?: XOR<XOR<CountryUpdateToOneWithWhereWithoutAirportsInput, CountryUpdateWithoutAirportsInput>, CountryUncheckedUpdateWithoutAirportsInput>
+  }
+
+  export type StateUpdateOneRequiredWithoutAirportNestedInput = {
+    create?: XOR<StateCreateWithoutAirportInput, StateUncheckedCreateWithoutAirportInput>
+    connectOrCreate?: StateCreateOrConnectWithoutAirportInput
+    upsert?: StateUpsertWithoutAirportInput
+    connect?: StateWhereUniqueInput
+    update?: XOR<XOR<StateUpdateToOneWithWhereWithoutAirportInput, StateUpdateWithoutAirportInput>, StateUncheckedUpdateWithoutAirportInput>
   }
 
   export type FlightUpdateManyWithoutFromAirportNestedInput = {
@@ -14670,6 +14783,17 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -14697,17 +14821,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14881,7 +14994,7 @@ export namespace Prisma {
   export type AirportCreateWithoutCountryInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     lat: number
     lng: number
     address: string
@@ -14891,6 +15004,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
+    state: StateCreateNestedOneWithoutAirportInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
@@ -14898,7 +15012,7 @@ export namespace Prisma {
   export type AirportUncheckedCreateWithoutCountryInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -14908,6 +15022,7 @@ export namespace Prisma {
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    stateId: string
     departures?: FlightUncheckedCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightUncheckedCreateNestedManyWithoutToAirportInput
   }
@@ -14925,7 +15040,6 @@ export namespace Prisma {
   export type CityCreateWithoutCountryInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateCountryKey?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14936,7 +15050,6 @@ export namespace Prisma {
   export type CityUncheckedCreateWithoutCountryInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateId?: string | null
     stateCountryKey?: string
     createdAt?: Date | string
@@ -14957,15 +15070,17 @@ export namespace Prisma {
   export type StateCreateWithoutCountryInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     cities?: CityCreateNestedManyWithoutStateInput
+    Airport?: AirportCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateWithoutCountryInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     cities?: CityUncheckedCreateNestedManyWithoutStateInput
+    Airport?: AirportUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateCreateOrConnectWithoutCountryInput = {
@@ -15028,7 +15143,7 @@ export namespace Prisma {
     NOT?: AirportScalarWhereInput | AirportScalarWhereInput[]
     id?: StringFilter<"Airport"> | string
     name?: StringFilter<"Airport"> | string
-    code?: StringFilter<"Airport"> | string
+    IATAcode?: StringFilter<"Airport"> | string
     cityId?: StringFilter<"Airport"> | string
     lat?: FloatFilter<"Airport"> | number
     lng?: FloatFilter<"Airport"> | number
@@ -15039,6 +15154,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Airport"> | Date | string
     updatedAt?: DateTimeFilter<"Airport"> | Date | string
     countryId?: StringFilter<"Airport"> | string
+    stateId?: StringFilter<"Airport"> | string
   }
 
   export type CityUpsertWithWhereUniqueWithoutCountryInput = {
@@ -15063,7 +15179,6 @@ export namespace Prisma {
     NOT?: CityScalarWhereInput | CityScalarWhereInput[]
     id?: StringFilter<"City"> | string
     name?: StringFilter<"City"> | string
-    cityIATACode?: StringFilter<"City"> | string
     stateId?: StringNullableFilter<"City"> | string | null
     countryId?: StringFilter<"City"> | string
     stateCountryKey?: StringFilter<"City"> | string
@@ -15093,7 +15208,7 @@ export namespace Prisma {
     NOT?: StateScalarWhereInput | StateScalarWhereInput[]
     id?: StringFilter<"State"> | string
     name?: StringFilter<"State"> | string
-    stateCode?: StringNullableFilter<"State"> | string | null
+    stateCode?: StringFilter<"State"> | string
     countryId?: StringFilter<"State"> | string
   }
 
@@ -15123,7 +15238,6 @@ export namespace Prisma {
   export type CityCreateWithoutStateInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateCountryKey?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15134,7 +15248,6 @@ export namespace Prisma {
   export type CityUncheckedCreateWithoutStateInput = {
     id?: string
     name: string
-    cityIATACode: string
     countryId: string
     stateCountryKey?: string
     createdAt?: Date | string
@@ -15149,6 +15262,52 @@ export namespace Prisma {
 
   export type CityCreateManyStateInputEnvelope = {
     data: CityCreateManyStateInput | CityCreateManyStateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AirportCreateWithoutStateInput = {
+    id?: string
+    name: string
+    IATAcode: string
+    lat: number
+    lng: number
+    address: string
+    timezone: string
+    website?: string | null
+    phoneNumber?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    city: CityCreateNestedOneWithoutAirportsInput
+    country: CountryCreateNestedOneWithoutAirportsInput
+    departures?: FlightCreateNestedManyWithoutFromAirportInput
+    arrivals?: FlightCreateNestedManyWithoutToAirportInput
+  }
+
+  export type AirportUncheckedCreateWithoutStateInput = {
+    id?: string
+    name: string
+    IATAcode: string
+    cityId: string
+    lat: number
+    lng: number
+    address: string
+    timezone: string
+    website?: string | null
+    phoneNumber?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    countryId: string
+    departures?: FlightUncheckedCreateNestedManyWithoutFromAirportInput
+    arrivals?: FlightUncheckedCreateNestedManyWithoutToAirportInput
+  }
+
+  export type AirportCreateOrConnectWithoutStateInput = {
+    where: AirportWhereUniqueInput
+    create: XOR<AirportCreateWithoutStateInput, AirportUncheckedCreateWithoutStateInput>
+  }
+
+  export type AirportCreateManyStateInputEnvelope = {
+    data: AirportCreateManyStateInput | AirportCreateManyStateInput[]
     skipDuplicates?: boolean
   }
 
@@ -15197,18 +15356,36 @@ export namespace Prisma {
     data: XOR<CityUpdateManyMutationInput, CityUncheckedUpdateManyWithoutStateInput>
   }
 
+  export type AirportUpsertWithWhereUniqueWithoutStateInput = {
+    where: AirportWhereUniqueInput
+    update: XOR<AirportUpdateWithoutStateInput, AirportUncheckedUpdateWithoutStateInput>
+    create: XOR<AirportCreateWithoutStateInput, AirportUncheckedCreateWithoutStateInput>
+  }
+
+  export type AirportUpdateWithWhereUniqueWithoutStateInput = {
+    where: AirportWhereUniqueInput
+    data: XOR<AirportUpdateWithoutStateInput, AirportUncheckedUpdateWithoutStateInput>
+  }
+
+  export type AirportUpdateManyWithWhereWithoutStateInput = {
+    where: AirportScalarWhereInput
+    data: XOR<AirportUpdateManyMutationInput, AirportUncheckedUpdateManyWithoutStateInput>
+  }
+
   export type StateCreateWithoutCitiesInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     country: CountryCreateNestedOneWithoutStateInput
+    Airport?: AirportCreateNestedManyWithoutStateInput
   }
 
   export type StateUncheckedCreateWithoutCitiesInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
     countryId: string
+    Airport?: AirportUncheckedCreateNestedManyWithoutStateInput
   }
 
   export type StateCreateOrConnectWithoutCitiesInput = {
@@ -15242,7 +15419,7 @@ export namespace Prisma {
   export type AirportCreateWithoutCityInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     lat: number
     lng: number
     address: string
@@ -15252,6 +15429,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     country: CountryCreateNestedOneWithoutAirportsInput
+    state: StateCreateNestedOneWithoutAirportInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
@@ -15259,7 +15437,7 @@ export namespace Prisma {
   export type AirportUncheckedCreateWithoutCityInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     lat: number
     lng: number
     address: string
@@ -15269,6 +15447,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
+    stateId: string
     departures?: FlightUncheckedCreateNestedManyWithoutFromAirportInput
     arrivals?: FlightUncheckedCreateNestedManyWithoutToAirportInput
   }
@@ -15297,15 +15476,17 @@ export namespace Prisma {
   export type StateUpdateWithoutCitiesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     country?: CountryUpdateOneRequiredWithoutStateNestedInput
+    Airport?: AirportUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateWithoutCitiesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     countryId?: StringFieldUpdateOperationsInput | string
+    Airport?: AirportUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type CountryUpsertWithoutCitiesInput = {
@@ -15664,7 +15845,6 @@ export namespace Prisma {
   export type CityCreateWithoutAirportsInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateCountryKey?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15675,7 +15855,6 @@ export namespace Prisma {
   export type CityUncheckedCreateWithoutAirportsInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateId?: string | null
     countryId: string
     stateCountryKey?: string
@@ -15709,6 +15888,27 @@ export namespace Prisma {
   export type CountryCreateOrConnectWithoutAirportsInput = {
     where: CountryWhereUniqueInput
     create: XOR<CountryCreateWithoutAirportsInput, CountryUncheckedCreateWithoutAirportsInput>
+  }
+
+  export type StateCreateWithoutAirportInput = {
+    id?: string
+    name: string
+    stateCode: string
+    country: CountryCreateNestedOneWithoutStateInput
+    cities?: CityCreateNestedManyWithoutStateInput
+  }
+
+  export type StateUncheckedCreateWithoutAirportInput = {
+    id?: string
+    name: string
+    stateCode: string
+    countryId: string
+    cities?: CityUncheckedCreateNestedManyWithoutStateInput
+  }
+
+  export type StateCreateOrConnectWithoutAirportInput = {
+    where: StateWhereUniqueInput
+    create: XOR<StateCreateWithoutAirportInput, StateUncheckedCreateWithoutAirportInput>
   }
 
   export type FlightCreateWithoutFromAirportInput = {
@@ -15809,7 +16009,6 @@ export namespace Prisma {
   export type CityUpdateWithoutAirportsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15820,7 +16019,6 @@ export namespace Prisma {
   export type CityUncheckedUpdateWithoutAirportsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateId?: NullableStringFieldUpdateOperationsInput | string | null
     countryId?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
@@ -15855,6 +16053,33 @@ export namespace Prisma {
     airlines?: AirlineUncheckedUpdateManyWithoutCountryNestedInput
     cities?: CityUncheckedUpdateManyWithoutCountryNestedInput
     State?: StateUncheckedUpdateManyWithoutCountryNestedInput
+  }
+
+  export type StateUpsertWithoutAirportInput = {
+    update: XOR<StateUpdateWithoutAirportInput, StateUncheckedUpdateWithoutAirportInput>
+    create: XOR<StateCreateWithoutAirportInput, StateUncheckedCreateWithoutAirportInput>
+    where?: StateWhereInput
+  }
+
+  export type StateUpdateToOneWithWhereWithoutAirportInput = {
+    where?: StateWhereInput
+    data: XOR<StateUpdateWithoutAirportInput, StateUncheckedUpdateWithoutAirportInput>
+  }
+
+  export type StateUpdateWithoutAirportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    country?: CountryUpdateOneRequiredWithoutStateNestedInput
+    cities?: CityUpdateManyWithoutStateNestedInput
+  }
+
+  export type StateUncheckedUpdateWithoutAirportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    stateCode?: StringFieldUpdateOperationsInput | string
+    countryId?: StringFieldUpdateOperationsInput | string
+    cities?: CityUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type FlightUpsertWithWhereUniqueWithoutFromAirportInput = {
@@ -15946,7 +16171,7 @@ export namespace Prisma {
   export type AirportCreateWithoutDeparturesInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     lat: number
     lng: number
     address: string
@@ -15957,13 +16182,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
     country: CountryCreateNestedOneWithoutAirportsInput
+    state: StateCreateNestedOneWithoutAirportInput
     arrivals?: FlightCreateNestedManyWithoutToAirportInput
   }
 
   export type AirportUncheckedCreateWithoutDeparturesInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -15974,6 +16200,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
+    stateId: string
     arrivals?: FlightUncheckedCreateNestedManyWithoutToAirportInput
   }
 
@@ -15985,7 +16212,7 @@ export namespace Prisma {
   export type AirportCreateWithoutArrivalsInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     lat: number
     lng: number
     address: string
@@ -15996,13 +16223,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     city: CityCreateNestedOneWithoutAirportsInput
     country: CountryCreateNestedOneWithoutAirportsInput
+    state: StateCreateNestedOneWithoutAirportInput
     departures?: FlightCreateNestedManyWithoutFromAirportInput
   }
 
   export type AirportUncheckedCreateWithoutArrivalsInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -16013,6 +16241,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     countryId: string
+    stateId: string
     departures?: FlightUncheckedCreateNestedManyWithoutFromAirportInput
   }
 
@@ -16129,7 +16358,7 @@ export namespace Prisma {
   export type AirportUpdateWithoutDeparturesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -16140,13 +16369,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
     country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
+    state?: StateUpdateOneRequiredWithoutAirportNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
 
   export type AirportUncheckedUpdateWithoutDeparturesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
@@ -16157,6 +16387,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
+    stateId?: StringFieldUpdateOperationsInput | string
     arrivals?: FlightUncheckedUpdateManyWithoutToAirportNestedInput
   }
 
@@ -16174,7 +16405,7 @@ export namespace Prisma {
   export type AirportUpdateWithoutArrivalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -16185,13 +16416,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
     country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
+    state?: StateUpdateOneRequiredWithoutAirportNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
   }
 
   export type AirportUncheckedUpdateWithoutArrivalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
@@ -16202,6 +16434,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
+    stateId?: StringFieldUpdateOperationsInput | string
     departures?: FlightUncheckedUpdateManyWithoutFromAirportNestedInput
   }
 
@@ -16469,7 +16702,7 @@ export namespace Prisma {
   export type AirportCreateManyCountryInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
     cityId: string
     lat: number
     lng: number
@@ -16479,12 +16712,12 @@ export namespace Prisma {
     phoneNumber?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    stateId: string
   }
 
   export type CityCreateManyCountryInput = {
     id?: string
     name: string
-    cityIATACode: string
     stateId?: string | null
     stateCountryKey?: string
     createdAt?: Date | string
@@ -16494,7 +16727,7 @@ export namespace Prisma {
   export type StateCreateManyCountryInput = {
     id?: string
     name: string
-    stateCode?: string | null
+    stateCode: string
   }
 
   export type AirlineUpdateWithoutCountryInput = {
@@ -16528,7 +16761,7 @@ export namespace Prisma {
   export type AirportUpdateWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -16538,6 +16771,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: CityUpdateOneRequiredWithoutAirportsNestedInput
+    state?: StateUpdateOneRequiredWithoutAirportNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
@@ -16545,7 +16779,7 @@ export namespace Prisma {
   export type AirportUncheckedUpdateWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
@@ -16555,6 +16789,7 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stateId?: StringFieldUpdateOperationsInput | string
     departures?: FlightUncheckedUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUncheckedUpdateManyWithoutToAirportNestedInput
   }
@@ -16562,7 +16797,7 @@ export namespace Prisma {
   export type AirportUncheckedUpdateManyWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
@@ -16572,12 +16807,12 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    stateId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CityUpdateWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateCountryKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16588,7 +16823,6 @@ export namespace Prisma {
   export type CityUncheckedUpdateWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateId?: NullableStringFieldUpdateOperationsInput | string | null
     stateCountryKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16599,7 +16833,6 @@ export namespace Prisma {
   export type CityUncheckedUpdateManyWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
     stateId?: NullableStringFieldUpdateOperationsInput | string | null
     stateCountryKey?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16609,69 +16842,39 @@ export namespace Prisma {
   export type StateUpdateWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     cities?: CityUpdateManyWithoutStateNestedInput
+    Airport?: AirportUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
     cities?: CityUncheckedUpdateManyWithoutStateNestedInput
+    Airport?: AirportUncheckedUpdateManyWithoutStateNestedInput
   }
 
   export type StateUncheckedUpdateManyWithoutCountryInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    stateCode?: NullableStringFieldUpdateOperationsInput | string | null
+    stateCode?: StringFieldUpdateOperationsInput | string
   }
 
   export type CityCreateManyStateInput = {
     id?: string
     name: string
-    cityIATACode: string
     countryId: string
     stateCountryKey?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CityUpdateWithoutStateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
-    stateCountryKey?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    country?: CountryUpdateOneRequiredWithoutCitiesNestedInput
-    airports?: AirportUpdateManyWithoutCityNestedInput
-  }
-
-  export type CityUncheckedUpdateWithoutStateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
-    countryId?: StringFieldUpdateOperationsInput | string
-    stateCountryKey?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    airports?: AirportUncheckedUpdateManyWithoutCityNestedInput
-  }
-
-  export type CityUncheckedUpdateManyWithoutStateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    cityIATACode?: StringFieldUpdateOperationsInput | string
-    countryId?: StringFieldUpdateOperationsInput | string
-    stateCountryKey?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AirportCreateManyCityInput = {
+  export type AirportCreateManyStateInput = {
     id?: string
     name: string
-    code: string
+    IATAcode: string
+    cityId: string
     lat: number
     lng: number
     address: string
@@ -16683,10 +16886,39 @@ export namespace Prisma {
     countryId: string
   }
 
-  export type AirportUpdateWithoutCityInput = {
+  export type CityUpdateWithoutStateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    stateCountryKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    country?: CountryUpdateOneRequiredWithoutCitiesNestedInput
+    airports?: AirportUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateWithoutStateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    countryId?: StringFieldUpdateOperationsInput | string
+    stateCountryKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    airports?: AirportUncheckedUpdateManyWithoutCityNestedInput
+  }
+
+  export type CityUncheckedUpdateManyWithoutStateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    countryId?: StringFieldUpdateOperationsInput | string
+    stateCountryKey?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AirportUpdateWithoutStateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -16695,15 +16927,17 @@ export namespace Prisma {
     phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    city?: CityUpdateOneRequiredWithoutAirportsNestedInput
     country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
     departures?: FlightUpdateManyWithoutFromAirportNestedInput
     arrivals?: FlightUpdateManyWithoutToAirportNestedInput
   }
 
-  export type AirportUncheckedUpdateWithoutCityInput = {
+  export type AirportUncheckedUpdateWithoutStateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
+    cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -16717,10 +16951,11 @@ export namespace Prisma {
     arrivals?: FlightUncheckedUpdateManyWithoutToAirportNestedInput
   }
 
-  export type AirportUncheckedUpdateManyWithoutCityInput = {
+  export type AirportUncheckedUpdateManyWithoutStateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    code?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
+    cityId?: StringFieldUpdateOperationsInput | string
     lat?: FloatFieldUpdateOperationsInput | number
     lng?: FloatFieldUpdateOperationsInput | number
     address?: StringFieldUpdateOperationsInput | string
@@ -16730,6 +16965,74 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     countryId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AirportCreateManyCityInput = {
+    id?: string
+    name: string
+    IATAcode: string
+    lat: number
+    lng: number
+    address: string
+    timezone: string
+    website?: string | null
+    phoneNumber?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    countryId: string
+    stateId: string
+  }
+
+  export type AirportUpdateWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    country?: CountryUpdateOneRequiredWithoutAirportsNestedInput
+    state?: StateUpdateOneRequiredWithoutAirportNestedInput
+    departures?: FlightUpdateManyWithoutFromAirportNestedInput
+    arrivals?: FlightUpdateManyWithoutToAirportNestedInput
+  }
+
+  export type AirportUncheckedUpdateWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    countryId?: StringFieldUpdateOperationsInput | string
+    stateId?: StringFieldUpdateOperationsInput | string
+    departures?: FlightUncheckedUpdateManyWithoutFromAirportNestedInput
+    arrivals?: FlightUncheckedUpdateManyWithoutToAirportNestedInput
+  }
+
+  export type AirportUncheckedUpdateManyWithoutCityInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    IATAcode?: StringFieldUpdateOperationsInput | string
+    lat?: FloatFieldUpdateOperationsInput | number
+    lng?: FloatFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    countryId?: StringFieldUpdateOperationsInput | string
+    stateId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AirplaneCreateManyAirlineInput = {

@@ -133,7 +133,6 @@ exports.Prisma.StateScalarFieldEnum = {
 exports.Prisma.CityScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  cityIATACode: 'cityIATACode',
   stateId: 'stateId',
   countryId: 'countryId',
   stateCountryKey: 'stateCountryKey',
@@ -165,7 +164,7 @@ exports.Prisma.AirplaneScalarFieldEnum = {
 exports.Prisma.AirportScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  code: 'code',
+  IATAcode: 'IATAcode',
   cityId: 'cityId',
   lat: 'lat',
   lng: 'lng',
@@ -175,7 +174,8 @@ exports.Prisma.AirportScalarFieldEnum = {
   phoneNumber: 'phoneNumber',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  countryId: 'countryId'
+  countryId: 'countryId',
+  stateId: 'stateId'
 };
 
 exports.Prisma.FlightScalarFieldEnum = {
@@ -236,11 +236,6 @@ exports.Prisma.CountryOrderByRelevanceFieldEnum = {
   countryCode: 'countryCode'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.StateOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
@@ -248,10 +243,14 @@ exports.Prisma.StateOrderByRelevanceFieldEnum = {
   countryId: 'countryId'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 exports.Prisma.CityOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  cityIATACode: 'cityIATACode',
   stateId: 'stateId',
   countryId: 'countryId',
   stateCountryKey: 'stateCountryKey'
@@ -274,13 +273,14 @@ exports.Prisma.AirplaneOrderByRelevanceFieldEnum = {
 exports.Prisma.AirportOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  code: 'code',
+  IATAcode: 'IATAcode',
   cityId: 'cityId',
   address: 'address',
   timezone: 'timezone',
   website: 'website',
   phoneNumber: 'phoneNumber',
-  countryId: 'countryId'
+  countryId: 'countryId',
+  stateId: 'stateId'
 };
 
 exports.Prisma.FlightOrderByRelevanceFieldEnum = {

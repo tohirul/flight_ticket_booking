@@ -57,12 +57,13 @@ model Country {
 }
 
 model State {
-  id        String  @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  stateCode String?
-  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  stateCode String
+  country   Country   @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId String
   cities    City[]
+  Airport   Airport[]
 
   @@unique([name, countryId])
   @@unique([stateCode, countryId])
@@ -72,7 +73,6 @@ model State {
 model City {
   id              String    @id @default(uuid())
   name            String
-  cityIATACode    String
   state           State?    @relation(fields: [stateId], references: [id], onDelete: Cascade)
   stateId         String?
   country         Country   @relation(fields: [countryId], references: [id], onDelete: Cascade)
@@ -83,7 +83,6 @@ model City {
   airports        Airport[]
 
   @@unique([name, stateCountryKey])
-  @@unique([cityIATACode, stateCountryKey])
   @@index([countryId])
   @@index([stateId])
 }
@@ -121,7 +120,7 @@ model Airplane {
 model Airport {
   id          String   @id @default(uuid())
   name        String
-  code        String   @unique
+  IATAcode    String   @unique
   city        City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
   cityId      String
   lat         Float
@@ -134,12 +133,15 @@ model Airport {
   updatedAt   DateTime @updatedAt
   country     Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
   countryId   String
+  state       State    @relation(fields: [stateId], references: [id], onDelete: Cascade)
+  stateId     String
   departures  Flight[] @relation("Departure")
   arrivals    Flight[] @relation("Arrival")
 
+  @@unique([IATAcode, cityId, stateId, countryId])
   @@index([cityId])
+  @@index([stateId])
   @@index([countryId])
-  @@index([timezone])
 }
 
 model Flight {
