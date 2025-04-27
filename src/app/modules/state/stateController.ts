@@ -51,7 +51,6 @@ export const createState = catchAsync(async (req: Request, res: Response) => {
   );
 });
 
-
 export const updateState = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const data = req.body;
