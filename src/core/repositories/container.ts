@@ -1,4 +1,7 @@
-import { container } from 'tsyringe';
+
+import { container, InjectionToken } from 'tsyringe';
+
+import logger from '@core/logs';
 
 const repositories = [
   {
@@ -25,13 +28,24 @@ const repositories = [
     name: 'AirportRepository',
     repository: () => import('./container/repository_airport'),
   },
-];
-
-export async function registerRepositories() {
-  for (const { name, repository } of repositories) {
-    const { default: Repository } = await repository();
-    container.registerSingleton(name, Repository as any);
+  {
+    name: 'FlightRepository',
+    repository: () => import('./container/repository_flight'),
   }
+];
+export async function registerRepositories() {
+  const registrationPromises = repositories.map(({ name, repository }) =>
+    repository().then((module) => {
+      container.registerSingleton(name as InjectionToken<any>, module.default);
+      logger.info(`✅ ${name} registered successfully.`);
+    }).catch((error) => {
+      logger.error(`❌ Failed to register ${name}:`, error);
+      throw error;    
+    })
+  );
+  
+  await Promise.all(registrationPromises);
 }
+
 
 export default container;
