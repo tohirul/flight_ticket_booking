@@ -13,6 +13,4 @@ airportRouter.post('/', requestValidator(createAirportSchema), airportController
 airportRouter.put('/:id', requestValidator(updateAirportSchema), airportController.update);
 airportRouter.delete('/:id', airportController.destroy);
 
-
-
 export default airportRouter;

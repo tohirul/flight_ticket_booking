@@ -15,8 +15,6 @@ export default class AirportService {
   }
   async getSingle(id: string): Promise<any> {
     return await this.airportRepository.findOne({ where: { id } });
-    
-    
   }
   async create(data: Airport): Promise<Airport> {
     return this.airportRepository.create({ data });

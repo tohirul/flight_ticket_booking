@@ -90,7 +90,7 @@ export const update = catchAsync(async (req: Request, res: Response) => {
       data: result,
     })
   );
-}); 
+});
 
 export const destroy = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;

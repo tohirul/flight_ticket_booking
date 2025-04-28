@@ -16,8 +16,8 @@ app.use(morgan('dev'));
 app.use(Router);
 
 interface Module {
-  module: string;   
-  path: string;     
+  module: string;
+  path: string;
   routes: Route[];
 }
 
@@ -59,9 +59,9 @@ const getRoutes = (stack: Layer[], parentPath = ''): Module[] => {
           path: fullPath,
         });
       });
-
     } else if (layer.name === 'router' && layer.handle?.stack) {
-      const newParentPath = parentPath + (layer.regexp?.fast_slash ? '' : getPathFromRegexp(layer.regexp));
+      const newParentPath =
+        parentPath + (layer.regexp?.fast_slash ? '' : getPathFromRegexp(layer.regexp));
       const childModules = getRoutes(layer.handle.stack, newParentPath);
 
       childModules.forEach((mod) => {
@@ -87,12 +87,13 @@ const getRoutes = (stack: Layer[], parentPath = ''): Module[] => {
 };
 
 const getPathFromRegexp = (regexp: any): string => {
-  let path = regexp?.toString()
+  let path = regexp
+    ?.toString()
     .replace('/^', '')
     .replace('\\/?(?=\\/|$)/i', '')
     .replace('/i', '')
     .replace(/\\\//g, '/');
-    
+
   if (path.endsWith('/')) {
     path = path.slice(0, -1);
   }
@@ -105,16 +106,13 @@ const getLastSegment = (path: string): string => {
   return segments[segments.length - 1] || '';
 };
 
-
 app.get('/routes', (_req: Request, res: Response) => {
-  const routes = getRoutes((app._router.stack as unknown as Layer[]));
+  const routes = getRoutes(app._router.stack as unknown as Layer[]);
   res.json({
     message: 'List of all routes',
     routes,
   });
 });
-
-
 
 app.use((req: Request, res: Response) => {
   res.status(status.NOT_FOUND).json({
